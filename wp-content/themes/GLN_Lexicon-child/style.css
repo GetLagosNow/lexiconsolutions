@@ -19,6 +19,10 @@
   font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
 }*/
 
+/*body{
+  font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif !important;
+}*/
+
 /***** HEADER *****/
 
 .header {
@@ -416,8 +420,17 @@ img#footer-linkedin {
     width: 60%;
     padding-left: 100px;
     padding-top: 160px;
-
+    color: #767272;
 }
+
+#home-row-2-right-text h1 {
+    
+}
+
+#home-row-2-right-text p {
+    margin: 15px 0 15px 40px;
+}
+
 
 
 
