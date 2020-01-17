@@ -23,6 +23,10 @@
   font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif !important;
 }*/
 
+a, a:hover, a:focus {
+    text-decoration: none !important;
+}
+
 /***** HEADER *****/
 
 .header {
@@ -276,6 +280,10 @@ nav.footer-nav {
     font-weight: bold;
 }
 
+#footer .footer-nav ul#menu-footer li a:hover {
+	color: #B6956F;
+}
+
 #footer #footer-socials {
 	float: right;
 	padding: 20px 0;
@@ -329,7 +337,7 @@ img#footer-linkedin {
 }
 
 #home-section-1 #home-section-1-right h1 span {
-    -webkit-text-stroke: 2px white;
+    -webkit-text-stroke: 1.5px white;
     -webkit-text-fill-color: transparent;
 }
 
@@ -363,12 +371,21 @@ img#footer-linkedin {
     margin-left: 15px;
 }
 
+#home-section-1-right-btns :first-child:hover {
+    color: #fff;
+    background-color: #1E7538;
+}
 
 #home-section-1-right-btns :last-child {
 	color: #fff;
     background-color: transparent;
     border: 2px solid #fff;
     margin-left: 15px;
+}
+
+#home-section-1-right-btns :last-child:hover {
+	color: #1E7538;
+    background-color: #fff;
 }
 
 #home-section-2-title {
@@ -391,7 +408,7 @@ img#footer-linkedin {
 
 
 #home-section-2-title h1 span {
-    -webkit-text-stroke: 2px #1E7538;
+    -webkit-text-stroke: 1.5px #1E7538;
     -webkit-text-fill-color: transparent;
 }
 
@@ -520,6 +537,7 @@ img#footer-linkedin {
 	height: 500px;
 	max-width: 89%;
     margin-left: -15px;
+    margin-bottom: 70px;
     
 }
 
@@ -532,6 +550,66 @@ img#footer-linkedin {
 }
 
 
+
+.home-section-4 {
+	height: 240px;
+	max-width: 89%;
+    margin-left: -15px;
+    margin-bottom: 70px;
+}
+
+#home-section-4 {
+	height: inherit;
+    background-color: #A79F9F;
+    color: #ffffff;
+	box-sizing: border-box;
+	border-radius: 20px;
+    padding: 16px 32px; 
+}
+
+#home-section-4 h2 {
+	font-weight: 600;
+    font-size: 48px;
+    line-height: 65px;
+    color: #FFFFFF;
+    -webkit-text-stroke: 1.5px white;
+    -webkit-text-fill-color: transparent;
+}
+
+#home-section-4 p {
+	font-weight: 300;
+	font-size: 30px;
+	line-height: 37px;
+}
+
+#home-section-4 a h3 {
+	color: #ffffff;
+    text-align: center;
+    font-size: 38px;
+    margin-top: 20px;
+    text-decoration: none !important;
+    transition: color 0.3s ease;
+
+}
+
+#home-section-4 a h3:hover {
+	color: #1E7538;
+	text-decoration: none !important;
+}
+
+
+@media screen and (max-width: 1272px){
+	
+	#home-section-4 p {
+		font-size: 27px;
+		line-height: 35px;
+	}
+
+	#home-section-4 a h3 {
+		font-size: 34px;
+	}
+
+}
 
 
 @media screen and (max-width: 1175px){
@@ -575,6 +653,18 @@ img#footer-linkedin {
 	    line-height: 35px;
 	}
 
+	#home-section-4 p {
+		font-size: 24px;
+		line-height: 33px;
+	}
+
+}
+
+@media screen and (max-width: 1045px){
+
+	#home-section-4 p {
+		line-height: 24px;
+	}
 }
 
 
@@ -636,6 +726,14 @@ img#footer-linkedin {
 
 	#home-section-1-right-btns :last-child {
 		margin-left: 10px;
+	}
+
+	#home-section-4 p {
+		font-size: 21px;
+	}
+
+	#home-section-4 a h3 {
+		margin-top: 10px;
 	}
 }
 
@@ -707,11 +805,17 @@ img#footer-linkedin {
 	    max-width: 100%;
 	    margin-left: 0px;
         margin-top: 470px;
+        height: inherit;
 	}
 
 	#home-section-3-img {
 		background-position: left;
 	    height: 300px;
+	}
+
+	.home-section-4 {
+	    max-width: 100%;
+	    margin-left: 0;
 	}
 
 }
@@ -784,6 +888,11 @@ img#footer-linkedin {
 
 	#home-section-1-right-text p {
 		line-height: 24px;
+	}
+
+	#home-section-4 p {
+		font-size: 18
+	    line-height: 20px;
 	}
 
 }

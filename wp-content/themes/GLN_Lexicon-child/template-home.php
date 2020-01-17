@@ -114,8 +114,13 @@
 
 					</div>
 
-					<div>
-						
+					<div class="home-section-4">
+
+						<div id="home-section-4">
+							<h2>Job Alerts</h2>
+							<p>Subscribe to our custom job alerts! Stay informed on the latest jobs in your industry. You’ll be sent an email with new jobs that match your criteria regularly.</p>
+							<a href="#"><h3>JOIN TODAY</h3></a>
+						</div>
 
 					</div>
 
