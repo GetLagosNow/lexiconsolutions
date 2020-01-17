@@ -417,18 +417,19 @@ img#footer-linkedin {
 }
 
 #home-row-2-right-text {
-    width: 60%;
+    width: 70%;
     padding-left: 100px;
     padding-top: 160px;
     color: #767272;
 }
 
 #home-row-2-right-text h1 {
-    
+    font-size: 34px;
 }
 
 #home-row-2-right-text p {
-    margin: 15px 0 15px 40px;
+    font-size: 18px;
+    margin: 0 0 40px 50px;
 }
 
 

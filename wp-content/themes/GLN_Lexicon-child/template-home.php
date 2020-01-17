@@ -59,9 +59,21 @@
 
 							<div id="home-row-2-right-text">
 								
-								<h1>Experience <span>at work</span></h1>
+								<h1>Job Opportunities</h1>
 
-								<p>Portland’s leading tech recruiting agency that’s always fulfilling their mission -To always do what’s best for the candidates and clients.</p>
+								<p>Making your success a priority</p>
+
+								<h1>Direct-Hire Recruitment</h1>
+
+								<p>Grow your business confidently</p>
+
+								<h1>Contract Staffing</h1>
+
+								<p>Strategically staff within budget</p>
+
+								<h1>Payroll Services</h1>
+
+								<p>Payrolling, insurance, benefits</p>
 
 							</div>
 
