@@ -433,10 +433,108 @@ img#footer-linkedin {
     font-style: italic;
 }
 
+#home-section-3 {
+    height: 600px;
+}
+
+#home-section-3 .col-md-5 {
+    max-width: 100%;
+    margin-top: 60px;
+    height: 470px;
+    padding-top: 20px;
+    padding-left: 30px;
+    background: #FFFFFF;
+	border: 1px solid #C0BFBF;
+	box-sizing: border-box;
+	box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+	border-radius: 20px;
+}
+
+#home-section-3 h2 {
+	font-weight: bold;
+	font-size: 42px;
+	line-height: 50px;
+}
+
+#home-section-3 p {
+	font-size: 30px;
+	line-height: 37px;
+	color: #767272;
+    width: 90%;
+    margin-top: 30px;
+}
+
+#home-section-3 a h3 {
+	font-size: 42px;
+	line-height: 50px;
+    position: absolute;
+    bottom: 30px;
+    transition: color .5s ease-in;
+    /* transition not working */
+}
+
+#home-section-3-left h2 {
+	color: #1E7538;
+}
+
+#home-section-3-left a h3 {
+	-webkit-text-stroke: 1.5px #1E7538;
+    -webkit-text-fill-color: transparent;
+}
+
+#home-section-3-left a h3:hover  {
+	-webkit-text-stroke: 0px #1E7538;
+    -webkit-text-fill-color: #1E7538;	
+}
+
+#home-section-3-right {
+    margin-left: 30px;
+}
+
+#home-section-3-right h2 {
+	color: #C5811B;
+	padding-top: 50px;
+}
+
+#home-section-3-right a h3 {
+	-webkit-text-stroke: 1.5px #C5811B;
+    -webkit-text-fill-color: transparent;
+}
+
+#home-section-3-right a h3:hover {
+	-webkit-text-stroke: 0px #C5811B;
+    -webkit-text-fill-color: #C5811B;
+}
+
+#home-section-3-logo { 
+	height: inherit;
+    background-image: url(https://lexicon-solutions.local/wp-content/uploads/2020/01/Lexicon-LS-Logo_dfebe5.jpg);
+    background-repeat: no-repeat;
+    background-position: right;
+    margin-left: 75px;
+    position: absolute;
+    right: 50px;
+}
+
+.home-section-3-img {
+	height: 500px;
+	max-width: 89%;
+    margin-left: -15px;
+    
+}
+
+#home-section-3-img {
+	height: inherit;
+	background-image: url(https://lexicon-solutions.local/wp-content/uploads/2020/01/Lexicon6-min-scaled.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom;
+}
 
 
 
-@media screen and (max-width: 1162px){
+
+@media screen and (max-width: 1175px){
 	
 
 	#home-section-1-right-text {
@@ -454,6 +552,27 @@ img#footer-linkedin {
 	#home-section-1-right a.btn {
 	    padding: 5px 20px;
 	    font-size: 24px;
+	}
+
+	#home-section-3-logo {
+		display: none;
+	}
+
+	#home-section-3 {
+	    height: 500px;
+	}
+
+	#home-section-3 .col-md-5 {
+		height: 400px;
+	}
+
+	#home-section-3-right h2 {
+		padding-top: 0;
+	}
+
+	#home-section-3 p {
+	    font-size: 26px;
+	    line-height: 35px;
 	}
 
 }
@@ -486,6 +605,18 @@ img#footer-linkedin {
 	    width: 100%;
 	    padding-left: 50px;
 	    padding-top: 30px;
+	}
+
+	#home-section-3-logo {
+		display: none;
+	}
+
+	#home-section-3 {
+	    height: 500px;
+	}
+
+	#home-section-3 .col-md-5 {
+		height: 400px;
 	}
 }
 

@@ -81,8 +81,40 @@
 
 					</div>
 
+					<div class="row" id="home-section-3">
+					
+							<div class="col-md-5" id="home-section-3-left">						
+								<h2>Seeking Job  Opportunities</h2>
+								<p>Check out the opportunities that are looking to meet the right talent.</p>
+								<a href="#">
+									<h3>find work</h3>
+								</a>
+							</div>
+						
 
+									
+							<div class="col-md-5" id="home-section-3-right">
+								<h2>Finding the Right One</h2>
+								<p>We guarantee that partnering with us will strategically be a win.</p>
+								<a href="#">
+									<h3>learn more</h3>
+								</a>
+							</div>
+						
 
+						<div class="col-md-2" id="home-section-3-logo">
+
+						</div> 
+
+					</div>
+
+					<div class="home-section-3-img">
+
+						<div id="home-section-3-img">
+
+						</div>
+
+					</div>
 
 
 				</div>
