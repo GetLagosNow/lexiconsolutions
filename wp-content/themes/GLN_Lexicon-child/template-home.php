@@ -11,22 +11,22 @@
 
 				<div class="container-fluid">
 
-					<div class="row" id="home-row-1">
+					<div class="row" id="home-section-1">
 
-						<div class="col-md-6" id="home-row-1-left">
+						<div class="col-md-6" id="home-section-1-left">
 
 						</div>
 
-						<div class="col-md-6" id="home-row-1-right">
+						<div class="col-md-6" id="home-section-1-right">
 
 							<h1>Experience <span>at work</span></h1>
 
-							<div id="home-row-1-right-text">
+							<div id="home-section-1-right-text">
 
 								<p>Portland’s leading tech recruiting agency that’s always fulfilling their mission -To always do what’s best for the candidates and clients.</p>
 
 							</div>
-							<div id="home-row-1-right-btns">
+							<div id="home-section-1-right-btns">
 								<a class="btn" href="#" role="button">Find Work</a>
 								<a class="btn" href="#" role="button">Find Talent</a>
 							</div>
@@ -37,7 +37,7 @@
 
 
 						
-					<div class="row" id="home-row-2-title">
+					<div class="row" id="home-section-2-title">
 
 						<div class="col-xs-12">
 							
@@ -49,15 +49,15 @@
 					
 					</div>
 
-					<div class="row" id="home-row-2">
+					<div class="row" id="home-section-2">
 
-						<div class="col-md-5" id="home-row-2-left">
+						<div class="col-md-5" id="home-section-2-left">
 
 						</div>
 
-						<div class="col-md-7" id="home-row-2-right">
+						<div class="col-md-7" id="home-section-2-right">
 
-							<div id="home-row-2-right-text">
+							<div id="home-section-2-right-text">
 								
 								<h1>Job Opportunities</h1>
 
@@ -80,6 +80,8 @@
 						</div>
 
 					</div>
+
+
 
 
 

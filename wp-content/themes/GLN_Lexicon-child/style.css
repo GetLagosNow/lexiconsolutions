@@ -300,11 +300,11 @@ img#footer-linkedin {
 /* Home Page */
 
 
-#home-row-1 {
+#home-section-1 {
 	height: 507px;
 }
 
-#home-row-1 #home-row-1-left { 
+#home-section-1 #home-section-1-left { 
 	height: inherit;
     background-image: url(http://lexicon.lagosconsulting.com/wp-content/uploads/2020/01/Lexicon5.png);
     background-repeat: no-repeat;
@@ -312,7 +312,7 @@ img#footer-linkedin {
     background-position: bottom;
 }
 
-#home-row-1 #home-row-1-right { 
+#home-section-1 #home-section-1-right { 
 	height: inherit;
     background-image: url(http://lexicon.lagosconsulting.com/wp-content/uploads/2020/01/homepage_art.jpg);
     background-position: right;
@@ -320,7 +320,7 @@ img#footer-linkedin {
     background-size: cover;
 }
 
-#home-row-1 #home-row-1-right h1 {
+#home-section-1 #home-section-1-right h1 {
     font-weight: 600;
     font-size: 6rem;
     line-height: 78px;
@@ -328,54 +328,54 @@ img#footer-linkedin {
     margin: 15px 0 0 15px;
 }
 
-#home-row-1 #home-row-1-right h1 span {
+#home-section-1 #home-section-1-right h1 span {
     -webkit-text-stroke: 2px white;
     -webkit-text-fill-color: transparent;
 }
 
-#home-row-1-right-text {
+#home-section-1-right-text {
     width: 75%;
     margin: 45px 0 0 15px;
 }
 
 
-#home-row-1-right-text p {
+#home-section-1-right-text p {
 	font-size: 27px;
 	line-height: 37px;
 	color: #FFFFFF;
 }
 
-#home-row-1-right-btns {
+#home-section-1-right-btns {
     bottom: 60px;
     position: absolute;
 }
 
-#home-row-1-right a.btn {
+#home-section-1-right a.btn {
     padding: 10px 30px;
     font-size: 27px;
     font-weight: 600;
     border-radius: 50px;
 }
 
-#home-row-1-right-btns :first-child {
+#home-section-1-right-btns :first-child {
     color: #1E7538;
     background-color: #fff;
     margin-left: 15px;
 }
 
 
-#home-row-1-right-btns :last-child {
+#home-section-1-right-btns :last-child {
 	color: #fff;
     background-color: transparent;
     border: 2px solid #fff;
     margin-left: 15px;
 }
 
-#home-row-2-title {
+#home-section-2-title {
     padding: 30px 0;
 }
 
-#home-row-2-title h1 {
+#home-section-2-title h1 {
     color: #1E7538;
     font-weight: 600;
     font-size: 6rem;
@@ -383,23 +383,23 @@ img#footer-linkedin {
     margin: 15px 0 30px 0;
 }
 
-#home-row-2-title p {
+#home-section-2-title p {
 	font-size: 27px;
 	line-height: 37px;
 	color: #767272;
 }
 
 
-#home-row-2-title h1 span {
+#home-section-2-title h1 span {
     -webkit-text-stroke: 2px #1E7538;
     -webkit-text-fill-color: transparent;
 }
 
-#home-row-2 {
+#home-section-2 {
 	height: 656px;
 }
 
-#home-row-2 #home-row-2-left { 
+#home-section-2 #home-section-2-left { 
 	height: inherit;
     background-image: url(http://lexicon.lagosconsulting.com/wp-content/uploads/2020/01/Lexicon18-scaled.jpg);
     background-repeat: no-repeat;
@@ -407,7 +407,7 @@ img#footer-linkedin {
     background-position: bottom;
 }
 
-#home-row-2 #home-row-2-right { 
+#home-section-2 #home-section-2-right { 
 	height: inherit;
     background-image: url(http://lexicon.lagosconsulting.com/wp-content/uploads/2020/01/Lexicon-LS-Logo_dfebe5_LG.jpg);
     background-repeat: no-repeat;
@@ -416,18 +416,18 @@ img#footer-linkedin {
     margin-top: -140px;
 }
 
-#home-row-2-right-text {
+#home-section-2-right-text {
     width: 85%;
     padding-left: 100px;
     padding-top: 160px;
     color: #767272;
 }
 
-#home-row-2-right-text h1 {
+#home-section-2-right-text h1 {
     font-size: 34px;
 }
 
-#home-row-2-right-text p {
+#home-section-2-right-text p {
     font-size: 18px;
     margin: 0 0 40px 50px;
     font-style: italic;
@@ -439,19 +439,19 @@ img#footer-linkedin {
 @media screen and (max-width: 1162px){
 	
 
-	#home-row-1-right-text {
+	#home-section-1-right-text {
 	    margin: 30px 0 0 15px;
 	}
 
-	#home-row-1-right-text p {
+	#home-section-1-right-text p {
 		font-size: 24px;
 	}
 
-	#home-row-1-right-btns {
+	#home-section-1-right-btns {
 	    bottom: 35px;
 	}
 
-	#home-row-1-right a.btn {
+	#home-section-1-right a.btn {
 	    padding: 5px 20px;
 	    font-size: 24px;
 	}
@@ -461,20 +461,20 @@ img#footer-linkedin {
 
 @media screen and (max-width: 958px){
 
-	#home-row-1-right-text p {
+	#home-section-1-right-text p {
 		font-size: 21px;
 	}
 
-	#home-row-1-right-btns {
+	#home-section-1-right-btns {
 	    bottom: 35px;
 	}
 
-	#home-row-1-right a.btn {
+	#home-section-1-right a.btn {
 	    padding: 4px 15px;
 	    font-size: 21px;
 	}
 
-	#home-row-2 #home-row-2-right {
+	#home-section-2 #home-section-2-right {
     	background-image: none;
     	background-color: #ffffff;
 	    margin-left: 0;
@@ -482,7 +482,7 @@ img#footer-linkedin {
 	    height: auto;
 	}
 
-	#home-row-2-right-text {
+	#home-section-2-right-text {
 	    width: 100%;
 	    padding-left: 50px;
 	    padding-top: 30px;
@@ -492,25 +492,25 @@ img#footer-linkedin {
 
 @media screen and (max-width: 856px){
 
-	#home-row-1-right-text {
+	#home-section-1-right-text {
 	    width: 70%;
 	}
 
-	#home-row-1-right-text p {
+	#home-section-1-right-text p {
 		font-size: 21px;
 		line-height: 33px;
 	}
 
-	#home-row-1-right a.btn {
+	#home-section-1-right a.btn {
 	    padding: 4px 15px;
 	    font-size: 20px;
 	}
 
-	#home-row-1-right-btns :first-child {
+	#home-section-1-right-btns :first-child {
 		margin-left: 5px;
 	} 
 
-	#home-row-1-right-btns :last-child {
+	#home-section-1-right-btns :last-child {
 		margin-left: 10px;
 	}
 }
@@ -518,11 +518,11 @@ img#footer-linkedin {
 
 @media screen and (max-width: 807px){
 
-	#home-row-1-right-btns :first-child {
+	#home-section-1-right-btns :first-child {
 		margin-left: 0;
 	} 
 
-	#home-row-1-right-btns :last-child {
+	#home-section-1-right-btns :last-child {
 		margin-left: 5px;
 	}
 
@@ -544,29 +544,29 @@ img#footer-linkedin {
 	    padding: 20px 40px 0 0;
 	}
 
-	#home-row-1 #home-row-1-right {
+	#home-section-1 #home-section-1-right {
 		background-position: bottom;
 		height: 302px;
 	}
 
-	#home-row-1 #home-row-1-right h1 {
+	#home-section-1 #home-section-1-right h1 {
 	    font-size: 5rem;
 	    line-height: 68px;
 	}
 
-	#home-row-1-right-text {
+	#home-section-1-right-text {
 	    margin: 12px 0 0 15px;
 	}
 
-	#home-row-1-right-btns :first-child {
+	#home-section-1-right-btns :first-child {
 		margin-left: 15px;
 	} 
 
-	#home-row-1-right-btns :last-child {
+	#home-section-1-right-btns :last-child {
 		margin-left: 15px;
 	}
 
-	#home-row-2-title {
+	#home-section-2-title {
 	    margin-top: 300px;
 	}
 
@@ -575,49 +575,49 @@ img#footer-linkedin {
 
 @media screen and (max-width: 655px){
 
-	#home-row-1 #home-row-1-left { 
+	#home-section-1 #home-section-1-left { 
 	    height: 420px;
 	}
 
-	#home-row-1 #home-row-1-right h1 {
+	#home-section-1 #home-section-1-right h1 {
 	    font-size: 4rem;
 	    line-height: 45px;
 	}
 
-	#home-row-1-right-text {
+	#home-section-1-right-text {
 	    margin: 30px 0 0 15px;
 	}
 
-	#home-row-1-right-text p {
+	#home-section-1-right-text p {
 		font-size: 18px;
 		line-height: 27px;
 	}
 
-	#home-row-1-right-btns {
+	#home-section-1-right-btns {
 	    bottom: 25px;
 	}
 
-	#home-row-2-title {
+	#home-section-2-title {
 	    margin: 200px 0 0 10px;
 	    padding: 20px 0;
 	    width: 90%;
 	}
 
-	#home-row-2-title h1 {
+	#home-section-2-title h1 {
 	    font-size: 4rem;
 	    margin: 15px 0px 10px 0px;
 	}
 
-	#home-row-2-title p {
+	#home-section-2-title p {
 	    font-size: 24px;
 	    line-height: 27px;
 	}
 
-	#home-row-2-right-text {
+	#home-section-2-right-text {
 	    padding: 30px 0 0 10px;
 	}
 
-	#home-row-2-right-text p {
+	#home-section-2-right-text p {
 	    margin: 0 0 30px 50px;
 	}
 
@@ -626,19 +626,19 @@ img#footer-linkedin {
 
 @media screen and (max-width: 450px){
 
-	#home-row-1 #home-row-1-left { 
+	#home-section-1 #home-section-1-left { 
 	    height: 268px;
 	}
 
-	#home-row-1 #home-row-1-right h1 {
+	#home-section-1 #home-section-1-right h1 {
 	    font-size: 3.5rem;
 	}
 
-	#home-row-1-right-text {
+	#home-section-1-right-text {
 	    margin: 20px 0 0 15px;
 	}
 
-	#home-row-1-right-text p {
+	#home-section-1-right-text p {
 		line-height: 24px;
 	}
 
