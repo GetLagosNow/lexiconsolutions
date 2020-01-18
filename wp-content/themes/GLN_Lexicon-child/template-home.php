@@ -124,6 +124,11 @@
 
 					</div>
 
+					<div id="home-section-4-media">
+						<?php echo do_shortcode('[sp_wpcarousel id="65"]'); ?>					
+
+					</div>
+
 
 				</div>
 

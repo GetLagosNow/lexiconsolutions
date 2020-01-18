@@ -21,6 +21,30 @@
 
 				</div>
 
+				<div id="footer-mobile">
+					<nav class="footer-nav-mobile" role="navigation">
+						<?php wp_nav_menu(); ?>
+					</nav>
+					<div id="footer-mobile-under-nav">
+						<div id="footer-tel-mobile"><a href="tel:1-503-469-6000">(503)469-6000</a></div>
+						<br>
+						<div id="footer-add-mobile"><a target="_blank" href="https://goo.gl/maps/aBrA8z7zhDyKqcbB9">605 SW Poplar Ln<br>Portland, OR 97225</a></div>
+
+						<div id="footer-socials-mobile">
+							<a target="_blank" href="mailto:seve@getlagosnow.com">
+								<img src="<?php echo get_template_directory_uri(); ?>/img/icons/Mail_Icon_White.png" alt="email" id="footer-email" class="footer-social-icon">
+							</a>
+							<a target="_blank" href="twitter.com">
+								<img src="<?php echo get_template_directory_uri(); ?>/img/icons/Twitter_Icon_White.png" alt="twitter" id="footer-twitter" class="footer-social-icon">
+							</a>
+							<a target="_blank" href="linkedin.com">
+								<img src="<?php echo get_template_directory_uri(); ?>/img/icons/LinkedIn_Icon_White.png" alt="linkedin" id="footer-linkedin" class="footer-social-icon">
+							</a>
+						</div>
+					</div>
+
+				</div>
+
 				<!-- copyright -->
 				<p class="copyright">
 					&copy; <?php echo date('Y'); ?> Copyright <?php bloginfo('name'); ?>. <?php _e('Site by', 'html5blank'); ?>
