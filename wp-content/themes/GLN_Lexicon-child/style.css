@@ -355,7 +355,7 @@ li.menu-item.menu-item-29 {
 
 #home-section-1 #home-section-1-left { 
 	height: inherit;
-    background-image: url(http://lexicon.lagosconsulting.com/wp-content/uploads/2020/01/Lexicon5.png);
+    background-image: url(/wp-content/uploads/2020/01/Lexicon5.png);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: bottom;
@@ -363,7 +363,7 @@ li.menu-item.menu-item-29 {
 
 #home-section-1 #home-section-1-right { 
 	height: inherit;
-    background-image: url(http://lexicon.lagosconsulting.com/wp-content/uploads/2020/01/homepage_art.jpg);
+    background-image: url(/wp-content/uploads/2020/01/homepage_art.jpg);
     background-position: right;
     background-repeat: no-repeat;
     background-size: cover;
@@ -459,7 +459,7 @@ li.menu-item.menu-item-29 {
 
 #home-section-2 #home-section-2-left { 
 	height: inherit;
-    background-image: url(http://lexicon.lagosconsulting.com/wp-content/uploads/2020/01/Lexicon18-scaled.jpg);
+    background-image: url(/wp-content/uploads/2020/01/Lexicon18-scaled.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: bottom;
@@ -467,7 +467,7 @@ li.menu-item.menu-item-29 {
 
 #home-section-2 #home-section-2-right { 
 	height: inherit;
-    background-image: url(http://lexicon.lagosconsulting.com/wp-content/uploads/2020/01/Lexicon-LS-Logo_dfebe5_LG.jpg);
+    background-image: url(/wp-content/uploads/2020/01/Lexicon-LS-Logo_dfebe5_LG.jpg);
     background-repeat: no-repeat;
     background-position: right;
     margin-left: -50px;
@@ -566,7 +566,7 @@ li.menu-item.menu-item-29 {
 
 #home-section-3-logo { 
 	height: inherit;
-    background-image: url(https://lexicon-solutions.local/wp-content/uploads/2020/01/Lexicon-LS-Logo_dfebe5.jpg);
+    background-image: url(/wp-content/uploads/2020/01/Lexicon-LS-Logo_dfebe5.jpg);
     background-repeat: no-repeat;
     background-position: right;
     margin-left: 75px;
@@ -584,7 +584,7 @@ li.menu-item.menu-item-29 {
 
 #home-section-3-img {
 	height: inherit;
-	background-image: url(https://lexicon-solutions.local/wp-content/uploads/2020/01/Lexicon6-min-scaled.jpg);
+	background-image: url(/wp-content/uploads/2020/01/Lexicon6-min-scaled.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: bottom;
