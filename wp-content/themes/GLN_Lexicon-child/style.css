@@ -15,9 +15,23 @@
 
 /* this Calibri font does not look correct*/
 
-/*html, body, h1, h2, h3, h4, h5, h6 {
+html, body, h1, h2, h3, h4, h5, h6 {
   font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
-}*/
+}
+h1 { 
+  color: #C5811B ;
+  font-weight: 900 !important;
+}
+h2, h3 { 
+  color: #1E7538; 
+  font-weight: 900 !important;
+}
+h1, h2 { font-size: 64px !important; }
+h3 { font-size: 30px !important; }
+p {
+  font: 24px Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+  color: #767272;
+}
 
 /*body{
   font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif !important;
@@ -970,6 +984,27 @@ li.menu-item.menu-item-29 {
 }
 
 
+/***** ABOUT *****/
+.bio img { border-radius: 12px; }
+figure.icon { display: inline-block; }
+.icon img { width: 40px; }
+.pad-bottom { padding-bottom: 40px; }
 
-
-
+.values {
+	background-image: url('/wp-content/uploads/2020/01/Lexicon-ContactUs-Art-min.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom;
+    padding: 50px 0 50px 50px;
+}
+.values .wp-block-media-text__content {
+	width: 100%;
+	padding: 0 !important;
+}
+.values-text {
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 12px;
+	margin: 0;
+	border: 2px solid #1E7538;
+}
