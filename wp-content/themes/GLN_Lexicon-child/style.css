@@ -37,8 +37,25 @@ p {
   font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif !important;
 }*/
 
-a, a:hover, a:focus {
+a, a:hover, a:focus, a:active {
     text-decoration: none !important;
+}
+a { color: #55BB72; }
+a:hover, a:focus, a:active { color: #1E7538; }
+
+
+/***** MODAL *****/
+.modal-wrapper.styled .modal {
+    border: 2px solid #1E7538;
+    border-radius: 12px;
+}
+
+.modal-wrapper.styled .modal .entry-content p {
+    font-size: 24px;
+}
+
+#modal-content {
+    padding: 1.5em 1.7em;
 }
 
 /***** HEADER *****/
