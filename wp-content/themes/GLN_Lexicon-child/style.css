@@ -678,6 +678,46 @@ li.menu-item.menu-item-29 {
 
 
 
+/***** ABOUT *****/
+.bio img { border-radius: 12px; }
+figure.icon { display: inline-block; }
+.icon img { width: 40px; }
+.pad-bottom { padding-bottom: 40px; }
+
+.values {
+	background-image: url('/wp-content/uploads/2020/01/Lexicon-ContactUs-Art-min.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom;
+    padding: 50px 0 50px 50px;
+}
+.values .wp-block-media-text__content {
+	width: 100%;
+	padding: 0 !important;
+}
+.values-text {
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 12px;
+	margin: 0;
+	border: 2px solid #1E7538;
+}
+
+
+
+
+
+/* JOB SEEKERS */
+
+select.mip-drop-nav {
+    width: 300px;
+    height: 50px;
+    font-size: 22px;
+}
+
+
+
+
 
 /* MEDIA QUERIES */
 
@@ -1003,27 +1043,4 @@ li.menu-item.menu-item-29 {
 }
 
 
-/***** ABOUT *****/
-.bio img { border-radius: 12px; }
-figure.icon { display: inline-block; }
-.icon img { width: 40px; }
-.pad-bottom { padding-bottom: 40px; }
 
-.values {
-	background-image: url('/wp-content/uploads/2020/01/Lexicon-ContactUs-Art-min.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: bottom;
-    padding: 50px 0 50px 50px;
-}
-.values .wp-block-media-text__content {
-	width: 100%;
-	padding: 0 !important;
-}
-.values-text {
-	background-color: #fff;
-	padding: 20px;
-	border-radius: 12px;
-	margin: 0;
-	border: 2px solid #1E7538;
-}
