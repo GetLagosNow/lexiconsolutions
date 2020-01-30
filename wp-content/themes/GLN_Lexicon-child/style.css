@@ -741,14 +741,10 @@ select.mip-drop-nav {
     background-position: bottom;
     padding: 50px;
     border-radius: 14px;
+    margin: 60px 0;
 }
 
 
-
-.job-seekers-row-5 {
-	width: 85%;
-	margin: 60px 0;
-}
 
 
 
@@ -1080,6 +1076,10 @@ select.mip-drop-nav {
 	}
 
 	.job-seekers-row-5 {
+		display: none;
+	}	
+
+	.job-seekers-row-6 {
 		padding-bottom: 0;
 	}
 
@@ -1094,7 +1094,7 @@ select.mip-drop-nav {
 	.offering {
 	    margin-bottom: 40px;
 	}
-	
+
 }
 
 
