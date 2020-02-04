@@ -1,30 +1,10 @@
 			<!-- footer -->
 			<footer class="footer" role="contentinfo">
 
-				<div id="footer">
-					<!-- nav -->
-					<nav class="footer-nav" role="navigation">
-						<?php wp_nav_menu(); ?>
-					</nav>
-					<!-- /nav -->
-					<div id="footer-socials">
-						<a target="_blank" href="mailto:seve@getlagosnow.com">
-							<img src="<?php echo get_template_directory_uri(); ?>/img/icons/Mail_Icon_White.png" alt="email" id="footer-email" class="footer-social-icon">
-						</a>
-						<a target="_blank" href="twitter.com">
-							<img src="<?php echo get_template_directory_uri(); ?>/img/icons/Twitter_Icon_White.png" alt="twitter" id="footer-twitter" class="footer-social-icon">
-						</a>
-						<a target="_blank" href="linkedin.com">
-							<img src="<?php echo get_template_directory_uri(); ?>/img/icons/LinkedIn_Icon_White.png" alt="linkedin" id="footer-linkedin" class="footer-social-icon">
-						</a>
-					</div>
-
-				</div>
-
 				<!-- copyright -->
 				<p class="copyright">
-					&copy; <?php echo date('Y'); ?> Copyright <?php bloginfo('name'); ?>. <?php _e('Site by', 'html5blank'); ?>
-					<a target="_blank" href="https://getlagosnow.com" title="Get Lagos Now">Get Lagos Now</a>
+					&copy; <?php echo date('Y'); ?> Copyright <?php bloginfo('name'); ?>. <?php _e('Powered by', 'html5blank'); ?>
+					<a href="//wordpress.org" title="WordPress">WordPress</a> &amp; <a href="//html5blank.com" title="HTML5 Blank">HTML5 Blank</a>.
 				</p>
 				<!-- /copyright -->
 
