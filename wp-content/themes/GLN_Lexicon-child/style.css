@@ -781,6 +781,62 @@ select.mip-drop-nav {
 
 
 
+/* CONTACT US */
+
+.contact-bkgd {
+    background-image: url(/wp-content/uploads/2020/01/Lexicon-ContactUs-Art-min.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom;
+    height: 400px;
+    position: absolute;
+    z-index: -1 !important;
+    width: 100%;
+}
+
+#wpforms-358 {
+    width: 75%;
+}
+
+.wpforms-title {
+    font-size: 48px !important;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.wpforms-description {
+    font-style: italic;
+    font-size: 22px !important;
+    line-height: 39px;
+    color: #A69B8E;
+}
+
+label.wpforms-field-label {
+    color: #767272;
+}
+
+#wpforms-358 input, #wpforms-358 textarea {
+    border: 2px solid #C4C4C4;
+    box-sizing: border-box;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+
+.wpforms-container-full .wpforms-form button[type=submit] {
+    background: #55BB72 !important;
+    border: 2px solid #55BB72 !important;
+    box-sizing: border-box !important;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25) !important;
+    border-radius: 12px !important;
+    color: #fff !important;
+    font-size: 22px !important;
+    font-weight: bold !important;
+}
+
+
+
+
+
 
 
 /* MEDIA QUERIES */

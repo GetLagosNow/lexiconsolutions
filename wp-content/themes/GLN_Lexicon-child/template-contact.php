@@ -4,7 +4,7 @@
 		<!-- section -->
 		<section id="contact">
 
-			<h1 class="page-title">contact us</h1>
+<!-- 			<h1 class="page-title">contact us</h1> -->
 
 		<?php if (have_posts()): while (have_posts()) : the_post(); ?>
 
