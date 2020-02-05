@@ -991,7 +991,6 @@ select.mip-drop-nav {
 	#home-section-3-logo {
 		display: none;
 	}
-
 }
 
 
@@ -1138,6 +1137,16 @@ select.mip-drop-nav {
         padding: 30px 18px;
 	    font-size: 20px;
 	    margin-left: 5%;
+	}
+	/* Some sort of better solution for this awful table on mobile??? */
+	/* .job-manager-jobs td, .job-manager-jobs th {
+		display: block !important;
+		width: 100% !important;
+		text-align: center;
+	} */
+	fieldset label, fieldset > div {
+		display: block !important;
+		width: 100% !important;
 	}
 
 }
