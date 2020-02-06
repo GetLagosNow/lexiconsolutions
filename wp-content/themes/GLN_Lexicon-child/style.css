@@ -788,21 +788,35 @@ select.mip-drop-nav {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: bottom;
-    height: 400px;
+    height: 500px;
     position: absolute;
     z-index: -1 !important;
     width: 100%;
 }
 
-#wpforms-358 {
-    width: 75%;
+h2.has-text-color.contact-us-title {
+    margin-left: 13%;
+    margin-top: 7%;
 }
 
-.wpforms-title {
+#wpforms-372 {
+    width: 75%;
+    padding-top: 80px;
+    margin-bottom: 120px;
+}
+
+form#wpforms-form-372 {
+    margin-top: 10%;
+    background-color: #ffffff;
+    padding: 10px 30px 30px 30px;
+    border-radius: 14px;
+}
+
+/*.wpforms-title {
     font-size: 48px !important;
     font-weight: bold;
-    color: #ffffff;
-}
+    color: #a69b8e;
+}*/
 
 .wpforms-description {
     font-style: italic;
@@ -811,7 +825,7 @@ select.mip-drop-nav {
     color: #A69B8E;
 }
 
-#wpforms-358 input, #wpforms-358 textarea {
+#wpforms-372 input, #wpforms-372 textarea {
     border: 2px solid #C4C4C4;
     box-sizing: border-box;
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
@@ -827,6 +841,10 @@ select.mip-drop-nav {
     color: #fff !important;
     font-size: 22px !important;
     font-weight: bold !important;
+}
+
+button#wpforms-submit-372 {
+    float: right;
 }
 
 /***** WP Jobs Manager *****/
@@ -1203,6 +1221,27 @@ select.mip-drop-nav {
 	.job-alerts-btn a {
 	    margin-left: 0;
 	}
+
+  .contact-bkgd {
+    height: 420px;
+  }
+
+  #wpforms-372 {
+    width: 90%;
+  }
+
+  form#wpforms-form-372 {
+    padding: 10px;
+  }
+
+  h2.has-text-color.contact-us-title {
+    margin-left: 7%;
+    margin-top: 4%;
+  }
+
+  div.wpforms-container-full .wpforms-form .wpforms-field-label {
+    font-size: 14px;
+  }
 
 }
 
