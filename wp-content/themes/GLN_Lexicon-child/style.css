@@ -856,7 +856,7 @@ button#wpforms-submit-372 {
 	border-radius: 10px;
 	padding: .5em;
 }
-.job-manager-form fieldset input.input-date, .job-manager-form fieldset input.input-text, .job-manager-form fieldset select, .job-manager-form fieldset textarea, .search_jobs input, .search_jobs select, .select2-selection.select2-selection--multiple {
+.job-manager-form fieldset input.input-date, .job-manager-form fieldset input.input-text, .job-manager-form fieldset select, .job-manager-form fieldset textarea, .search_jobs input, .search_jobs select, .select2-selection.select2-selection--multiple, .woocommerce {
 	padding: .5em;
 	border: 2px solid #C4C4C4;
 	box-sizing: border-box;
@@ -869,6 +869,7 @@ button#wpforms-submit-372 {
 	color: #767272;
 	border-radius: 10px;
 }
+.woocommerce { margin-bottom: 3em; }
 .showing_jobs > * { font: 24px Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif; }
 ::placeholder, .select2-results__option, .job-manager-message {
 	font: 18px Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;

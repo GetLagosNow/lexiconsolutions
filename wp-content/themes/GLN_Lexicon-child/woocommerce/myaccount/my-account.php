@@ -22,7 +22,15 @@ defined( 'ABSPATH' ) || exit;
  *
  * @since 2.6.0
  */
-do_action( 'woocommerce_account_navigation' ); ?>
+// do_action( 'woocommerce_account_navigation' );
+?>
+
+<ul class="woocommerce-MyAccount-navigation">	
+	<li><a href="/job-dashboard">Jobs Dashboard</a></li>
+	<li><a href="/job-alerts">Job Alerts</a></li>
+	<li><a href="/jobs">Search Jobs</a></li>
+	<li><a href="/post-a-job">Post a Job</a></li>
+</ul>
 
 <div class="woocommerce-MyAccount-content">
 	<?php

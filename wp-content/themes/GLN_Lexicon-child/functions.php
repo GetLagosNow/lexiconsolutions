@@ -15,3 +15,8 @@ function my_theme_enqueue_styles() {
     wp_add_inline_script( 'jquery3.4.1', 'var jQuery3_4_1 = $.noConflict(true);' );
     wp_enqueue_script( 'plugin-javascript', plugins_url( 'js.js', __FILE__ ), array( 'jquery3.4.1' ) );
 }
+
+add_filter( 'submit_job_form_login_url', 'wpjms_redirect_login_url' );
+function wpjms_redirect_login_url() {
+    return '/job-seekers/';
+}
