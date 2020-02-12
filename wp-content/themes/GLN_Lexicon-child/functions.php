@@ -16,7 +16,45 @@ function my_theme_enqueue_styles() {
     wp_enqueue_script( 'plugin-javascript', plugins_url( 'js.js', __FILE__ ), array( 'jquery3.4.1' ) );
 }
 
-add_filter( 'submit_job_form_login_url', 'wpjms_redirect_login_url' );
-function wpjms_redirect_login_url() {
-    return '/job-seekers/';
+
+// Redirect to home page after login
+
+add_action('wp_logout','auto_redirect_after_logout');
+
+function auto_redirect_after_logout(){
+
+  wp_redirect( home_url() );
+  exit();
+
 }
+
+
+// * Redirect to my-account after login.
+// *
+// * @param $redirect
+// * @param $user
+// *
+// * @return false|string
+
+function iconic_login_redirect( $redirect, $user ) {
+$redirect_page_id = url_to_postid( $redirect );
+
+return home_url( '/my-account/' );
+}
+
+add_filter( 'woocommerce_login_redirect', 'iconic_login_redirect', 10, 2 );
+
+
+
+ // * Redirect to /jobs after registration.
+ // *
+ // * @param $redirect
+ // *
+ // * @return string
+ // *
+
+function iconic_register_redirect( $redirect ) {
+    return home_url( '/jobs/' );
+}
+ 
+add_filter( 'woocommerce_registration_redirect', 'iconic_register_redirect' );

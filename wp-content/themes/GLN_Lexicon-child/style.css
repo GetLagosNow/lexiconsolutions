@@ -13,30 +13,25 @@
 */
 
 
-/* this Calibri font does not look correct*/
-
 html, body, h1, h2, h3, h4, h5, h6 {
-  font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+  /*font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;*/
 }
 h1 { 
   color: #C5811B ;
-  font-weight: 900 !important;
+  font-weight: 800 !important;
 }
 h2, h3, h4 { 
   color: #1E7538; 
-  font-weight: 900 !important;
+  font-weight: 800 !important;
 }
-h1, h2 { font-size: 64px !important; }
+h1, h2 { font-size: 50px !important; }
 h3 { font-size: 30px !important; }
 h4 { font-size: 28px !important; }
 p, label, .job-manager-jobs {
-  font: 24px Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+  font-size: 24px; 
+  /*font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;*/
   color: #767272;
 }
-
-/*body{
-  font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif !important;
-}*/
 
 a, a:hover, a:focus, a:active {
     text-decoration: none !important;
@@ -72,7 +67,6 @@ a:hover, a:focus, a:active { color: #55BB72 !important; }*/
 
 .logo h1 {
     display: inline-block;
-    font-size: 4rem;
     float: left;
 }
 
@@ -337,6 +331,14 @@ img#footer-linkedin {
     width: 70px;
 }
 
+p.copyright {
+    float: right;
+}
+
+p.copyright a {
+    color: #1E7538 !important;
+}
+
 /***** FOOTER - Mobile *****/
 
 #footer-mobile {
@@ -515,8 +517,10 @@ li.menu-item.menu-item-29 {
     color: #767272;
 }
 
-#home-section-2-right-text h1 {
-    font-size: 34px;
+#home-section-2-right-text h3 {
+    font-size: 34px !important;
+    color: #767272 !important;
+    font-weight: normal !important;
 }
 
 #home-section-2-right-text p {
@@ -543,8 +547,8 @@ li.menu-item.menu-item-29 {
 }
 
 #home-section-3 h2 {
-	font-weight: bold;
-	font-size: 42px;
+	font-weight: bold !important;
+	font-size: 42px !important;
 	line-height: 50px;
 }
 
@@ -557,7 +561,7 @@ li.menu-item.menu-item-29 {
 }
 
 #home-section-3 a h3 {
-	font-size: 42px;
+	font-size: 42px !important;
 	line-height: 50px;
     position: absolute;
     bottom: 30px;
@@ -862,27 +866,47 @@ button#wpforms-submit-372 {
 	box-sizing: border-box;
 	box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
 	border-radius: 10px;
-	font: 18px Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+	font: 18px;
+  /*font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;*/
 }
 .job-manager-applications-applied-notice, #job_type, .job_listings, .job-manager-alerts, .job-manager-jobs, .showing_jobs span, .author, .comments, .job-type, .location, .date-posted, .job-manager-applications-applied-notice, #job_type {
-	font: 24px Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+	font: 24px;
+  /*font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;*/
 	color: #767272;
 	border-radius: 10px;
 }
 .woocommerce { margin-bottom: 3em; }
-.showing_jobs > * { font: 24px Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif; }
+.showing_jobs > * { font: 24px /*Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif*/; }
 ::placeholder, .select2-results__option, .job-manager-message {
-	font: 18px Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+	font: 18px; 
+  /*font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;*/
 	color: #767272;
 }
 .company {
 	padding: .5em;
 	border-radius: 10px;
-	font: 18px Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+	font: 18px; 
+  /*font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;*/
 	color: #767272;
 	margin-top: .5em;
 }
 .job-manager-remove-uploaded-file { font-size: 18px; }
+
+/* Job Alerts page */
+
+#job-manager-alerts th, #job-manager-alerts a {
+    font-size: 20px !important;
+}
+
+/* Woo My Account section */
+
+.woocommerce a {
+    color: #1E7538 !important;
+}
+
+ul.woocommerce-MyAccount-navigation li a {
+    font-size: 18px !important;
+}
 
 
 /* MEDIA QUERIES */

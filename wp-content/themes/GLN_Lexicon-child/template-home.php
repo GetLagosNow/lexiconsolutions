@@ -59,19 +59,19 @@
 
 							<div id="home-section-2-right-text">
 								
-								<h1>Job Opportunities</h1>
+								<h3>Job Opportunities</h3>
 
 								<p>Making your success a priority</p>
 
-								<h1>Direct-Hire Recruitment</h1>
+								<h3>Direct-Hire Recruitment</h3>
 
 								<p>Grow your business confidently</p>
 
-								<h1>Contract Staffing</h1>
+								<h3>Contract Staffing</h3>
 
 								<p>Strategically staff within budget</p>
 
-								<h1>Payroll Services</h1>
+								<h3>Payroll Services</h3>
 
 								<p>Payrolling, insurance, benefits</p>
 
