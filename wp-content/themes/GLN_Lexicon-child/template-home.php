@@ -27,8 +27,8 @@
 
 							</div>
 							<div id="home-section-1-right-btns">
-								<a class="btn" href="#" role="button">Find Work</a>
-								<a class="btn" href="#" role="button">Find Talent</a>
+								<a class="btn" href="/job-seekers" role="button">Find Work</a>
+								<a class="btn" href="/find-talent" role="button">Find Talent</a>
 							</div>
 
 						</div>
@@ -86,7 +86,7 @@
 						<div class="col-md-5" id="home-section-3-left">						
 							<h2>Seeking Job  Opportunities</h2>
 							<p>Check out the opportunities that are looking to meet the right talent.</p>
-							<a href="#">
+							<a href="/jobs">
 								<h3>find work</h3>
 							</a>
 						</div>
@@ -94,7 +94,7 @@
 						<div class="col-md-5" id="home-section-3-right">
 							<h2>Finding the Right One</h2>
 							<p>We guarantee that partnering with us will strategically be a win.</p>
-							<a href="#">
+							<a href="/about">
 								<h3>learn more</h3>
 							</a>
 						</div>
@@ -125,7 +125,7 @@
 					</div>
 
 					<div id="home-section-4-media">
-						<?php echo do_shortcode('[sp_wpcarousel id="65"]'); ?>					
+						<?php echo do_shortcode('[sp_wpcarousel id="425"]'); ?>					
 
 					</div>
 

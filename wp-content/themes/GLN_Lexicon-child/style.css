@@ -18,11 +18,11 @@ html, body, h1, h2, h3, h4, h5, h6 {
 }
 h1 { 
   color: #C5811B ;
-  font-weight: 800 !important;
+  font-weight: 700 !important;
 }
 h2, h3, h4 { 
   color: #1E7538; 
-  font-weight: 800 !important;
+  font-weight: 700 !important;
 }
 h1, h2 { font-size: 50px !important; }
 h3 { font-size: 30px !important; }
@@ -37,9 +37,8 @@ a, a:hover, a:focus, a:active {
     text-decoration: none !important;
 }
 
-/* Alley, this is the bit I'm removing */
-/*a { color: #1E7538 !important; }
-a:hover, a:focus, a:active { color: #55BB72 !important; }*/
+a { color: #1E7538; }
+a:hover, a:focus, a:active { color: #55BB72; }
 
 
 /***** MODAL *****/
@@ -54,6 +53,10 @@ a:hover, a:focus, a:active { color: #55BB72 !important; }*/
 
 #modal-content {
     padding: 1.5em 1.7em;
+}
+
+a.modal-link {
+    color: #1E7538;
 }
 
 /***** HEADER *****/
@@ -72,13 +75,29 @@ a:hover, a:focus, a:active { color: #55BB72 !important; }*/
 
 .logo h1:first-child {
   color: rgba(57,86,41,1);
-  font-weight: 800;
+  font-weight: 700 !important;
   margin-left: 24px;
 }
 
 .logo h1:last-child {
   color: rgba(117,113,113,1);
+  font-weight: 500 !important;
 }
+
+
+/* This is some hack shit */
+
+.logo img {
+    width: 40%;
+    display: inline-block;
+    float: left;
+}
+
+.nav ul {
+    padding-top: 20px;
+}
+
+/* End hack shit */
 
 /* MOBILE BURGER MENU */
 
@@ -275,16 +294,6 @@ a:hover, a:focus, a:active { color: #55BB72 !important; }*/
 }
 
 
-
-
-
-
-
-
-
-
-
-
 /***** FOOTER *****/
 
 #footer {
@@ -333,6 +342,7 @@ img#footer-linkedin {
 
 p.copyright {
     float: right;
+    font-size: 16px;
 }
 
 p.copyright a {
@@ -680,6 +690,12 @@ li.menu-item.menu-item-29 {
 	margin-bottom: 50px;
 }
 
+/* WP Carousel styles */
+
+#wpcpro-wrapper #sp-wp-carousel-pro-id-425.wpcp-carousel-section.sp-wpcp-425.wpcp-content-carousel .wpcp-single-content {
+    min-height: auto !important;
+}
+
 
 /* Pages other than home */
 
@@ -908,6 +924,10 @@ ul.woocommerce-MyAccount-navigation li a {
     font-size: 18px !important;
 }
 
+button.woocommerce-button.button.woocommerce-form-login__submit {
+    margin-left: 100px;
+}
+
 
 /* MEDIA QUERIES */
 
@@ -1107,6 +1127,17 @@ ul.woocommerce-MyAccount-navigation li a {
 	.nav {
 		display: none !important;
 	}
+
+  /* More hack shit */
+
+  .logo img {
+    width: 60%;
+    display: block;
+    float: none;
+    margin: 0 auto;
+  }
+
+  /* End hack shit */
 
 	#menuToggle {
 	  display: block;

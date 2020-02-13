@@ -40,7 +40,8 @@
 					<!-- logo -->
 					<div class="logo">
 						<a href="<?php echo home_url(); ?>">
-							<h1>lexicon</h1><h1>solutions</h1>
+							<!-- <h1>lexicon</h1><h1>solutions</h1> -->
+							<img src="/wp-content/uploads/2020/02/Lexicon-logo.png">
 						</a>
 					</div>
 					<!-- /logo -->
