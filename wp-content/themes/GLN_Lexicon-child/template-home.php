@@ -86,7 +86,7 @@
 						<div class="col-md-5" id="home-section-3-left">						
 							<h2>Seeking Job  Opportunities</h2>
 							<p>Check out the opportunities that are looking to meet the right talent.</p>
-							<a href="/jobs">
+							<a href="/jobs-seekers">
 								<h3>find work</h3>
 							</a>
 						</div>
@@ -94,7 +94,7 @@
 						<div class="col-md-5" id="home-section-3-right">
 							<h2>Finding the Right One</h2>
 							<p>We guarantee that partnering with us will strategically be a win.</p>
-							<a href="/about">
+							<a href="/find-talent">
 								<h3>learn more</h3>
 							</a>
 						</div>
@@ -119,7 +119,7 @@
 						<div id="home-section-4">
 							<h2>Job Alerts</h2>
 							<p>Subscribe to our custom job alerts! Stay informed on the latest jobs in your industry. You’ll be sent an email with new jobs that match your criteria regularly.</p>
-							<a href="#"><h3>JOIN TODAY</h3></a>
+							<a href="/job-alerts"><h3>JOIN TODAY</h3></a>
 						</div>
 
 					</div>
