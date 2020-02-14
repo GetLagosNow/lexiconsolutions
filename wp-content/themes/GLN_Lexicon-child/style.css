@@ -464,14 +464,14 @@ li.menu-item.menu-item-29 {
 }
 
 #home-section-1-right-btns :last-child {
-	color: #fff;
+  	color: #fff;
     background-color: transparent;
     border: 2px solid #fff;
     margin-left: 15px;
 }
 
 #home-section-1-right-btns :last-child:hover {
-	color: #1E7538;
+  	color: #1E7538;
     background-color: #fff;
 }
 
@@ -488,9 +488,9 @@ li.menu-item.menu-item-29 {
 }
 
 #home-section-2-title p {
-	font-size: 27px;
-	line-height: 37px;
-	color: #767272;
+  	font-size: 27px;
+  	line-height: 37px;
+  	color: #767272;
 }
 
 
@@ -500,11 +500,11 @@ li.menu-item.menu-item-29 {
 }
 
 #home-section-2 {
-	height: 656px;
+  	height: 656px;
 }
 
 #home-section-2 #home-section-2-left { 
-	height: inherit;
+  	height: inherit;
     background-image: url(/wp-content/uploads/2020/01/Lexicon18-scaled.jpg);
     background-repeat: no-repeat;
     background-size: cover;
@@ -512,7 +512,7 @@ li.menu-item.menu-item-29 {
 }
 
 #home-section-2 #home-section-2-right { 
-	height: inherit;
+  	height: inherit;
     background-image: url(/wp-content/uploads/2020/01/Lexicon-LS-Logo_dfebe5_LG.jpg);
     background-repeat: no-repeat;
     background-position: right;
@@ -550,10 +550,10 @@ li.menu-item.menu-item-29 {
     padding-top: 20px;
     padding-left: 30px;
     background: #FFFFFF;
-	border: 1px solid #C0BFBF;
-	box-sizing: border-box;
-	box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
-	border-radius: 20px;
+  	border: 1px solid #C0BFBF;
+  	box-sizing: border-box;
+  	box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  	border-radius: 20px;
 }
 
 #home-section-3 h2 {
@@ -566,17 +566,17 @@ li.menu-item.menu-item-29 {
 	font-size: 30px;
 	line-height: 37px;
 	color: #767272;
-    width: 90%;
-    margin-top: 30px;
+  width: 90%;
+  margin-top: 30px;
 }
 
 #home-section-3 a h3 {
 	font-size: 42px !important;
 	line-height: 50px;
-    position: absolute;
-    bottom: 30px;
-    transition: color .5s ease-in;
-    /* transition not working */
+  position: absolute;
+  bottom: 30px;
+  transition: color .5s ease-in;
+  /* transition not working */
 }
 
 #home-section-3-left h2 {
@@ -585,16 +585,16 @@ li.menu-item.menu-item-29 {
 
 #home-section-3-left a h3 {
 	-webkit-text-stroke: 1.5px #1E7538;
-    -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: transparent;
 }
 
 #home-section-3-left a h3:hover  {
 	-webkit-text-stroke: 0px #1E7538;
-    -webkit-text-fill-color: #1E7538;	
+  -webkit-text-fill-color: #1E7538;	
 }
 
 #home-section-3-right {
-    margin-left: 30px;
+  margin-left: 30px;
 }
 
 #home-section-3-right h2 {
@@ -604,38 +604,38 @@ li.menu-item.menu-item-29 {
 
 #home-section-3-right a h3 {
 	-webkit-text-stroke: 1.5px #C5811B;
-    -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: transparent;
 }
 
 #home-section-3-right a h3:hover {
 	-webkit-text-stroke: 0px #C5811B;
-    -webkit-text-fill-color: #C5811B;
+  -webkit-text-fill-color: #C5811B;
 }
 
 #home-section-3-logo { 
 	height: inherit;
-    background-image: url(/wp-content/uploads/2020/01/Lexicon-LS-Logo_dfebe5.jpg);
-    background-repeat: no-repeat;
-    background-position: right;
-    margin-left: 75px;
-    position: absolute;
-    right: 50px;
+  background-image: url(/wp-content/uploads/2020/01/Lexicon-LS-Logo_dfebe5.jpg);
+  background-repeat: no-repeat;
+  background-position: right;
+  margin-left: 75px;
+  position: absolute;
+  right: 50px;
 }
 
 .home-section-3-img {
 	height: 500px;
 	max-width: 89%;
-    margin-left: -15px;
-    margin-bottom: 70px;
+  margin-left: -15px;
+  margin-bottom: 70px;
     
 }
 
 #home-section-3-img {
 	height: inherit;
 	background-image: url(/wp-content/uploads/2020/01/Lexicon6-min-scaled.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom;
 }
 
 
@@ -643,41 +643,42 @@ li.menu-item.menu-item-29 {
 .home-section-4 {
 	height: 240px;
 	max-width: 89%;
-    margin-left: -15px;
-    margin-bottom: 70px;
+  margin-left: -15px;
+  margin-bottom: 70px;
 }
 
 #home-section-4 {
 	height: inherit;
-    background-color: #A79F9F;
-    color: #ffffff;
+  background-color: #A79F9F;
+  color: #ffffff;
 	box-sizing: border-box;
 	border-radius: 20px;
-    padding: 16px 32px; 
+  padding: 16px 32px; 
 }
 
 #home-section-4 h2 {
 	font-weight: 600;
-    font-size: 48px;
-    line-height: 65px;
-    color: #FFFFFF;
-    -webkit-text-stroke: 1.5px white;
-    -webkit-text-fill-color: transparent;
+  font-size: 48px;
+  line-height: 65px;
+  color: #FFFFFF;
+  -webkit-text-stroke: 1.5px white;
+  -webkit-text-fill-color: transparent;
 }
 
 #home-section-4 p {
 	font-weight: 300;
 	font-size: 30px;
 	line-height: 37px;
+  color: #ffffff;
 }
 
 #home-section-4 a h3 {
 	color: #ffffff;
-    text-align: center;
-    font-size: 38px;
-    margin-top: 20px;
-    text-decoration: none !important;
-    transition: color 0.3s ease;
+  text-align: center;
+  font-size: 38px;
+  margin-top: 20px;
+  text-decoration: none !important;
+  transition: color 0.3s ease;
 
 }
 
@@ -713,10 +714,10 @@ figure.icon { display: inline-block; }
 
 .values {
 	background-image: url('/wp-content/uploads/2020/01/Lexicon-ContactUs-Art-min.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: bottom;
-    padding: 50px 0 50px 50px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom;
+  padding: 50px 0 50px 50px;
 }
 .values .wp-block-media-text__content {
 	width: 100%;
@@ -1404,6 +1405,4 @@ button.woocommerce-button.button.woocommerce-form-login__submit {
 	}
 
 }
-
-
 
