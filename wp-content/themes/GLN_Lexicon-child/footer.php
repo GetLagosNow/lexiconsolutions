@@ -8,13 +8,13 @@
 					</nav>
 					<!-- /nav -->
 					<div id="footer-socials">
-						<a target="_blank" href="mailto:seve@getlagosnow.com">
+						<a target="_blank" href="mailto:info@lexiconsolutions.com">
 							<img src="<?php echo get_template_directory_uri(); ?>/img/icons/Mail_Icon_White.png" alt="email" id="footer-email" class="footer-social-icon">
 						</a>
-						<a target="_blank" href="twitter.com">
+						<a target="_blank" href="https://twitter.com/LexiconSolution">
 							<img src="<?php echo get_template_directory_uri(); ?>/img/icons/Twitter_Icon_White.png" alt="twitter" id="footer-twitter" class="footer-social-icon">
 						</a>
-						<a target="_blank" href="linkedin.com">
+						<a target="_blank" href="https://www.linkedin.com/company/lexicon-staffing-inc-/">
 							<img src="<?php echo get_template_directory_uri(); ?>/img/icons/LinkedIn_Icon_White.png" alt="linkedin" id="footer-linkedin" class="footer-social-icon">
 						</a>
 					</div>
@@ -31,13 +31,13 @@
 						<div id="footer-add-mobile"><a target="_blank" href="https://goo.gl/maps/aBrA8z7zhDyKqcbB9">605 SW Poplar Ln<br>Portland, OR 97225</a></div>
 
 						<div id="footer-socials-mobile">
-							<a target="_blank" href="mailto:seve@getlagosnow.com">
+							<a target="_blank" href="mailto:info@lexiconsolutions.com">
 								<img src="<?php echo get_template_directory_uri(); ?>/img/icons/Mail_Icon_White.png" alt="email" id="footer-email" class="footer-social-icon">
 							</a>
-							<a target="_blank" href="twitter.com">
+							<a target="_blank" href="https://www.linkedin.com/company/lexicon-staffing-inc-/">
 								<img src="<?php echo get_template_directory_uri(); ?>/img/icons/Twitter_Icon_White.png" alt="twitter" id="footer-twitter" class="footer-social-icon">
 							</a>
-							<a target="_blank" href="linkedin.com">
+							<a target="_blank" href="https://twitter.com/LexiconSolution">
 								<img src="<?php echo get_template_directory_uri(); ?>/img/icons/LinkedIn_Icon_White.png" alt="linkedin" id="footer-linkedin" class="footer-social-icon">
 							</a>
 						</div>
