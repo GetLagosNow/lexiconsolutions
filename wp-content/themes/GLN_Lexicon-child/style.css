@@ -932,8 +932,8 @@ button#wpforms-submit-372, button#wpforms-submit-438, button#wpforms-submit-442 
 
 .woocommerce {
     width: 50% !important;
-    margin: 60px auto 100px auto !important;
-    padding: 40px !important;
+    margin: 60px auto 100px auto;
+    padding: 40px;
 }
 
 .woocommerce a {
@@ -1232,18 +1232,12 @@ button.woocommerce-button.button.woocommerce-form-login__submit {
 	    margin-left: 0;
 	}
 
-  }
-
   .woocommerce {
     width: 90% !important;
   }
 
   .woocommerce form .show-password-input, .woocommerce-page form .show-password-input {
-    position: initial !important;
-  }
-
-  #wpforms-438, #wpforms-442 {
-    width: 90%;
+    position: initial;
   }
 
 	.job-alerts-btn a {
