@@ -28,7 +28,7 @@
 					<div id="footer-mobile-under-nav">
 						<div id="footer-tel-mobile"><a href="tel:1-503-469-6000">(503)469-6000</a></div>
 						<br>
-						<div id="footer-add-mobile"><a target="_blank" href="https://goo.gl/maps/aBrA8z7zhDyKqcbB9">605 SW Poplar Ln<br>Portland, OR 97225</a></div>
+						<div id="footer-add-mobile"><a target="_blank" href="https://goo.gl/maps/aBrA8z7zhDyKqcbB9">4605 SW Poplar Ln<br>Portland, OR 97225</a></div>
 
 						<div id="footer-socials-mobile">
 							<a target="_blank" href="mailto:info@lexiconsolutions.com">
