@@ -34,6 +34,8 @@ global $post;
 
 		<div class="job_description">
 			<?php wpjm_the_job_description(); ?>
+			<!-- The code below displays the listing's category but does not link to anything -->
+			<!-- <?php wpjm_the_job_categories(); ?> -->
 		</div>
 
 		<?php if ( candidates_can_apply() ) : ?>

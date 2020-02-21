@@ -928,6 +928,14 @@ button#wpforms-submit-372, button#wpforms-submit-438, button#wpforms-submit-442 
     font-size: 20px !important;
 }
 
+
+/* Single Job Listing page */
+
+article.has-post-thumbnail a img {
+    display: none !important;
+}
+
+
 /* Woo My Account section */
 
 .woocommerce {
