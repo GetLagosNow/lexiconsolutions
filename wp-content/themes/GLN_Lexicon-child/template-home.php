@@ -23,12 +23,15 @@
 
 							<div id="home-section-1-right-text">
 
-								<p>Portland’s leading tech recruiting agency that’s always fulfilling their mission -To always do what’s best for the candidates and clients.</p>
+								<p>We are a boutique IT & Engineering Recruiting Agency based in Portland, OR. At Lexicon Solutions, our mission is simple: to always do what’s best for our candidates and clients.</p>
 
 							</div>
 							<div id="home-section-1-right-btns">
+								<a class="btn" href="/jobs" role="button">Current Job Openings</a>
+								
+								<!-- 2 buttons
 								<a class="btn" href="/job-seekers" role="button">Find Work</a>
-								<a class="btn" href="/find-talent" role="button">Find Talent</a>
+								<a class="btn" href="/find-talent" role="button">Find Talent</a> -->
 							</div>
 
 						</div>

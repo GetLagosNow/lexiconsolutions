@@ -441,8 +441,9 @@ li.menu-item.menu-item-29 {
 }
 
 #home-section-1-right-btns {
-    bottom: 60px;
-    position: absolute;
+/*    bottom: 60px;
+    position: absolute;*/
+    margin-top: 60px;
 }
 
 #home-section-1-right a.btn {
@@ -452,6 +453,19 @@ li.menu-item.menu-item-29 {
     border-radius: 50px;
 }
 
+#home-section-1-right-btns :first-child {
+    color: #1E7538;
+    background-color: #fff;
+    margin-left: 15%;
+}
+
+#home-section-1-right-btns :first-child:hover {
+    color: #fff;
+    background-color: #1E7538;
+}
+
+
+/*2 buttons
 #home-section-1-right-btns :first-child {
     color: #1E7538;
     background-color: #fff;
@@ -473,7 +487,7 @@ li.menu-item.menu-item-29 {
 #home-section-1-right-btns :last-child:hover {
   	color: #1E7538;
     background-color: #fff;
-}
+}*/
 
 #home-section-2-title {
     padding: 30px 0;
@@ -978,7 +992,7 @@ button.woocommerce-button.button.woocommerce-form-login__submit {
 	
 
 	#home-section-1-right-text {
-	    margin: 30px 0 0 15px;
+    margin: 30px 0 0 15px;
 	}
 
 	#home-section-1-right-text p {
@@ -986,12 +1000,12 @@ button.woocommerce-button.button.woocommerce-form-login__submit {
 	}
 
 	#home-section-1-right-btns {
-	    bottom: 35px;
+    margin-top: 35px;
 	}
 
 	#home-section-1-right a.btn {
-	    padding: 5px 20px;
-	    font-size: 24px;
+    padding: 5px 20px;
+    font-size: 24px;
 	}
 
 	#home-section-3-logo {
@@ -999,7 +1013,7 @@ button.woocommerce-button.button.woocommerce-form-login__submit {
 	}
 
 	#home-section-3 {
-	    height: 500px;
+    height: 500px;
 	}
 
 	#home-section-3 .col-md-5 {
@@ -1011,8 +1025,8 @@ button.woocommerce-button.button.woocommerce-form-login__submit {
 	}
 
 	#home-section-3 p {
-	    font-size: 26px;
-	    line-height: 35px;
+    font-size: 26px;
+    line-height: 35px;
 	}
 
 	#home-section-4 p {
@@ -1049,6 +1063,18 @@ button.woocommerce-button.button.woocommerce-form-login__submit {
 	}
 }
 
+@media screen and (max-width: 1017px){ 
+
+    #home-section-1-right-text {
+      margin: 10px 0 0 15px;
+  }
+
+    #home-section-1-right-text p {
+      font-size: 21px;
+    }
+
+}
+
 
 @media screen and (max-width: 958px){
 
@@ -1057,26 +1083,26 @@ button.woocommerce-button.button.woocommerce-form-login__submit {
 	}
 
 	#home-section-1-right-btns {
-	    bottom: 35px;
+    margin-top: 35px;
 	}
 
 	#home-section-1-right a.btn {
-	    padding: 4px 15px;
-	    font-size: 21px;
+    padding: 4px 15px;
+    font-size: 21px;
 	}
 
 	#home-section-2 #home-section-2-right {
-    	background-image: none;
-    	background-color: #ffffff;
-	    margin-left: 0;
-	    margin-top: 0;
-	    height: auto;
+  	background-image: none;
+  	background-color: #ffffff;
+    margin-left: 0;
+    margin-top: 0;
+    height: auto;
 	}
 
 	#home-section-2-right-text {
-	    width: 100%;
-	    padding-left: 50px;
-	    padding-top: 30px;
+    width: 100%;
+    padding-left: 50px;
+    padding-top: 30px;
 	}
 
 	#home-section-3-logo {
@@ -1085,15 +1111,20 @@ button.woocommerce-button.button.woocommerce-form-login__submit {
 }
 
 
+@media screen and (max-width: 886px){
+
+    #home-section-1-right-text p {
+      font-size: 21px;
+      line-height: 28px;
+    }
+
+}
+
+
 @media screen and (max-width: 856px){
 
 	#home-section-1-right-text {
 	    width: 70%;
-	}
-
-	#home-section-1-right-text p {
-		font-size: 21px;
-		line-height: 33px;
 	}
 
 	#home-section-1-right a.btn {
@@ -1270,7 +1301,7 @@ button.woocommerce-button.button.woocommerce-form-login__submit {
 @media screen and (max-width: 655px){
 
 	#home-section-1 #home-section-1-left { 
-	    height: 420px;
+    height: 420px;
 	}
 
   #home-section-1 #home-section-1-right {
@@ -1279,46 +1310,46 @@ button.woocommerce-button.button.woocommerce-form-login__submit {
 }
 
 	#home-section-1 #home-section-1-right h1 {
-	    font-size: 4rem;
-	    line-height: 45px;
+    font-size: 4rem;
+    line-height: 45px;
 	}
 
 	#home-section-1-right-text {
-	    margin: 30px 0 0 15px;
+    margin: 30px 0 0 15px;
 	}
 
 	#home-section-1-right-text p {
 		font-size: 18px;
-		line-height: 27px;
+		line-height: 26px;
 	}
 
 	#home-section-1-right-btns {
-	    bottom: 25px;
+    margin-top: 25px;
 	}
 
 	#home-section-2-title {
-	    margin: 300px 0 30px 10px;
-	    padding: 20px 0;
-	    width: 90%;
+    margin: 300px 0 30px 10px;
+    padding: 20px 0;
+    width: 90%;
 	}
 
 	#home-section-2-title h1 {
-	    font-size: 4rem;
-      margin: 15px 0px;
-      line-height: 55px;
+    font-size: 4rem;
+    margin: 15px 0px;
+    line-height: 55px;
 	}
 
 	#home-section-2-title p {
-	    font-size: 24px;
-	    line-height: 27px;
+    font-size: 24px;
+    line-height: 27px;
 	}
 
 	#home-section-2-right-text {
-	    padding: 30px 0 0 10px;
+    padding: 30px 0 0 10px;
 	}
 
 	#home-section-2-right-text p {
-	    margin: 0 0 30px 50px;
+    margin: 0 0 30px 50px;
 	}
 
   #home-section-4-media {
@@ -1326,7 +1357,7 @@ button.woocommerce-button.button.woocommerce-form-login__submit {
   }
 
 	.job-alerts-btn a {
-	    margin-left: 0;
+    margin-left: 0;
 	}
 
   .contact-bkgd {
@@ -1364,8 +1395,8 @@ button.woocommerce-button.button.woocommerce-form-login__submit {
 @media screen and (max-width: 600px){
 
 	.job-alerts-btn {
-	    margin: 65px 0 15px 0;
-	    text-align: center;
+    margin: 65px 0 15px 0;
+    text-align: center;
 	}
 
 	.job-seekers-row-2 {
@@ -1381,7 +1412,7 @@ button.woocommerce-button.button.woocommerce-form-login__submit {
 	}
 
 	.wp-block-columns.what-we-offer-row-1 {
-	    margin-bottom: 0;
+    margin-bottom: 0;
 	}
 
 	.wp-block-columns.what-we-offer-row-2 {
@@ -1389,11 +1420,11 @@ button.woocommerce-button.button.woocommerce-form-login__submit {
 	}
 
 	.offering {
-	    margin-bottom: 40px;
+    margin-bottom: 40px;
 	}
 
 	.talent-tel-btn {
-	    margin-left: 0 !important;
+    margin-left: 0 !important;
 	}
 
 	#our-process .wp-block-column {
@@ -1406,15 +1437,15 @@ button.woocommerce-button.button.woocommerce-form-login__submit {
 @media screen and (max-width: 450px){
 
 	#home-section-1 #home-section-1-left { 
-	    height: 268px;
+    height: 268px;
 	}
 
 	#home-section-1 #home-section-1-right h1 {
-	    font-size: 3.5rem;
+    font-size: 3.5rem;
 	}
 
 	#home-section-1-right-text {
-	    margin: 20px 0 0 15px;
+    margin: 20px 0 0 15px;
 	}
 
 	#home-section-1-right-text p {
@@ -1423,7 +1454,7 @@ button.woocommerce-button.button.woocommerce-form-login__submit {
 
 	#home-section-4 p {
 		font-size: 18px;
-	    line-height: 20px;
+    line-height: 20px;
 	}
 
 }
