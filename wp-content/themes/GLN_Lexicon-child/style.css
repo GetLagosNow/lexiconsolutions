@@ -42,6 +42,10 @@ a:hover, a:focus, a:active { color: #55BB72; }
 
 
 /***** MODAL *****/
+.modal {
+  height: auto !important;
+}
+
 .modal-wrapper.styled .modal {
     border: 2px solid #1E7538;
     border-radius: 12px;
@@ -726,6 +730,15 @@ figure.icon { display: inline-block; }
 .icon img { width: 40px; }
 .pad-bottom { padding-bottom: 40px; }
 
+.modal-bio-img {
+  float: left;
+  padding: 0 30px 30px 0;
+}
+
+.modal-wrapper p {
+    font-size: 16px !important;
+}
+
 .values {
   background-image: url('/wp-content/uploads/2020/01/Lexicon-ContactUs-Art-min.jpg');
   background-repeat: no-repeat;
@@ -1279,6 +1292,16 @@ button.woocommerce-button.button.woocommerce-form-login__submit {
     margin-left: 0;
   }
 
+  .modal-wrapper.styled .modal {
+    width: 90%;
+  }
+
+  .modal-wrapper p {
+    font-size: 12px !important;
+    font-weight: 600;
+    line-height: 17px;
+  }
+
   .woocommerce {
     width: 90% !important;
   }
@@ -1364,6 +1387,14 @@ button.woocommerce-button.button.woocommerce-form-login__submit {
     margin-bottom: 0;
   }
 
+  .modal-bio-img {
+    float: none;
+    padding: 0px 20px 10px 20px;
+    width: 90%;
+    margin: 0 auto;
+    display: none;
+  }
+
   .job-alerts-btn a {
     margin-left: 0;
   }
@@ -1401,6 +1432,10 @@ button.woocommerce-button.button.woocommerce-form-login__submit {
 
 
 @media screen and (max-width: 600px){
+
+  .values {
+    padding: 50px 50px 50px 50px !important;
+  }
 
   .job-alerts-btn {
     margin: 65px 0 15px 0;
@@ -1460,9 +1495,22 @@ button.woocommerce-button.button.woocommerce-form-login__submit {
     line-height: 24px;
   }
 
+  #home-section-1 #home-section-1-right {
+    height: 390px;
+  }
+
+  #home-section-2-title {
+    margin: 150px 0 30px 10px;
+  }
+
   #home-section-4 p {
     font-size: 18px;
     line-height: 20px;
+  }
+
+  .modal-wrapper p {
+    font-size: 12px !important;
+    line-height: 17px;
   }
 
 }
