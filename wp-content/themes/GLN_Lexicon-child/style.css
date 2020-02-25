@@ -1,15 +1,15 @@
 /*
-	Theme Name: GLN_Lexicon-child
-	Theme URI: http://html5blank.com
-	Description: HTML5 Blank WordPress Theme
-	Version: 1.4.3
-	Author: Todd Motto (@toddmotto)
-	Author URI: http://toddmotto.com
-	Template: GLN_Lexicon
-	Tags: Blank, HTML5, CSS3
+  Theme Name: GLN_Lexicon-child
+  Theme URI: http://html5blank.com
+  Description: HTML5 Blank WordPress Theme
+  Version: 1.4.3
+  Author: Todd Motto (@toddmotto)
+  Author URI: http://toddmotto.com
+  Template: GLN_Lexicon
+  Tags: Blank, HTML5, CSS3
 
-	License: MIT
-	License URI: http://opensource.org/licenses/mit-license.php
+  License: MIT
+  License URI: http://opensource.org/licenses/mit-license.php
 */
 
 
@@ -250,7 +250,7 @@ a.modal-link {
 }
 
 .nav ul li#menu-item-26 a {
-	color: #fff;
+  color: #fff;
 }
 
 .nav ul li#menu-item-26 a:hover
@@ -259,46 +259,46 @@ a.modal-link {
 }
 
 #under-nav-1 {
-	display: inline-block;
-	float: right;
-	text-align: center;
-	clear: both !important;
+  display: inline-block;
+  float: right;
+  text-align: center;
+  clear: both !important;
 }
 
 #under-nav-1 #header-tel a {
-	color: #A69B8E;
-	font-weight: bold;
-	font-size: 18px;
+  color: #A69B8E;
+  font-weight: bold;
+  font-size: 18px;
     line-height: 22px;
-	text-align: center;
-	text-decoration: none;
+  text-align: center;
+  text-decoration: none;
     transition: color 0.3s ease;
 }
 
 #under-nav-1 #header-tel a:hover {
-	color: #1E7538;
+  color: #1E7538;
 }
 
 #under-nav-1 #header-add a {
-	color: #767272;
-	font-size: 16px;
+  color: #767272;
+  font-size: 16px;
     line-height: 21px;
-	text-align: center;
-	text-transform: uppercase;
-	text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
     transition: color 0.3s ease;
 }
 
 #under-nav-1 #header-add a:hover {
-	color: #1E7538;
+  color: #1E7538;
 }
 
 
 /***** FOOTER *****/
 
 #footer {
-	background-color: #1E7538;
-	height: 80px;
+  background-color: #1E7538;
+  height: 80px;
 }
 
 nav.footer-nav {
@@ -319,13 +319,13 @@ nav.footer-nav {
 }
 
 #footer .footer-nav ul#menu-footer li a:hover {
-	color: #B6956F;
+  color: #B6956F;
 }
 
 #footer #footer-socials {
-	float: right;
-	padding: 20px 0;
-	margin-right: 30px;
+  float: right;
+  padding: 20px 0;
+  margin-right: 30px;
 }
 
 a img.footer-social-icon {
@@ -352,9 +352,9 @@ p.copyright a {
 /***** FOOTER - Mobile *****/
 
 #footer-mobile {
-	display: none;
-	background-color: #1E7538;
-	padding: 30px 30px 30px 20px; 
+  display: none;
+  background-color: #1E7538;
+  padding: 30px 30px 30px 20px; 
 }
 
 #footer-mobile a {
@@ -396,19 +396,19 @@ li.menu-item.menu-item-29 {
 
 
 #home-section-1 {
-	height: 507px;
+  height: 507px;
 }
 
 #home-section-1 #home-section-1-left { 
-	height: inherit;
-    background-image: url(/wp-content/uploads/2020/01/Lexicon5.png);
+  height: inherit;
+    background-image: url(/wp-content/uploads/2020/02/Lexicon5-bw-min.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: bottom;
 }
 
 #home-section-1 #home-section-1-right { 
-	height: inherit;
+  height: inherit;
     background-image: url(/wp-content/uploads/2020/01/homepage_art.jpg);
     background-position: right;
     background-repeat: no-repeat;
@@ -435,9 +435,9 @@ li.menu-item.menu-item-29 {
 
 
 #home-section-1-right-text p {
-	font-size: 27px;
-	line-height: 37px;
-	color: #FFFFFF;
+  font-size: 27px;
+  line-height: 37px;
+  color: #FFFFFF;
 }
 
 #home-section-1-right-btns {
@@ -478,19 +478,20 @@ li.menu-item.menu-item-29 {
 }
 
 #home-section-1-right-btns :last-child {
-  	color: #fff;
+    color: #fff;
     background-color: transparent;
     border: 2px solid #fff;
     margin-left: 15px;
 }
 
 #home-section-1-right-btns :last-child:hover {
-  	color: #1E7538;
+    color: #1E7538;
     background-color: #fff;
 }*/
 
 #home-section-2-title {
     padding: 30px 0;
+    margin-bottom: 10%;
 }
 
 #home-section-2-title h1 {
@@ -502,9 +503,9 @@ li.menu-item.menu-item-29 {
 }
 
 #home-section-2-title p {
-  	font-size: 27px;
-  	line-height: 37px;
-  	color: #767272;
+    font-size: 27px;
+    line-height: 37px;
+    color: #767272;
 }
 
 
@@ -514,11 +515,11 @@ li.menu-item.menu-item-29 {
 }
 
 #home-section-2 {
-  	height: 656px;
+    height: 656px;
 }
 
 #home-section-2 #home-section-2-left { 
-  	height: inherit;
+    height: inherit;
     background-image: url(/wp-content/uploads/2020/01/Lexicon18-scaled.jpg);
     background-repeat: no-repeat;
     background-size: cover;
@@ -526,7 +527,7 @@ li.menu-item.menu-item-29 {
 }
 
 #home-section-2 #home-section-2-right { 
-  	height: inherit;
+    height: inherit;
     background-image: url(/wp-content/uploads/2020/01/Lexicon-LS-Logo_dfebe5_LG.jpg);
     background-repeat: no-repeat;
     background-position: right;
@@ -559,34 +560,33 @@ li.menu-item.menu-item-29 {
 
 #home-section-3 .col-md-5 {
     max-width: 100%;
-    margin-top: 60px;
-    height: 470px;
-    padding-top: 20px;
-    padding-left: 30px;
+    margin-top: 100px;
+    height: 370px;
+    padding: 20px 30px 0 30px;
     background: #FFFFFF;
-  	border: 1px solid #C0BFBF;
-  	box-sizing: border-box;
-  	box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
-  	border-radius: 20px;
+    border: 1px solid #C0BFBF;
+    box-sizing: border-box;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
 }
 
 #home-section-3 h2 {
-	font-weight: bold !important;
-	font-size: 42px !important;
-	line-height: 50px;
+  font-weight: bold !important;
+  font-size: 42px !important;
+  line-height: 50px;
 }
 
 #home-section-3 p {
-	font-size: 30px;
-	line-height: 37px;
-	color: #767272;
+  font-size: 30px;
+  line-height: 37px;
+  color: #767272;
   width: 90%;
   margin-top: 30px;
 }
 
 #home-section-3 a h3 {
-	font-size: 42px !important;
-	line-height: 50px;
+  font-size: 42px !important;
+  line-height: 50px;
   position: absolute;
   bottom: 30px;
   transition: color .5s ease-in;
@@ -594,17 +594,17 @@ li.menu-item.menu-item-29 {
 }
 
 #home-section-3-left h2 {
-	color: #1E7538;
+  color: #1E7538;
 }
 
 #home-section-3-left a h3 {
-	-webkit-text-stroke: 1.5px #1E7538;
+  -webkit-text-stroke: 1.5px #1E7538;
   -webkit-text-fill-color: transparent;
 }
 
 #home-section-3-left a h3:hover  {
-	-webkit-text-stroke: 0px #1E7538;
-  -webkit-text-fill-color: #1E7538;	
+  -webkit-text-stroke: 0px #1E7538;
+  -webkit-text-fill-color: #1E7538; 
 }
 
 #home-section-3-right {
@@ -612,22 +612,22 @@ li.menu-item.menu-item-29 {
 }
 
 #home-section-3-right h2 {
-	color: #C5811B;
-	padding-top: 50px;
+  color: #C5811B;
+  /*padding-top: 50px;*/
 }
 
 #home-section-3-right a h3 {
-	-webkit-text-stroke: 1.5px #C5811B;
+  -webkit-text-stroke: 1.5px #C5811B;
   -webkit-text-fill-color: transparent;
 }
 
 #home-section-3-right a h3:hover {
-	-webkit-text-stroke: 0px #C5811B;
+  -webkit-text-stroke: 0px #C5811B;
   -webkit-text-fill-color: #C5811B;
 }
 
 #home-section-3-logo { 
-	height: inherit;
+  height: inherit;
   background-image: url(/wp-content/uploads/2020/01/Lexicon-LS-Logo_dfebe5.jpg);
   background-repeat: no-repeat;
   background-position: right;
@@ -637,16 +637,16 @@ li.menu-item.menu-item-29 {
 }
 
 .home-section-3-img {
-	height: 500px;
-	max-width: 89%;
+  height: 500px;
+  max-width: 89%;
   margin-left: -15px;
   margin-bottom: 70px;
     
 }
 
 #home-section-3-img {
-	height: inherit;
-	background-image: url(/wp-content/uploads/2020/01/Lexicon6-min-scaled.jpg);
+  height: inherit;
+  background-image: url(/wp-content/uploads/2020/01/Lexicon6-min-scaled.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: bottom;
@@ -655,23 +655,23 @@ li.menu-item.menu-item-29 {
 
 
 .home-section-4 {
-	height: 240px;
-	max-width: 89%;
+  height: 240px;
+  max-width: 89%;
   margin-left: -15px;
   margin-bottom: 70px;
 }
 
 #home-section-4 {
-	height: inherit;
+  height: inherit;
   background-color: #A79F9F;
   color: #ffffff;
-	box-sizing: border-box;
-	border-radius: 20px;
+  box-sizing: border-box;
+  border-radius: 20px;
   padding: 16px 32px; 
 }
 
 #home-section-4 h2 {
-	font-weight: 600;
+  font-weight: 600;
   font-size: 48px;
   line-height: 65px;
   color: #FFFFFF;
@@ -680,14 +680,14 @@ li.menu-item.menu-item-29 {
 }
 
 #home-section-4 p {
-	font-weight: 300;
-	font-size: 30px;
-	line-height: 37px;
+  font-weight: 300;
+  font-size: 30px;
+  line-height: 37px;
   color: #ffffff;
 }
 
 #home-section-4 a h3 {
-	color: #ffffff;
+  color: #ffffff;
   text-align: center;
   font-size: 38px;
   margin-top: 20px;
@@ -697,12 +697,12 @@ li.menu-item.menu-item-29 {
 }
 
 #home-section-4 a h3:hover {
-	color: #1E7538;
-	text-decoration: none !important;
+  color: #1E7538;
+  text-decoration: none !important;
 }
 
 #home-section-4-media {
-	margin-bottom: 50px;
+  margin-bottom: 50px;
 }
 
 /* WP Carousel styles */
@@ -727,22 +727,22 @@ figure.icon { display: inline-block; }
 .pad-bottom { padding-bottom: 40px; }
 
 .values {
-	background-image: url('/wp-content/uploads/2020/01/Lexicon-ContactUs-Art-min.jpg');
+  background-image: url('/wp-content/uploads/2020/01/Lexicon-ContactUs-Art-min.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: bottom;
   padding: 50px 0 50px 50px;
 }
 .values .wp-block-media-text__content {
-	width: 100%;
-	padding: 0 !important;
+  width: 100%;
+  padding: 0 !important;
 }
 .values-text {
-	background-color: #fff;
-	padding: 20px;
-	border-radius: 12px;
-	margin: 0;
-	border: 2px solid #1E7538;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  margin: 0;
+  border: 2px solid #1E7538;
 }
 
 
@@ -765,13 +765,13 @@ select.mip-drop-nav {
 }
 
 .job-seekers-row-2 {
-	width: 85%;
-	margin: 60px 0;
+  width: 85%;
+  margin: 60px 0;
 }
 
 
 .job-talent-text-box {
-	background-image: url('/wp-content/uploads/2020/01/positions-recruit-bkgd-min.jpg');
+  background-image: url('/wp-content/uploads/2020/01/positions-recruit-bkgd-min.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: bottom;
@@ -785,7 +785,7 @@ select.mip-drop-nav {
 /* FIND TALENT */
 
 .find-talent-row {
-	margin-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 .staff-req-btn a {
@@ -796,18 +796,18 @@ select.mip-drop-nav {
 }
 
 .talent-quest-tel-btns, .talent-quest-tel-btns-mobile {
-	margin: 40px 0;
+  margin: 40px 0;
 }
 
 .talent-quest-tel-btns-mobile {
-	display: none;
+  display: none;
 }
 
 .talent-tel-btn {
-	border: 2px solid #1e7538;
-	border-radius: 30px;
-	width: fit-content;
-	padding: 0 25px;
+  border: 2px solid #1e7538;
+  border-radius: 30px;
+  width: fit-content;
+  padding: 0 25px;
 }
 
 .talent-quest-btn a {
@@ -898,41 +898,41 @@ button#wpforms-submit-372, button#wpforms-submit-438, button#wpforms-submit-442 
 /***** WP Jobs Manager *****/
 /*Some in forms styles above*/
 #wp-job_description-editor-container {
-	border: 2px solid #C4C4C4;
-	box-sizing: border-box;
-	box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
-	border-radius: 10px;
-	padding: .5em;
+  border: 2px solid #C4C4C4;
+  box-sizing: border-box;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  padding: .5em;
 }
 .job-manager-form fieldset input.input-date, .job-manager-form fieldset input.input-text, .job-manager-form fieldset select, .job-manager-form fieldset textarea, .search_jobs input, .search_jobs select, .select2-selection.select2-selection--multiple, .woocommerce {
-	padding: .5em;
-	border: 2px solid #C4C4C4;
-	box-sizing: border-box;
-	box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
-	border-radius: 10px;
-	font: 18px;
+  padding: .5em;
+  border: 2px solid #C4C4C4;
+  box-sizing: border-box;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  font: 18px;
   /*font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;*/
 }
 .job-manager-applications-applied-notice, #job_type, .job_listings, .job-manager-alerts, .job-manager-jobs, .showing_jobs span, .author, .comments, .job-type, .location, .date-posted, .job-manager-applications-applied-notice, #job_type {
-	font: 24px;
+  font: 24px;
   /*font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;*/
-	color: #767272;
-	border-radius: 10px;
+  color: #767272;
+  border-radius: 10px;
 }
 .woocommerce { margin-bottom: 3em; }
 .showing_jobs > * { font: 24px /*Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif*/; }
 ::placeholder, .select2-results__option, .job-manager-message {
-	font: 18px; 
+  font: 18px; 
   /*font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;*/
-	color: #767272;
+  color: #767272;
 }
 .company {
-	padding: .5em;
-	border-radius: 10px;
-	font: 18px; 
+  padding: .5em;
+  border-radius: 10px;
+  font: 18px; 
   /*font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;*/
-	color: #767272;
-	margin-top: .5em;
+  color: #767272;
+  margin-top: .5em;
 }
 .job-manager-remove-uploaded-file { font-size: 18px; }
 
@@ -975,102 +975,102 @@ button.woocommerce-button.button.woocommerce-form-login__submit {
 
 
 @media screen and (max-width: 1272px){
-	
-	#home-section-4 p {
-		font-size: 27px;
-		line-height: 35px;
-	}
+  
+  #home-section-4 p {
+    font-size: 27px;
+    line-height: 35px;
+  }
 
-	#home-section-4 a h3 {
-		font-size: 34px;
-	}
+  #home-section-4 a h3 {
+    font-size: 34px;
+  }
 
 }
 
 
 @media screen and (max-width: 1175px){
-	
+  
 
-	#home-section-1-right-text {
+  #home-section-1-right-text {
     margin: 30px 0 0 15px;
-	}
+  }
 
-	#home-section-1-right-text p {
-		font-size: 24px;
-	}
+  #home-section-1-right-text p {
+    font-size: 24px;
+  }
 
-	#home-section-1-right-btns {
+  #home-section-1-right-btns {
     margin-top: 35px;
-	}
+  }
 
-	#home-section-1-right a.btn {
+  #home-section-1-right a.btn {
     padding: 5px 20px;
     font-size: 24px;
-	}
+  }
 
-	#home-section-3-logo {
-		display: none;
-	}
+  #home-section-3-logo {
+    display: none;
+  }
 
-	#home-section-3 {
+  #home-section-3 {
     height: 500px;
-	}
+  }
 
-	#home-section-3 .col-md-5 {
-		height: 400px;
-	}
+  #home-section-3 .col-md-5 {
+    height: 300px;
+  }
 
-	#home-section-3-right h2 {
-		padding-top: 0;
-	}
+  #home-section-3-right h2 {
+    padding-top: 0;
+  }
 
-	#home-section-3 p {
+  #home-section-3 p {
     font-size: 26px;
     line-height: 35px;
-	}
+  }
 
-	#home-section-4 p {
-		font-size: 24px;
-		line-height: 33px;
-	}
+  #home-section-4 p {
+    font-size: 24px;
+    line-height: 33px;
+  }
 
 }
 
 @media screen and (max-width: 1141px){
 
-	.talent-quest-tel-btns {
-		display: none;
-	}
-	.talent-quest-tel-btns-mobile {
-		display: block;
-	}
+  .talent-quest-tel-btns {
+    display: none;
+  }
+  .talent-quest-tel-btns-mobile {
+    display: block;
+  }
 
-	.talent-tel-btn {
-	    margin-left: -32px !important;
-	    margin-top: 32px;
-	}
+  .talent-tel-btn {
+      margin-left: -32px !important;
+      margin-top: 32px;
+  }
 }
 
 
 @media screen and (max-width: 1045px){
 
-	#home-section-4 p {
-		line-height: 24px;
-	}
+  #home-section-4 p {
+    line-height: 24px;
+  }
 
-	#footer .footer-nav ul#menu-footer li a {
-	    padding: 0px 10px;
-	}
+  #footer .footer-nav ul#menu-footer li a {
+    padding: 0px 10px;
+  }
 }
 
 @media screen and (max-width: 1017px){ 
 
     #home-section-1-right-text {
-      margin: 10px 0 0 15px;
+    margin: 10px 0 0 15px;
   }
 
     #home-section-1-right-text p {
-      font-size: 21px;
+    font-size: 21px;
     }
 
 }
@@ -1078,36 +1078,40 @@ button.woocommerce-button.button.woocommerce-form-login__submit {
 
 @media screen and (max-width: 958px){
 
-	#home-section-1-right-text p {
-		font-size: 21px;
-	}
+  #home-section-1-right-text p {
+    font-size: 21px;
+  }
 
-	#home-section-1-right-btns {
+  #home-section-1-right-btns {
     margin-top: 35px;
-	}
+  }
 
-	#home-section-1-right a.btn {
+  #home-section-1-right a.btn {
     padding: 4px 15px;
     font-size: 21px;
-	}
+  }
 
-	#home-section-2 #home-section-2-right {
-  	background-image: none;
-  	background-color: #ffffff;
+  #home-section-2-title {
+    margin-bottom: 5%;
+  }
+
+  #home-section-2 #home-section-2-right {
+    background-image: none;
+    background-color: #ffffff;
     margin-left: 0;
     margin-top: 0;
     height: auto;
-	}
+  }
 
-	#home-section-2-right-text {
+  #home-section-2-right-text {
     width: 100%;
     padding-left: 50px;
     padding-top: 30px;
-	}
+  }
 
-	#home-section-3-logo {
-		display: none;
-	}
+  #home-section-3-logo {
+    display: none;
+  }
 }
 
 
@@ -1123,73 +1127,77 @@ button.woocommerce-button.button.woocommerce-form-login__submit {
 
 @media screen and (max-width: 856px){
 
-	#home-section-1-right-text {
-	    width: 70%;
-	}
+  #home-section-1-right-text {
+      width: 70%;
+  }
 
-	#home-section-1-right a.btn {
-	    padding: 4px 15px;
-	    font-size: 20px;
-	}
+  #home-section-1-right a.btn {
+      padding: 4px 15px;
+      font-size: 20px;
+  }
 
-	#home-section-1-right-btns :first-child {
-		margin-left: 5px;
-	} 
+  #home-section-1-right-btns :first-child {
+    margin-left: 5px;
+  } 
 
-	#home-section-1-right-btns :last-child {
-		margin-left: 10px;
-	}
+  #home-section-1-right-btns :last-child {
+    margin-left: 10px;
+  }
 
-	#home-section-4 p {
-		font-size: 21px;
-	}
+  #home-section-4 p {
+    font-size: 21px;
+  }
+
+  .home-section-4 {
+    margin-bottom: 120px;
+  }
 
   #home-section-4 {
     height: 300px;
   }
 
-	#home-section-4 a h3 {
-		margin-top: 40px;
-	}
+  #home-section-4 a h3 {
+    margin-top: 40px;
+  }
 
-	ul#menu-footer {
-	    padding-left: 10px;
-	}
+  ul#menu-footer {
+      padding-left: 10px;
+  }
 
-	#footer .footer-nav ul#menu-footer li a {
-	    padding: 0px 6px;
-	}
+  #footer .footer-nav ul#menu-footer li a {
+      padding: 0px 6px;
+  }
 
 }
 
 
 @media screen and (max-width: 807px){
 
-	#home-section-1-right-btns :first-child {
-		margin-left: 0;
-	} 
+  #home-section-1-right-btns :first-child {
+    margin-left: 0;
+  } 
 
-	#home-section-1-right-btns :last-child {
-		margin-left: 5px;
-	}
+  #home-section-1-right-btns :last-child {
+    margin-left: 5px;
+  }
 
 }
 
 
 @media screen and (max-width: 781px){
 
-	#our-process p {
-	    font-size: 18px;
-	}
+  #our-process p {
+      font-size: 18px;
+  }
 
 }
 
 
 @media screen and (max-width: 767px){
 
-	.nav {
-		display: none !important;
-	}
+  .nav {
+    display: none !important;
+  }
 
   /* More hack shit */
 
@@ -1202,74 +1210,74 @@ button.woocommerce-button.button.woocommerce-form-login__submit {
 
   /* End hack shit */
 
-	#menuToggle {
-	  display: block;
-	}
+  #menuToggle {
+    display: block;
+  }
 
-	#under-nav-1 {
-	    padding: 20px 40px 0 0;
-	}
+  #under-nav-1 {
+      padding: 20px 40px 0 0;
+  }
 
-	#footer {
-		display: none;
-	}
+  #footer {
+    display: none;
+  }
 
-	#footer-mobile {
-		display: block;
+  #footer-mobile {
+    display: block;
     padding: 30px 10px 30px 0px;
-	}
+  }
 
-	#home-section-1 #home-section-1-right {
-		background-position: bottom;
-		height: 302px;
-	}
+  #home-section-1 #home-section-1-right {
+    background-position: bottom;
+    height: 302px;
+  }
 
-	#home-section-1 #home-section-1-right h1 {
-	    font-size: 5rem;
-	    line-height: 68px;
-	}
+  #home-section-1 #home-section-1-right h1 {
+    font-size: 5rem;
+    line-height: 68px;
+  }
 
-	#home-section-1-right-text {
-	    margin: 12px 0 0 15px;
-	}
+  #home-section-1-right-text {
+    margin: 12px 0 0 15px;
+  }
 
-	#home-section-1-right-btns :first-child {
-		margin-left: 15px;
-	} 
+  #home-section-1-right-btns :first-child {
+    margin-left: 15px;
+  } 
 
-	#home-section-1-right-btns :last-child {
-		margin-left: 15px;
-	}
+  #home-section-1-right-btns :last-child {
+    margin-left: 15px;
+  }
 
-	#home-section-2-title {
-	    margin-top: 300px;
-	}
+  #home-section-2-title {
+    margin-top: 300px;
+  }
 
-	#home-section-3 {
-	    margin-top: 450px;
-	}
+  #home-section-3 {
+    margin-top: 360px;
+  }
 
-	#home-section-3 .col-md-5 {
-	    max-width: 90%;
-	    margin: 60px auto 0 auto;
-	}
+  #home-section-3 .col-md-5 {
+    max-width: 90%;
+    margin: 60px auto 0 auto;
+  }
 
-	.home-section-3-img {
-	    max-width: 100%;
-	    margin-left: 0px;
-        margin-top: 470px;
-        height: inherit;
-	}
+  .home-section-3-img {
+    max-width: 100%;
+    margin-left: 0px;
+    margin-top: 360px;
+    height: inherit;
+  }
 
-	#home-section-3-img {
-		background-position: left;
-	    height: 300px;
-	}
+  #home-section-3-img {
+    background-position: left;
+    height: 300px;
+  }
 
-	.home-section-4 {
-	    max-width: 100%;
-	    margin-left: 0;
-	}
+  .home-section-4 {
+    max-width: 100%;
+    margin-left: 0;
+  }
 
   .woocommerce {
     width: 90% !important;
@@ -1279,86 +1287,86 @@ button.woocommerce-button.button.woocommerce-form-login__submit {
     position: initial;
   }
 
-	.job-alerts-btn a {
-        padding: 30px 18px;
-	    font-size: 20px;
-	    margin-left: 5%;
-	}
-	/* Some sort of better solution for this awful table on mobile??? */
-	/* .job-manager-jobs td, .job-manager-jobs th {
-		display: block !important;
-		width: 100% !important;
-		text-align: center;
-	} */
-	fieldset label, fieldset > div {
-		display: block !important;
-		width: 100% !important;
-	}
+  .job-alerts-btn a {
+    padding: 30px 18px;
+    font-size: 20px;
+    margin-left: 5%;
+  }
+  /* Some sort of better solution for this awful table on mobile??? */
+  /* .job-manager-jobs td, .job-manager-jobs th {
+    display: block !important;
+    width: 100% !important;
+    text-align: center;
+  } */
+  fieldset label, fieldset > div {
+    display: block !important;
+    width: 100% !important;
+  }
 
 }
 
 
 @media screen and (max-width: 655px){
 
-	#home-section-1 #home-section-1-left { 
+  #home-section-1 #home-section-1-left { 
     height: 420px;
-	}
+  }
 
   #home-section-1 #home-section-1-right {
     background-position: right;
     height: 350px;
 }
 
-	#home-section-1 #home-section-1-right h1 {
+  #home-section-1 #home-section-1-right h1 {
     font-size: 4rem;
     line-height: 45px;
-	}
+  }
 
-	#home-section-1-right-text {
+  #home-section-1-right-text {
     margin: 30px 0 0 15px;
-	}
+  }
 
-	#home-section-1-right-text p {
-		font-size: 18px;
-		line-height: 26px;
-	}
+  #home-section-1-right-text p {
+    font-size: 18px;
+    line-height: 26px;
+  }
 
-	#home-section-1-right-btns {
+  #home-section-1-right-btns {
     margin-top: 25px;
-	}
+  }
 
-	#home-section-2-title {
+  #home-section-2-title {
     margin: 300px 0 30px 10px;
     padding: 20px 0;
     width: 90%;
-	}
+  }
 
-	#home-section-2-title h1 {
+  #home-section-2-title h1 {
     font-size: 4rem;
     margin: 15px 0px;
     line-height: 55px;
-	}
+  }
 
-	#home-section-2-title p {
+  #home-section-2-title p {
     font-size: 24px;
     line-height: 27px;
-	}
+  }
 
-	#home-section-2-right-text {
+  #home-section-2-right-text {
     padding: 30px 0 0 10px;
-	}
+  }
 
-	#home-section-2-right-text p {
+  #home-section-2-right-text p {
     margin: 0 0 30px 50px;
-	}
+  }
 
   #home-section-4-media {
     margin-bottom: 0;
   }
 
-	.job-alerts-btn a {
+  .job-alerts-btn a {
     margin-left: 0;
-	}
+  }
 
   .contact-bkgd {
     height: 420px;
@@ -1394,68 +1402,68 @@ button.woocommerce-button.button.woocommerce-form-login__submit {
 
 @media screen and (max-width: 600px){
 
-	.job-alerts-btn {
+  .job-alerts-btn {
     margin: 65px 0 15px 0;
     text-align: center;
-	}
+  }
 
-	.job-seekers-row-2 {
-		width: 100%;
-	}
+  .job-seekers-row-2 {
+    width: 100%;
+  }
 
-	.job-seekers-row-5 {
-		display: none;
-	}	
+  .job-seekers-row-5 {
+    display: none;
+  } 
 
-	.job-seekers-row-6 {
-		padding-bottom: 0;
-	}
+  .job-seekers-row-6 {
+    padding-bottom: 0;
+  }
 
-	.wp-block-columns.what-we-offer-row-1 {
+  .wp-block-columns.what-we-offer-row-1 {
     margin-bottom: 0;
-	}
+  }
 
-	.wp-block-columns.what-we-offer-row-2 {
-		margin-bottom: 0;
-	}
+  .wp-block-columns.what-we-offer-row-2 {
+    margin-bottom: 0;
+  }
 
-	.offering {
+  .offering {
     margin-bottom: 40px;
-	}
+  }
 
-	.talent-tel-btn {
+  .talent-tel-btn {
     margin-left: 0 !important;
-	}
+  }
 
-	#our-process .wp-block-column {
-		text-align: center;
-	}
+  #our-process .wp-block-column {
+    text-align: center;
+  }
 
 }
 
 
 @media screen and (max-width: 450px){
 
-	#home-section-1 #home-section-1-left { 
+  #home-section-1 #home-section-1-left { 
     height: 268px;
-	}
+  }
 
-	#home-section-1 #home-section-1-right h1 {
+  #home-section-1 #home-section-1-right h1 {
     font-size: 3.5rem;
-	}
+  }
 
-	#home-section-1-right-text {
+  #home-section-1-right-text {
     margin: 20px 0 0 15px;
-	}
+  }
 
-	#home-section-1-right-text p {
-		line-height: 24px;
-	}
+  #home-section-1-right-text p {
+    line-height: 24px;
+  }
 
-	#home-section-4 p {
-		font-size: 18px;
+  #home-section-4 p {
+    font-size: 18px;
     line-height: 20px;
-	}
+  }
 
 }
 

@@ -46,7 +46,7 @@
 							
 							<h1>We are the <span>solution</span></h1>
 
-							<p>At Lexicon Solutions we Think Local.<br>We work for our community while putting our community to work.</p>
+							<p>At Lexicon Solutions we <strong>Think Local</strong>. We work for our community while putting our community to work.</p>
 
 						</div>
 					
@@ -62,9 +62,9 @@
 
 							<div id="home-section-2-right-text">
 								
-								<h3>Job Opportunities</h3>
+								<!-- <h3>Job Opportunities</h3>
 
-								<p>Making your success a priority</p>
+								<p>Making your success a priority</p> -->
 
 								<h3>Direct-Hire Recruitment</h3>
 
@@ -88,7 +88,7 @@
 					
 						<div class="col-md-5" id="home-section-3-left">						
 							<h2>Seeking Job  Opportunities</h2>
-							<p>Check out the opportunities that are looking to meet the right talent.</p>
+							<!-- <p>Check out the opportunities that are looking to meet the right talent.</p> -->
 							<a href="/jobs-seekers">
 								<h3>find work</h3>
 							</a>
@@ -96,7 +96,7 @@
 								
 						<div class="col-md-5" id="home-section-3-right">
 							<h2>Finding the Right One</h2>
-							<p>We guarantee that partnering with us will strategically be a win.</p>
+							<!-- <p>We guarantee that partnering with us will strategically be a win.</p> -->
 							<a href="/find-talent">
 								<h3>learn more</h3>
 							</a>
