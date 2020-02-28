@@ -31,6 +31,30 @@
 
 			<?php the_content(); // Dynamic Content ?>
 
+			<br>
+
+			<div class="info-under-single-listing">
+
+				<p><strong>Lexicon Solutions</strong> is a full-service staffing company specializing in contract, contract-to-hire, direct placement, and payroll services. Located in the Portland metro area, we are at the heart of technology in the Pacific Northwest. Lexicon Solutions has been voted by the Portland Business Journal as one of Portland's Top Staffing Firms from 2009 - 2019.</p>
+
+				<p><strong>Lexicon Solutions</strong> is proud to offer a comprehensive benefits package, including the following:
+					<ol>
+						<li>Major PPO (Pre-tax) medical/dental cafeteria plan.</li>
+						<li>AFLAC supplemental insurance.</li>
+						<li>Complementary care.</li>
+						<li>Individual supplemental term life policies.</li>
+						<li>Paid holidays and PTO.</li>
+						<li>Direct deposit payroll option.</li>
+					</ol>
+				</p>
+
+				<!-- This page has not been created so I am not going to show this -->
+				<!-- <p><strong>Lexicon Solutions</strong> offers a generous referral bonus program. For more information, visit our website at: <a href="#">www.lexiconsolutions.com/referralprogram</a></p> -->
+
+	 			<p>To view other <strong>Lexicon Solutions</strong> job opportunities, please visit our website at: <a href="/jobs">www.lexiconsolutions.com/jobs</a></p>
+
+	 		</div>
+
 			<?php the_tags( __( 'Tags: ', 'html5blank' ), ', ', '<br>'); // Separated by commas with a line break at the end ?>
 
 			<?php edit_post_link(); // Always handy to have Edit Post Links available ?>

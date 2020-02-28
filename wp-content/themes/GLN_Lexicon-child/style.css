@@ -962,6 +962,10 @@ article.has-post-thumbnail a img {
     display: none !important;
 }
 
+.info-under-single-listing ol li {
+  font-size: 18px;
+}
+
 
 /* Woo My Account section */
 

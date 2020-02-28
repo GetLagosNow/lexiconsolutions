@@ -82,7 +82,7 @@
 					<div id="under-nav-1">
 						<div id="header-tel"><a href="tel:1-503-469-6000">(503)469-6000</a></div>
 						<br>
-						<div id="header-add"><a target="_blank" href="https://goo.gl/maps/aBrA8z7zhDyKqcbB9">4605 SW Poplar Ln<br>Portland, OR 97225</a></div>
+						<div id="header-add"><a target="_blank" href="https://goo.gl/maps/dEzKmxPRDcQj1uFT9">4605 SW Poplar Ln<br>Portland, OR 97225</a></div>
 					</div>
 
 			</header>
