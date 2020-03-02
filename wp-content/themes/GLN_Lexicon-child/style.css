@@ -958,12 +958,61 @@ button#wpforms-submit-372, button#wpforms-submit-438, button#wpforms-submit-442 
 
 /* Single Job Listing page */
 
+.job_listing a {
+    color: #1e7538 !important;
+}
+
+.date, .author {
+    display: none;
+}
+
+li.date, li.date-posted {
+    display: none !important;
+}
+
+ul.job-listing-meta.meta {
+    font-size: 18px;
+}
+
 article.has-post-thumbnail a img {
     display: none !important;
 }
 
+table.job_detail {
+    margin: 30px 0;
+}
+
+table.job_detail h6 {
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.pageblock {
+    width: 90%;
+    margin-left: 2%;
+}
+
 .info-under-single-listing ol li {
-  font-size: 18px;
+    font-size: 18px;
+}
+
+.info-under-single-listing a:hover {
+  text-decoration: underline !important;
+}
+
+
+/* Jobs page */
+
+.job_listings {
+    font-size: 20px !important;
+}
+
+.position {
+    padding: 15px 0 !important;
+}
+
+li.job_listing a {
+    padding: 15px 10px !important;
 }
 
 

@@ -35,6 +35,10 @@
 
 			<div class="info-under-single-listing">
 
+				<a href="/jobs"><h4>&#8592; Back to Job Listings</h4></a>
+
+				<br>
+
 				<p><strong>Lexicon Solutions</strong> is a full-service staffing company specializing in contract, contract-to-hire, direct placement, and payroll services. Located in the Portland metro area, we are at the heart of technology in the Pacific Northwest. Lexicon Solutions has been voted by the Portland Business Journal as one of Portland's Top Staffing Firms from 2009 - 2019.</p>
 
 				<p><strong>Lexicon Solutions</strong> is proud to offer a comprehensive benefits package, including the following:
