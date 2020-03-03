@@ -200,7 +200,7 @@ a.modal-link {
 #menu {
     position: absolute;
     width: 150vw;
-    height: 150vh;
+    height: 300vh;
     margin: -200px 0px 0 -100px;
     padding: 285px 50px 50px 120px;
     background: #ededed;
@@ -1527,10 +1527,18 @@ button.woocommerce-button.button.woocommerce-form-login__submit {
     text-align: center;
   }
 
+  button.woocommerce-button.button.woocommerce-form-login__submit {
+    margin: 0 0 20px 40px;
+  }
+
 }
 
 
 @media screen and (max-width: 450px){
+
+  .wrapper {
+    width: 98%;
+  }
 
   #home-section-1 #home-section-1-left { 
     height: 268px;
@@ -1559,6 +1567,10 @@ button.woocommerce-button.button.woocommerce-form-login__submit {
   #home-section-4 p {
     font-size: 18px;
     line-height: 20px;
+  }
+
+  article#post-7 p, article#post-12 p {
+    font-size: 17px;
   }
 
   .modal-wrapper p {
