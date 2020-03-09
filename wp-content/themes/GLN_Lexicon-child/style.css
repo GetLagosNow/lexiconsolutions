@@ -536,7 +536,7 @@ li.menu-item.menu-item-29 {
     background-repeat: no-repeat;
     background-position: right;
     margin-left: -50px;
-    margin-top: -140px;
+    /*margin-top: -140px;*/
 }
 
 #home-section-2-right-text {
@@ -870,7 +870,7 @@ form#wpforms-form-372 {
 
 #wpforms-form-438 .wpforms-title {
     color: #C5811B;
-    font-size: 48px;
+    font-size: 36px;
     font-weight: bold;
 }
 
