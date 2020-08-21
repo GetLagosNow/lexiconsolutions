@@ -78,12 +78,8 @@ class MediaFromFtpAjax {
 
 		$action1 = 'mediafromftp-update-ajax-action';
 		$action3 = 'mediafromftp_message';
-		$action2 = 'mediafromftp-import-ajax-action';
-		$action4 = 'mediafromftp_medialibraryimport_message';
 		add_action( 'wp_ajax_' . $action1, array( $this, 'mediafromftp_update_callback' ) );
 		add_action( 'wp_ajax_' . $action3, array( $this, 'mediafromftp_message_callback' ) );
-		add_action( 'wp_ajax_' . $action2, array( $this, 'mediafromftp_medialibraryimport_update_callback' ) );
-		add_action( 'wp_ajax_' . $action4, array( $this, 'mediafromftp_medialibraryimport_message_callback' ) );
 
 	}
 
@@ -104,7 +100,7 @@ class MediaFromFtpAjax {
 					$maxcount = intval( $_POST['maxcount'] );
 				}
 
-				$mediafromftp_settings = get_option( $this->wp_options_name() );
+				$mediafromftp_settings = get_user_option( 'mediafromftp', get_current_user_id() );
 				$mediafromftp = new MediaFromFtp();
 
 				if ( ! empty( $_POST['new_url'] ) ) {
@@ -171,7 +167,7 @@ class MediaFromFtpAjax {
 						$error_url = $mediafromftp->mb_utf8( $new_url_attach, $mediafromftp_settings['character_code'] );
 						if ( -1 == $attach_id ) {
 							/* translators: error message */
-							echo '<div class="notice notice-error is-dismissible"><ul><li><div>' . wp_kses_post( __( 'File name:' ) . $error_title . '</div><div>' . __( 'Directory name:', 'media-from-ftp' ) . $error_url . '</div>' . sprintf( __( '<div>You need to make this directory writable before you can register this file. See <a href="%1$s" target="_blank">the Codex</a> for more information.</div><div>Or, filename or directoryname must be changed of illegal. Please change Character Encodings for Server of <a href="%2$s">Settings</a>.</div>', 'media-from-ftp' ), 'https://codex.wordpress.org/Changing_File_Permissions', admin_url( 'admin.php?page=mediafromftp-settings' ) ) ) . '</li></div>';
+							echo '<div class="notice notice-error is-dismissible"><ul><li><div>' . wp_kses_post( __( 'File name:' ) . $error_title . '</div><div>' . __( 'Directory name:', 'media-from-ftp' ) . $error_url . '</div>' . sprintf( __( '<div>You need to make this directory writable before you can register this file. See <a href="%1$s" target="_blank" rel="noopener noreferrer">the Codex</a> for more information.</div><div>Or, filename or directoryname must be changed of illegal. Please change Character Encodings for Server of <a href="%2$s">Settings</a>.</div>', 'media-from-ftp' ), 'https://codex.wordpress.org/Changing_File_Permissions', admin_url( 'admin.php?page=mediafromftp-settings' ) ) ) . '</li></div>';
 						} elseif ( -2 == $attach_id ) {
 							echo '<div class="notice notice-error is-dismissible"><ul><li><div>' . wp_kses_post( __( 'Title' ) . ': ' . $error_title . '</div><div>URL: ' . $error_url . '</div><div>' . __( 'This file could not be registered in the database.', 'media-from-ftp' ) ) . '</div></li></ul></div>';
 						}
@@ -181,13 +177,14 @@ class MediaFromFtpAjax {
 
 						$image_attr_thumbnail = wp_get_attachment_image_src( $attach_id, 'thumbnail', true );
 
-						$output_html = $mediafromftp->output_html_and_log( $ext, $attach_id, $new_attach_title, $new_url_attach, $imagethumburls, $mimetype, $length, $stamptime, $file_size, $exif_text, $image_attr_thumbnail, $mediafromftp_settings, $cat_html, $mlccategory, $emlcategory, $mlacategory, $mlatag );
+						$output_html = $mediafromftp->output_html_and_log( $metadata, $ext, $attach_id, $new_attach_title, $new_url_attach, $imagethumburls, $mimetype, $length, $stamptime, $file_size, $exif_text, $image_attr_thumbnail, $mediafromftp_settings, $cat_html, $mlccategory, $emlcategory, $mlacategory, $mlatag );
 
 						header( 'Content-type: text/html; charset=UTF-8' );
 						$allowed_output_html = array(
 							'a'   => array(
 								'href' => array(),
 								'target' => array(),
+								'rel' => array(),
 								'style' => array(),
 							),
 							'img'   => array(
@@ -270,172 +267,6 @@ class MediaFromFtpAjax {
 
 		wp_die();
 
-	}
-
-	/** ==================================================
-	 * Import Files Callback
-	 *
-	 * @since 9.40
-	 */
-	public function mediafromftp_medialibraryimport_update_callback() {
-
-		$action2 = 'mediafromftp-import-ajax-action';
-		if ( check_ajax_referer( $action2, 'nonce', false ) ) {
-			if ( current_user_can( 'upload_files' ) ) {
-				if ( ! empty( $_POST['file'] ) ) {
-					$file = sanitize_text_field( wp_unslash( $_POST['file'] ) );
-				} else {
-					return;
-				}
-				$filepath = str_replace( $this->upload_dir . '/', '', $file );
-				if ( is_file( $file ) ) {
-					if ( ! empty( $_POST['db_array'] ) ) {
-						$db_array = filter_var(
-							wp_unslash( $_POST['db_array'] ),
-							FILTER_CALLBACK,
-							[
-								'options' => function( $value ) {
-									return sanitize_text_field( $value );
-								},
-							]
-						);
-						$db_id = intval( $db_array['ID'] );
-						global $wpdb;
-						$table_name   = $wpdb->prefix . 'posts';
-						$wpdb->insert( $table_name, $db_array );
-						update_attached_file( $db_id, $filepath );
-						if ( ! empty( $_POST['db_wp_attachment_metadata'] ) ) {
-							$metadata_json   = sanitize_text_field( wp_unslash( $_POST['db_wp_attachment_metadata'] ) );
-							$metadata        = json_decode( $metadata_json );
-							$table_meta_name = $wpdb->prefix . 'postmeta';
-							$db_meta_array   = array(
-								'post_id'    => $db_id,
-								'meta_key'   => '_wp_attachment_metadata',
-								'meta_value' => $metadata,
-							);
-							$wpdb->insert( $table_meta_name, $db_meta_array );
-						}
-						if ( ! empty( $_POST['db_thumbnail_id'] ) ) {
-							update_post_meta( $db_id, '_thumbnail_id', intval( $_POST['db_thumbnail_id'] ) );
-						}
-						if ( ! empty( $_POST['db_cover_hash'] ) ) {
-							update_post_meta( $db_id, '_cover_hash', sanitize_text_field( wp_unslash( $_POST['db_cover_hash'] ) ) );
-						}
-						if ( ! empty( $_POST['db_wp_attachment_image_alt'] ) ) {
-							update_post_meta( $db_id, '_wp_attachment_image_alt', sanitize_text_field( wp_unslash( $_POST['db_wp_attachment_image_alt'] ) ) );
-						}
-						$msg = 'success_db';
-						$output_html = $msg . ',<div>' . __( 'Media' ) . ': <a href="' . get_permalink( $db_id ) . '" target="_blank" style="text-decoration: none; color: green;">' . $this->esc_title( $db_array['post_title'] ) . '</a>: <a href="' . $this->upload_url . '/' . $filepath . '" target="_blank" style="text-decoration: none;">' . $filepath . '</a></div>';
-					} else {
-						$msg = 'success';
-						$output_html = $msg . ',<div>' . __( 'Thumbnail' ) . ': <a href="' . $this->upload_url . '/' . $filepath . '" target="_blank" style="text-decoration: none;">' . $filepath . '</a></div>';
-					}
-				} else {
-					$error_string = __( 'No file!', 'media-from-ftp' );
-					$msg = '<div>' . $filepath . ': ' . $error_string . '</div>';
-					$output_html = $msg . ',<div>' . $filepath . '<span style="color: red;"> &#8811; ' . $error_string . '</span></div>';
-				}
-
-				header( 'Content-type: text/html; charset=UTF-8' );
-				$allowed_output_html = array(
-					'a'   => array(
-						'href' => array(),
-						'target' => array(),
-						'style' => array(),
-					),
-					'div'   => array(),
-					'span'   => array(
-						'class' => array(),
-					),
-				);
-				echo wp_kses( $output_html, $allowed_output_html );
-			}
-		} else {
-			status_header( '403' );
-			echo 'Forbidden';
-		}
-
-		wp_die();
-
-	}
-
-	/** ==================================================
-	 * Import Messages Callback
-	 *
-	 * @since 9.40
-	 */
-	public function mediafromftp_medialibraryimport_message_callback() {
-
-		$action4 = 'mediafromftp_medialibraryimport_message';
-		if ( check_ajax_referer( $action4, 'nonce', false ) ) {
-			$error_count = 0;
-			$error_update = null;
-			$success_count = 0;
-			$db_success_count = 0;
-			if ( ! empty( $_POST['error_count'] ) ) {
-				$error_count = intval( $_POST['error_count'] );
-			}
-			if ( ! empty( $_POST['error_update'] ) ) {
-				$error_update = sanitize_text_field( wp_unslash( $_POST['error_update'] ) );
-			}
-			if ( ! empty( $_POST['success_count'] ) ) {
-				$success_count = intval( $_POST['success_count'] );
-			}
-			if ( ! empty( $_POST['db_success_count'] ) ) {
-				$db_success_count = intval( $_POST['db_success_count'] );
-			}
-
-			$output_html = null;
-			if ( $error_count > 0 ) {
-				/* translators: error message */
-				$error_message = sprintf( __( 'Errored to the registration of %1$d files.', 'media-from-ftp' ), $error_count );
-				$output_html .= '<div class="notice notice-error is-dismissible"><ul><li><div>' . $error_message . '</div>' . $error_update . '</li></ul></div>';
-			}
-			/* translators: success message */
-			$success_message = sprintf( __( 'Succeeded to the registration of %1$d files and %2$d items for MediaLibrary.', 'media-from-ftp' ), $success_count, $db_success_count );
-			$output_html .= '<div class="notice notice-success is-dismissible"><ul><li><div>' . $success_message . '</li></ul></div>';
-
-			header( 'Content-type: text/html; charset=UTF-8' );
-			$allowed_output_html = array(
-				'div'   => array(
-					'class' => array(),
-				),
-				'ul' => array(),
-				'li' => array(),
-			);
-			echo wp_kses( $output_html, $allowed_output_html );
-		}
-
-		wp_die();
-
-	}
-
-	/** ==================================================
-	 * Escape Title
-	 *
-	 * @param string $str  str.
-	 * @return string $str
-	 * @since   9.41
-	 */
-	private function esc_title( $str ) {
-
-		$str = esc_html( $str );
-		$str = str_replace( ',', '&#44;', $str );
-
-		return $str;
-	}
-
-	/** ==================================================
-	 * Options name
-	 *
-	 * @return string $this->wp_options_name()
-	 * @since 10.09
-	 */
-	private function wp_options_name() {
-		if ( ! function_exists( 'wp_get_current_user' ) ) {
-			include_once( ABSPATH . 'wp-includes/pluggable.php' );
-		}
-		return 'mediafromftp_settings_' . get_current_user_id();
 	}
 
 }

@@ -12,7 +12,7 @@
  *
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @package WooCommerce/Templates
- * @version 3.6.0
+ * @version 4.1.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -23,9 +23,9 @@ do_action( 'woocommerce_before_customer_login_form' ); ?>
 
 <?php if ( 'yes' === get_option( 'woocommerce_enable_myaccount_registration' ) ) : ?>
 
-<div class="u-columns col2-set" id="customer_login">
+<div class="row" id="customer_login">
 
-	<div>
+	<div class="col-md-6">
 
 <?php endif; ?>
 
@@ -65,9 +65,9 @@ do_action( 'woocommerce_before_customer_login_form' ); ?>
 
 	</div>
 
-	<div>
+	<div class="col-md-6">
 
-		<h2><?php esc_html_e( 'Create Your Profile', 'woocommerce' ); ?></h2>
+		<h2><?php esc_html_e( 'Register', 'woocommerce' ); ?></h2>
 
 		<form method="post" class="woocommerce-form woocommerce-form-register register" <?php do_action( 'woocommerce_register_form_tag' ); ?> >
 
@@ -102,7 +102,7 @@ do_action( 'woocommerce_before_customer_login_form' ); ?>
 
 			<?php do_action( 'woocommerce_register_form' ); ?>
 
-			<p class="woocommerce-FormRow form-row">
+			<p class="woocommerce-form-row form-row">
 				<?php wp_nonce_field( 'woocommerce-register', 'woocommerce-register-nonce' ); ?>
 				<button type="submit" class="woocommerce-Button woocommerce-button button woocommerce-form-register__submit" name="register" value="<?php esc_attr_e( 'Register', 'woocommerce' ); ?>"><?php esc_html_e( 'Register', 'woocommerce' ); ?></button>
 			</p>

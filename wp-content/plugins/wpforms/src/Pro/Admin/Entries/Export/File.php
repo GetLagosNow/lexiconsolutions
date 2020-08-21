@@ -59,6 +59,10 @@ class File {
 
 		$export_file = $this->get_tmpfname( $request_data );
 
+		if ( empty( $export_file ) ) {
+			return;
+		}
+
 		// Include Exporter.
 		require_once WPFORMS_PLUGIN_DIR . 'vendor/autoload.php';
 
@@ -78,24 +82,25 @@ class File {
 	 */
 	public function get_tmpdir() {
 
-		$uploads              = wp_upload_dir();
-		$wpforms_uploads_root = trailingslashit( $uploads['basedir'] ) . 'wpforms';
+		$upload_dir  = wpforms_upload_dir();
+		$upload_path = $upload_dir['path'];
 
-		// Apply filter to allow redefine tmp directory.
-		$custom_uploads_root = apply_filters( 'wpforms_upload_root', $wpforms_uploads_root );
-		if ( wp_is_writable( $custom_uploads_root ) ) {
-			$wpforms_uploads_root = $custom_uploads_root;
+		$export_path = trailingslashit( $upload_path ) . 'export';
+		if ( ! file_exists( $export_path ) ) {
+			wp_mkdir_p( $export_path );
 		}
 
-		$export_dir = trailingslashit( $wpforms_uploads_root ) . 'export';
-		if ( ! file_exists( $export_dir ) ) {
-			wp_mkdir_p( $export_dir );
-		}
+		// Check if the .htaccess exists in the upload directory, if not - create it.
+		wpforms_create_upload_dir_htaccess_file();
+
+		// Check if the index.html exists in the directories, if not - create it.
+		wpforms_create_index_html_file( $upload_path );
+		wpforms_create_index_html_file( $export_path );
 
 		// Normalize slashes for Windows.
-		$export_dir = wp_normalize_path( $export_dir );
+		$export_path = wp_normalize_path( $export_path );
 
-		return $export_dir;
+		return $export_path;
 	}
 
 	/**
@@ -108,6 +113,10 @@ class File {
 	 * @return string Temporary file full pathname.
 	 */
 	public function get_tmpfname( $request_data ) {
+
+		if ( empty( $request_data ) ) {
+			return '';
+		}
 
 		$export_dir  = $this->get_tmpdir();
 		$export_file = $export_dir . '/' . sanitize_key( $request_data['request_id'] );
@@ -132,6 +141,43 @@ class File {
 		header( 'Content-Type: text/csv' );
 		header( 'Content-Disposition: attachment; filename=' . $file_name );
 		header( 'Content-Transfer-Encoding: binary' );
+	}
+
+	/**
+	 * Output the file.
+	 *
+	 * @since 1.6.0.2
+	 *
+	 * @param array $request_data Request data.
+	 *
+	 * @throws \Exception In case of file error.
+	 */
+	public function output_file( $request_data ) {
+
+		$export_file = $this->get_tmpfname( $request_data );
+
+		if ( empty( $export_file ) ) {
+			throw new \Exception( $this->export->errors['unknown_request'] );
+		}
+
+		clearstatcache( true, $export_file );
+
+		if ( ! is_readable( $export_file ) || is_dir( $export_file ) ) {
+			throw new \Exception( $this->export->errors['file_not_readable'] );
+		}
+
+		if ( @filesize( $export_file ) === 0 ) { //phpcs:ignore
+			throw new \Exception( $this->export->errors['file_empty'] );
+		}
+
+		$entry_suffix = ! empty( $request_data['db_args']['entry_id'] ) ? '-entry-' . $request_data['db_args']['entry_id'] : '';
+
+		$file_name = 'wpforms-' . $request_data['db_args']['form_id'] . '-' . sanitize_file_name( get_the_title( $request_data['db_args']['form_id'] ) ) . $entry_suffix . '-' . current_time( 'Y-m-d-H-i-s' ) . '.csv';
+		$this->http_headers( $file_name );
+
+		readfile( $export_file ); // phpcs:ignore
+
+		exit;
 	}
 
 	/**
@@ -167,23 +213,7 @@ class File {
 			// Get stored request data.
 			$request_data = get_transient( 'wpforms-tools-entries-export-request-' . $args['request_id'] );
 
-			$export_file = $this->get_tmpfname( $request_data );
-
-			clearstatcache( true, $export_file );
-
-			if ( ! is_readable( $export_file ) ) {
-				throw new \Exception( $this->export->errors['file_not_readable'] );
-			}
-
-			if ( @filesize( $export_file ) === 0 ) { //phpcs:ignore
-				throw new \Exception( $this->export->errors['file_empty'] );
-			}
-
-			$file_name = 'wpforms-' . $request_data['db_args']['form_id'] . '-' . sanitize_file_name( get_the_title( $request_data['db_args']['form_id'] ) ) . '-' . date( 'Y-m-d-H-i-s' ) . '.csv';
-			$this->http_headers( $file_name );
-
-			readfile( $export_file ); // phpcs:ignore
-			exit;
+			$this->output_file( $request_data );
 
 		} catch ( \Exception $e ) {
 			// phpcs:disable
@@ -258,23 +288,7 @@ class File {
 			// Writing to csv file.
 			$this->write_csv( $export_data, $request_data );
 
-			$export_file = $this->get_tmpfname( $request_data );
-
-			clearstatcache( true, $export_file );
-
-			if ( ! is_readable( $export_file ) ) {
-				throw new \Exception( $this->export->errors['file_not_readable'] );
-			}
-
-			if ( @filesize( $export_file ) === 0 ) { //phpcs:ignore
-				throw new \Exception( $this->export->errors['file_empty'] );
-			}
-
-			$file_name = 'wpforms-' . $request_data['db_args']['form_id'] . '-' . sanitize_file_name( get_the_title( $request_data['db_args']['form_id'] ) ) . '-entry-' . $request_data['db_args']['entry_id'] . '-' . date( 'Y-m-d-H-i-s' ) . '.csv';
-			$this->http_headers( $file_name );
-
-			readfile( $export_file ); // phpcs:ignore
-			exit;
+			$this->output_file( $request_data );
 
 		} catch ( \Exception $e ) {
 

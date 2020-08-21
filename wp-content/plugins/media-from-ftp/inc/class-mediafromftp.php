@@ -137,9 +137,9 @@ class MediaFromFtp {
 			$thumb_deep_search = $mediafromftp_settings['thumb_deep_search'];
 		}
 		if ( $thumb_deep_search ) {
-			$excludefile = 'media-from-ftp-tmp';    /* tmp dir file */
+			$excludefile = 'media-from-ftp-tmp|bulk-media-register-tmp';    /* tmp dir file */
 		} else {
-			$excludefile = '-[0-9]+x[0-9]+\.|media-from-ftp-tmp';   /* thumbnail & tmp dir file */
+			$excludefile = '-[0-9]+x[0-9]+\.|media-from-ftp-tmp|bulk-media-register-tmp';   /* thumbnail & tmp dir file */
 		}
 
 		$recursive_search = true;
@@ -445,7 +445,7 @@ class MediaFromFtp {
 			}
 		}
 
-		$del_cash_thumb_filename = $this->plugin_tmp_dir . '/*.*';
+		$del_cash_thumb_filename = $this->plugin_tmp_dir . '/*';
 		foreach ( glob( $del_cash_thumb_filename ) as $val ) {
 			unlink( $val );
 			++$del_cash_count;
@@ -476,8 +476,6 @@ class MediaFromFtp {
 				$date = $shooting_date . $shooting_time;
 			}
 		}
-
-		$date = substr( $date, 0, strlen( $date ) - 3 );
 
 		return $date;
 
@@ -519,8 +517,7 @@ class MediaFromFtp {
 				$metadata = wp_get_attachment_metadata( $attachment->ID );
 				$orginal_image_url = null;
 				if ( ! empty( $metadata['original_image'] ) ) {
-					$only_file = wp_basename( $path_file );
-					$orginal_image_url = $this->upload_url . '/' . str_replace( $only_file, '', $path_file ) . $metadata['original_image'];
+					$orginal_image_url = wp_get_original_image_url( $attachment->ID );
 				}
 				$original_url = $this->upload_url . '/' . get_post_meta( $attachment->ID, '_wp_attached_file', true );
 				$pdf_thumb_url = rtrim( $attach_url, '.pdf' ) . '-pdf.jpg'; /* for pdf thumbnail by imagick */
@@ -588,7 +585,7 @@ class MediaFromFtp {
 		}
 
 		$input_html .= '<div style="overflow: hidden;">';
-		$input_html .= '<div><a href="' . $new_url . '" target="_blank" style="text-decoration: none; word-break: break-all;">' . $new_url . '</a></div>';
+		$input_html .= '<div><a href="' . $new_url . '" target="_blank" rel="noopener noreferrer" style="text-decoration: none; word-break: break-all;">' . $new_url . '</a></div>';
 
 		if ( $mediafromftp_settings['search_display_metadata'] ) {
 			$input_html .= '<div>' . __( 'File type:' ) . ' ' . $mimetype . '</div>';
@@ -932,7 +929,9 @@ class MediaFromFtp {
 			$postdategmt = date_i18n( 'Y-m-d H:i:s', false, true );
 		}
 		if ( 'server' === $dateset || 'exif' === $dateset ) {
-			$postdategmt = get_gmt_from_date( $new_url_datetime . ':00' );
+			$postdategmt = get_gmt_from_date( $new_url_datetime );
+		} else if ( 'fixed' === $dateset ) {
+			$postdategmt = get_gmt_from_date( $datefixed );
 		}
 
 		$path_parts = pathinfo( $filename );
@@ -1030,9 +1029,6 @@ class MediaFromFtp {
 
 		/* Date Time Regist */
 		if ( 'new' <> $dateset ) {
-			if ( 'fixed' === $dateset ) {
-				$postdategmt = get_gmt_from_date( $datefixed . ':00' );
-			}
 			$postdate = get_date_from_gmt( $postdategmt );
 			$up_post = array(
 				'ID' => $attach_id,
@@ -1079,32 +1075,27 @@ class MediaFromFtp {
 	public function output_metadata( $ext, $attach_id, $metadata, $character_code, $exif_text_tag ) {
 
 		$imagethumburls = array();
-		$mimetype = null;
 		$length = null;
 		$exif_text = null;
 		$filetype = wp_check_filetype( $this->mb_encode_multibyte( get_attached_file( $attach_id ), $character_code ) );
+		$mimetype = $filetype['type'];
 		if ( 'image' === wp_ext2type( $ext ) || 'pdf' === strtolower( $ext ) ) {
-			$wp_attached_file = get_post_meta( $attach_id, '_wp_attached_file', true );
-			$imagethumburl_base = $this->upload_url . '/' . rtrim( $wp_attached_file, wp_basename( $wp_attached_file ) );
+			$media_path  = get_post_meta( $attach_id, '_wp_attached_file', true );
+			$media_paths = explode( DIRECTORY_SEPARATOR, $media_path );
+			$str_length  = strlen( end( $media_paths ) );
+			$media_path  = substr( $media_path, 0, -$str_length );
+			$media_url   = $this->upload_url . '/' . $media_path;
 			if ( ! empty( $metadata ) ) {
-				foreach ( $metadata as $key1 => $key2 ) {
-					if ( 'sizes' === $key1 ) {
-						foreach ( $metadata[ $key1 ] as $key2 => $key3 ) {
-							$imagethumburls[ $key2 ] = $imagethumburl_base . $metadata['sizes'][ $key2 ]['file'];
-						}
-					}
+				$thumbnails = $metadata['sizes'];
+				foreach ( $thumbnails as $key => $key2 ) {
+					$imagethumburls[ $key ] = $media_url . $key2['file'];
 				}
 			}
-			$mimetype = $filetype['ext'] . '(' . $filetype['type'] . ')';
 		} else if ( 'video' === wp_ext2type( $ext ) || 'audio' === wp_ext2type( $ext ) ) {
-			$mimetype = $metadata['fileformat'] . '(' . $metadata['mime_type'] . ')';
 			$length = $metadata['length_formatted'];
-		} else {
-			$metadata = null;
-			$mimetype = $filetype['ext'] . '(' . $filetype['type'] . ')';
 		}
 
-		$stamptime = get_the_time( 'Y-n-j ', $attach_id ) . get_the_time( 'G:i', $attach_id );
+		$stamptime = get_the_time( 'Y-n-j ', $attach_id ) . get_the_time( 'G:i:s', $attach_id );
 		if ( isset( $metadata['filesize'] ) ) {
 			$file_size = $metadata['filesize'];
 		} else {
@@ -1129,6 +1120,7 @@ class MediaFromFtp {
 	/** ==================================================
 	 * Output html and log
 	 *
+	 * @param array  $metadata  metadata.
 	 * @param string $ext  ext.
 	 * @param int    $attach_id  attach_id.
 	 * @param string $new_attach_title  new_attach_title.
@@ -1149,20 +1141,24 @@ class MediaFromFtp {
 	 * @return string $output_html
 	 * @since 9.30
 	 */
-	public function output_html_and_log( $ext, $attach_id, $new_attach_title, $new_url_attach, $imagethumburls, $mimetype, $length, $stamptime, $file_size, $exif_text, $image_attr_thumbnail, $mediafromftp_settings, $cat_html, $mlccategory, $emlcategory, $mlacategory, $mlatag ) {
+	public function output_html_and_log( $metadata, $ext, $attach_id, $new_attach_title, $new_url_attach, $imagethumburls, $mimetype, $length, $stamptime, $file_size, $exif_text, $image_attr_thumbnail, $mediafromftp_settings, $cat_html, $mlccategory, $emlcategory, $mlacategory, $mlatag ) {
 
-		$thumbnails = array();
+		$attachment_link = get_attachment_link( $attach_id );
+		$attachment_url = wp_get_attachment_url( $attach_id );
+		$original_image_url = wp_get_original_image_url( $attach_id );
 
 		$output_html = '<div style="border-bottom: 1px solid; padding-top: 5px; padding-bottom: 5px;">';
 		$output_html .= '<img width="40" height="40" src="' . $image_attr_thumbnail[0] . '" style="float: left; margin: 5px;">';
 		$output_html .= '<div style="overflow: hidden;">';
 		$output_html .= '<div>ID: ' . $attach_id . '</div>';
 		$output_html .= '<div>' . __( 'Title' ) . ': ' . $new_attach_title . '</div>';
-		$output_html .= '<div>' . __( 'Permalink:' ) . ' <a href="' . get_attachment_link( $attach_id ) . '" target="_blank" style="text-decoration: none; word-break: break-all;">' . get_attachment_link( $attach_id ) . '</a></div>';
-		$output_html .= '<div>URL: <a href="' . $new_url_attach . '" target="_blank" style="text-decoration: none; word-break: break-all;">' . $new_url_attach . '</a></div>';
-		$new_url_attachs = explode( '/', $new_url_attach );
-		$output_html .= '<div>' . __( 'File name:' ) . ' ' . end( $new_url_attachs ) . '</div>';
-
+		$output_html .= '<div>' . __( 'Permalink:' ) . ' <a href="' . $attachment_link . '" target="_blank" rel="noopener noreferrer" style="text-decoration: none; word-break: break-all;">' . $attachment_link . '</a></div>';
+		$output_html .= '<div>URL: <a href="' . $attachment_url . '" target="_blank" rel="noopener noreferrer" style="text-decoration: none; word-break: break-all;">' . $attachment_url . '</a></div>';
+		$output_html .= '<div>' . __( 'File name:' ) . ' ' . wp_basename( $attachment_url ) . '</div>';
+		if ( ! empty( $metadata['original_image'] ) ) {
+			$output_html .= '<div>' . __( 'Original URL', 'media-from-ftp' ) . ': <a href="' . $original_image_url . '" target="_blank" rel="noopener noreferrer" style="text-decoration: none; word-break: break-all;">' . $original_image_url . '</a></div>';
+			$output_html .= '<div>' . __( 'Original File name', 'media-from-ftp' ) . ': ' . wp_basename( $original_image_url ) . '</div>';
+		}
 		$output_html .= '<div>' . __( 'Date/Time' ) . ': ' . $stamptime . '</div>';
 		if ( ! $file_size ) {
 			$file_size = '<font color="red">' . __( 'Could not retrieve.', 'media-from-ftp' ) . '</font>';
@@ -1171,11 +1167,16 @@ class MediaFromFtp {
 		}
 		$output_html .= '<div>' . __( 'File type:' ) . ' ' . $mimetype . '</div>';
 		$output_html .= '<div>' . __( 'File size:' ) . ' ' . $file_size . '</div>';
-		if ( 'image' === wp_ext2type( $ext ) || ( 'pdf' === strtolower( $ext ) && ! empty( $imagethumburls ) ) ) {
+		if ( ( 'image' === wp_ext2type( $ext ) || 'pdf' === strtolower( $ext ) ) && ! empty( $imagethumburls ) ) {
 			$output_html .= '<div>' . __( 'Images' ) . ': ';
+			$thumbnails = array();
 			$thumb_count = 0;
+			if ( ! empty( $metadata['original_image'] ) ) {
+				++$thumb_count;
+				$thumbnails[ $thumb_count ] = $original_image_url;
+			}
 			foreach ( $imagethumburls as $thumbsize => $imagethumburl ) {
-				$output_html .= '[<a href="' . $imagethumburl . '" target="_blank" style="text-decoration: none; word-break: break-all;">' . $thumbsize . '</a>]';
+				$output_html .= '[<a href="' . $imagethumburl . '" target="_blank" rel="noopener noreferrer" style="text-decoration: none; word-break: break-all;">' . $thumbsize . '</a>]';
 				++$thumb_count;
 				$thumbnails[ $thumb_count ] = $imagethumburl;
 			}
@@ -1203,9 +1204,9 @@ class MediaFromFtp {
 				'id' => $attach_id,
 				'user' => $user->display_name,
 				'title' => $new_attach_title,
-				'permalink' => get_attachment_link( $attach_id ),
-				'url' => $new_url_attach,
-				'filename' => end( $new_url_attachs ),
+				'permalink' => $attachment_link,
+				'url' => $attachment_url,
+				'filename' => wp_basename( $attachment_url ),
 				'time' => $stamptime,
 				'filetype' => $mimetype,
 				'filesize' => $file_size,
@@ -1449,271 +1450,6 @@ class MediaFromFtp {
 		}
 
 		return $str;
-
-	}
-
-	/** ==================================================
-	 * Array replace for php < 5.3.0
-	 *
-	 * @return array $array
-	 * @since 9.11
-	 */
-	private function array_replace() {
-
-		$array = array();
-		$n = func_num_args();
-
-		while ( $n-- > 0 ) {
-			$array += func_get_arg( $n );
-		}
-		return $array;
-	}
-
-
-	/** ==================================================
-	 * Author select for Media Library Import
-	 *
-	 * @param string $filename  filename.
-	 * @return array $authors
-	 * @since 9.43
-	 */
-	public function author_select( $filename ) {
-
-		$scriptname = admin_url( 'admin.php?page=mediafromftp-import' );
-
-		$s = @file_get_contents( $filename );
-		$control_code = array( "\x00", "\x01", "\x02", "\x03", "\x04", "\x05", "\x06", "\x07", "\x08", "\x0b", "\x0c", "\x0e", "\x0f" );
-		$s = str_replace( $control_code, '', $s );
-		$xml = simplexml_load_string( $s );
-
-		$authors = array();
-		$namespaces = $xml->getDocNamespaces();
-		foreach ( $xml->xpath( '/rss/channel/wp:author' ) as $author_arr ) {
-			$a = $author_arr->children( $namespaces['wp'] );
-			$authors[] = array(
-				'author_login' => (string) $a->author_login,
-				'author_display_name' => (string) $a->author_display_name,
-			);
-		}
-
-		$form_select = null;
-		$count = 0;
-		if ( current_user_can( 'manage_options' ) ) {
-			$blogusers = get_users();
-			foreach ( $authors as $key => $value ) {
-				++$count;
-				$form_select .= '<div style="display: block; padding: 5px 10px">' . $count . '.' . __( 'Import author:', 'media-from-ftp' ) . '<strong>' . $value['author_display_name'] . '(' . $value['author_login'] . ')</strong></div>';
-				$form_select .= '<div style="display: block; padding: 5px 30px">' . __( 'Assign posts to an existing user:', 'media-from-ftp' ) . '<select name="' . $value['author_login'] . '">';
-				$form_select .= '<option value="-1" select>' . __( 'Select' ) . '</option>';
-				foreach ( $blogusers as $user ) {
-					$form_select .= '<option value="' . $user->ID . '">' . $user->display_name . '(' . $user->user_login . ')</option>';
-				}
-				$form_select .= '</select></div>';
-			}
-			$current_user = wp_get_current_user();
-			$current_user_html = '<strong>' . $current_user->display_name . '(' . $current_user->user_login . ')</strong>';
-			/* translators: Current user */
-			$form_select .= '<div style="display: block; padding: 10px 0px">' . sprintf( __( 'If not selected, assign posts to %1$s.', 'media-from-ftp' ), $current_user_html ) . '</div>';
-		} else {
-			$user = wp_get_current_user();
-			foreach ( $authors as $key => $value ) {
-				++$count;
-				$form_select .= '<div style="display: block; padding: 5px 10px">' . $count . '.' . __( 'Import author:', 'media-from-ftp' ) . '<strong>' . $value['author_display_name'] . '(' . $value['author_login'] . ')</strong></div>';
-				$current_user_html = '<strong>' . $user->display_name . '(' . $user->user_login . ')</strong>';
-				/* translators: Current user */
-				$form_select .= '<div style="display: block; padding: 5px 30px">' . sprintf( __( 'Assign posts to %1$s', 'media-from-ftp' ), $current_user_html ) . '</div>';
-
-			}
-		}
-		$button_value = get_submit_button( __( 'Apply' ), 'large', 'select_author', false );
-		$nonce_field = wp_nonce_field( 'mff_select_author', 'media_from_ftp_select_author' );
-
-		$author_form = <<<MEDIAFROMFTP_AUTHOR_SELECT
-
-<!-- BEGIN: Media from FTP Media Library Import -->
-<form method="post" action="$scriptname">
-$nonce_field
-$form_select
-<div style="display: block; padding: 20px 0px">$button_value</div>
-<input type="hidden" name="mediafromftp_select_author" value="1" />
-<input type="hidden" name="mediafromftp_xml_file" value="$filename" />
-</form>
-
-<!-- END: Media from FTP Media Library Import -->
-
-MEDIAFROMFTP_AUTHOR_SELECT;
-
-		return $author_form;
-
-	}
-
-	/** ==================================================
-	 * Make object for Media Library Import
-	 *
-	 * @param string $filename  filename.
-	 * @param array  $select_author  select_author.
-	 * @return string $add_js
-	 * @since 9.40
-	 */
-	public function make_object( $filename, $select_author ) {
-
-		$s = @file_get_contents( $filename );
-		$control_code = array( "\x00", "\x01", "\x02", "\x03", "\x04", "\x05", "\x06", "\x07", "\x08", "\x0b", "\x0c", "\x0e", "\x0f" );
-		$s = str_replace( $control_code, '', $s );
-		$xml = simplexml_load_string( $s );
-		$data = array();
-		foreach ( $xml->channel->item as $item ) {
-			$x = array();
-			$x['title'] = (string) $item->title;
-			$x['link'] = (string) $item->link;
-			$x['pubDate'] = (string) $item->pubDate;
-			$x['creator'] = (string) $item->children( 'dc', true )->creator;
-			$x['guid'] = (string) $item->guid;
-			$x['guid_atr'] = (string) $item->guid->attributes()->isPermaLink;
-			$x['description'] = (string) $item->description;
-			$x['content_encoded'] = (string) $item->children( 'content', true )->encoded;
-			$x['excerpt_encoded'] = (string) $item->children( 'excerpt', true )->encoded;
-			$x['post_id'] = (int) $item->children( 'wp', true )->post_id;
-			$x['post_date'] = (string) $item->children( 'wp', true )->post_date;
-			$x['post_date_gmt'] = (string) $item->children( 'wp', true )->post_date_gmt;
-			$x['comment_status'] = (string) $item->children( 'wp', true )->comment_status;
-			$x['ping_status'] = (string) $item->children( 'wp', true )->ping_status;
-			$x['post_name'] = (string) $item->children( 'wp', true )->post_name;
-			$x['status'] = (string) $item->children( 'wp', true )->status;
-			$x['post_parent'] = (int) $item->children( 'wp', true )->post_parent;
-			$x['menu_order'] = (int) $item->children( 'wp', true )->menu_order;
-			$x['post_type'] = (string) $item->children( 'wp', true )->post_type;
-			$x['post_password'] = (string) $item->children( 'wp', true )->post_password;
-			$x['is_sticky'] = (int) $item->children( 'wp', true )->is_sticky;
-			$x['attachment_url'] = (string) $item->children( 'wp', true )->attachment_url;
-
-			$postmeta_count = count( $item->children( 'wp', true )->postmeta );
-			for ( $i = 0; $i < $postmeta_count; $i++ ) {
-				$wp_postmeta_node = $item->children( 'wp', true )->postmeta[ $i ];
-				$post_meta_key = (string) $wp_postmeta_node->meta_key;
-				$post_meta_value = (string) $wp_postmeta_node->meta_value;
-				if ( '_wp_attached_file' === $post_meta_key ) {
-					$x['postmeta_wp_attached_file'] = $post_meta_key;
-					$x['postmeta_wp_attached_file_value'] = $post_meta_value;
-				} else if ( '_thumbnail_id' === $post_meta_key ) {
-					$x['postmeta_thumbnail_id'] = $post_meta_key;
-					$x['postmeta_thumbnail_id_value'] = $post_meta_value;
-				} else if ( '_cover_hash' === $post_meta_key ) {
-					$x['postmeta_cover_hash'] = $post_meta_key;
-					$x['postmeta_cover_hash_value'] = $post_meta_value;
-				} else if ( '_wp_attachment_metadata' === $post_meta_key ) {
-					$x['postmeta_wp_attachment_metadata'] = $post_meta_key;
-					$x['postmeta_wp_attachment_metadata_value'] = $post_meta_value;
-				} else if ( '_wp_attachment_image_alt' === $post_meta_key ) {
-					$x['postmeta_wp_attachment_image_alt'] = $post_meta_key;
-					$x['postmeta_wp_attachment_image_alt_value'] = $post_meta_value;
-				}
-			}
-
-			$data[] = $x;
-		}
-
-		$count = 0;
-		$file_array = array();
-		$db_array = array();
-		$db_wp_attachment_metadata_array = array();
-		$db_thumbnail_id_array = array();
-		$db_cover_hash_array = array();
-		$db_wp_attachment_image_alt_array = array();
-		foreach ( $data as $key => $value ) {
-			if ( 'attachment' === $value['post_type'] ) {
-				$file = $this->upload_dir . '/' . $value['postmeta_wp_attached_file_value'];
-				$filetype = wp_check_filetype( basename( $file ), null );
-
-				$user = wp_get_current_user();
-				$loginuser = $user->ID;
-				foreach ( $select_author as $authorkey => $authorvalue ) {
-					if ( $value['creator'] === $authorkey ) {
-						$loginuser = $authorvalue;
-					}
-				}
-
-				$guid = $this->upload_url . '/' . $value['postmeta_wp_attached_file_value'];
-				$db_array[ $count ] = array(
-					'ID'                        => $value['post_id'],
-					'post_author'               => $loginuser,
-					'post_date'                 => $value['post_date'],
-					'post_date_gmt'             => $value['post_date_gmt'],
-					'post_content'              => $value['content_encoded'],
-					'post_title'                => $value['title'],
-					'post_excerpt'              => $value['excerpt_encoded'],
-					'post_status'               => $value['status'],
-					'comment_status'            => $value['comment_status'],
-					'ping_status'               => $value['ping_status'],
-					'post_password'             => $value['post_password'],
-					'post_name'                 => $value['post_name'],
-					'post_parent'               => $value['post_parent'],
-					'guid'                      => $guid,
-					'menu_order'                => $value['menu_order'],
-					'post_type'                 => $value['post_type'],
-					'post_mime_type'            => $filetype['type'],
-				);
-
-				$file_array[ $count ] = $file;
-
-				if ( array_key_exists( 'postmeta_wp_attachment_metadata_value', $value ) ) {
-					$db_wp_attachment_metadata_array[ $count ] = json_encode( $value['postmeta_wp_attachment_metadata_value'] );
-					if ( strrpos( $value['postmeta_wp_attached_file_value'], '/' ) ) {
-						$monthdir = '/' . substr( $value['postmeta_wp_attached_file_value'], 0, strrpos( $value['postmeta_wp_attached_file_value'], '/' ) );
-						$dir = $this->upload_dir . $monthdir;
-					}
-					$thumbnails = maybe_unserialize( $value['postmeta_wp_attachment_metadata_value'] );
-					if ( is_array( $thumbnails ) ) {
-						foreach ( $thumbnails as $key1 => $value1 ) {
-							if ( is_array( $value1 ) ) {
-								foreach ( $value1 as $key2 => $value2 ) {
-									if ( is_array( $value2 ) ) {
-										foreach ( $value2 as $key3 => $value3 ) {
-											if ( 'file' === $key3 ) {
-												$thumbnail = $dir . '/' . $value3;
-												++$count;
-												$file_array[ $count ] = $thumbnail;
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-				if ( array_key_exists( 'postmeta_thumbnail_id_value', $value ) ) {
-					$db_thumbnail_id_array[ $count ] = $value['postmeta_thumbnail_id_value'];
-				}
-				if ( array_key_exists( 'postmeta_cover_hash_value', $value ) ) {
-					$db_cover_hash_array[ $count ] = $value['postmeta_cover_hash_value'];
-				}
-				if ( array_key_exists( 'postmeta_wp_attachment_image_alt_value', $value ) ) {
-					$db_wp_attachment_image_alt_array[ $count ] = $value['postmeta_wp_attachment_image_alt_value'];
-				}
-
-				++$count;
-			}
-		}
-
-		$file_obj = json_encode( $file_array );
-		$db_array_obj = json_encode( $db_array );
-		$db_wp_attachment_metadata_obj = json_encode( $db_wp_attachment_metadata_array );
-		$db_thumbnail_id_obj = json_encode( $db_thumbnail_id_array );
-		$db_cover_hash_obj = json_encode( $db_cover_hash_array );
-		$db_wp_attachment_image_alt_obj = json_encode( $db_wp_attachment_image_alt_array );
-
-		/* JS */
-		$add_js = '
-			medialibraryimport_maxcount = ' . $count . ';
-			medialibraryimport_file = ' . $file_obj . ';
-			medialibraryimport_db_array = ' . $db_array_obj . ';
-			medialibraryimport_db_wp_attachment_metadata = ' . $db_wp_attachment_metadata_obj . ';
-			medialibraryimport_db_thumbnail_id = ' . $db_thumbnail_id_obj . ';
-			medialibraryimport_db_cover_hash = ' . $db_cover_hash_obj . ';
-			medialibraryimport_db_wp_attachment_image_alt = ' . $db_wp_attachment_image_alt_obj . ';
-			';
-
-		return $add_js;
 
 	}
 

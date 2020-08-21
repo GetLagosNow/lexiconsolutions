@@ -5,7 +5,7 @@ Description: A simple but flexible plugin to add menus to a post or page.
 Author: linux4me
 Author URI: https://profiles.wordpress.org/linux4me
 Text Domain: menu-in-post
-Version: 1.1.2
+Version: 1.1.4
 License: GPL3
 License URI: https://www.gnu.org/licenses/gpl-3.0-standalone.html
 */
@@ -41,6 +41,7 @@ function menu_in_post_output_menu($atts = array(), $content, $shortcode_tag) {
 			'container_class'=>'', 
 			'container_id'=>'', 
 			'style'=>'list', 
+			'placeholder_text'=>esc_html(__('Select...', 'menu-in-post')), 
 			'depth'=>0 
 		);
 	foreach ($defaults as $att=>$default) {
@@ -73,7 +74,7 @@ function menu_in_post_output_menu($atts = array(), $content, $shortcode_tag) {
 			$select .= ' id="' . $args['menu_id'] . '"';
 		}
 		$select .= '>';
-		$args['items_wrap'] = $select . '<option value="#">' . esc_html(__('Select...', 'menu-in-post')) . '</option>%3$s</select>';
+		$args['items_wrap'] = $select . '<option value="#">' . $atts['placeholder_text'] . '</option>%3$s</select>';
       $args['walker'] = new MIP_Walker_Nav_Menu_Dropdown();
    }
 	return wp_nav_menu($args);

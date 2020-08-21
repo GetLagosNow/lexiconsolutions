@@ -1,0 +1,9 @@
+2020-08-21T00:38:49+00:00 CRITICAL Uncaught Error: Call to a member function get() on null in /Users/alleyhector/Local Sites/lexicon/app/public/wp-content/plugins/wpforms/src/Integrations/UsageTracking/UsageTracking.php:175
+Stack trace:
+#0 /Users/alleyhector/Local Sites/lexicon/app/public/wp-content/plugins/wpforms/src/Integrations/UsageTracking/UsageTracking.php(146): WPForms\Integrations\UsageTracking\UsageTracking->get_license()
+#1 /Users/alleyhector/Local Sites/lexicon/app/public/wp-content/plugins/wpforms/src/Integrations/UsageTracking/SendUsageTask.php(101): WPForms\Integrations\UsageTracking\UsageTracking->get_data()
+#2 /Users/alleyhector/Local Sites/lexicon/app/public/wp-includes/class-wp-hook.php(287): WPForms\Integrations\UsageTracking\SendUsageTask->process(NULL)
+#3 /Users/alleyhector/Local Sites/lexicon/app/public/wp-includes/class-wp-hook.php(311): WP_Hook->apply_filters('', Array)
+#4 /Users/alleyhector/Local Sites/lexicon/app/public/wp-includes/plugin.php(544): WP_Hook->do_action(Array)
+#5 /Users/alleyhector/Local Sites/lexicon/a in /Users/alleyhector/Local Sites/lexicon/app/public/wp-content/plugins/wpforms/src/Integrations/UsageTracking/UsageTracking.php on line 175
+

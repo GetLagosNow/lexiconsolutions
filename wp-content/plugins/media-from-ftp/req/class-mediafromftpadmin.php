@@ -21,9 +21,6 @@
  */
 
 $mediafromftpadmin = new MediaFromFtpAdmin();
-add_filter( 'plugin_action_links', array( $mediafromftpadmin, 'settings_link' ), 10, 2 );
-add_action( 'admin_footer', array( $mediafromftpadmin, 'custom_bulk_admin_footer' ) );
-add_action( 'admin_notices', array( $mediafromftpadmin, 'notices' ) );
 
 /** ==================================================
  * Management screen
@@ -146,11 +143,11 @@ class MediaFromFtpAdmin {
 			'wpcron'    => $wpcron_active,
 		);
 
+		add_filter( 'plugin_action_links', array( $this, 'settings_link' ), 10, 2 );
+		add_action( 'admin_footer', array( $this, 'custom_bulk_admin_footer' ) );
+		add_action( 'admin_notices', array( $this, 'notices' ) );
 		add_action( 'admin_menu', array( $this, 'add_pages' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'load_custom_wp_admin_style' ) );
-		add_action( 'admin_footer', array( $this, 'load_custom_wp_admin_style2' ) );
-		add_action( 'screen_settings', array( $this, 'search_register_show_screen_options' ), 10, 2 );
-		add_filter( 'set-screen-option', array( $this, 'search_register_set_screen_options' ), 11, 3 );
 		add_filter( 'admin_head', array( $this, 'search_register_help_tab' ) );
 		add_filter( 'robots_txt', array( $this, 'custom_robots_txt' ), 9999 );
 
@@ -179,7 +176,6 @@ class MediaFromFtpAdmin {
 				unset( $mediafromftpaddonwpcron );
 			}
 			$links[] = '<a href="' . admin_url( 'admin.php?page=mediafromftp-log' ) . '">' . __( 'Log', 'media-from-ftp' ) . '</a>';
-			$links[] = '<a href="' . admin_url( 'admin.php?page=mediafromftp-import' ) . '">' . __( 'Import' ) . '</a>';
 			$links[] = '<a href="' . admin_url( 'admin.php?page=mediafromftp-addons' ) . '">' . __( 'Add-Ons', 'media-from-ftp' ) . '</a>';
 		}
 			return $links;
@@ -230,64 +226,12 @@ class MediaFromFtpAdmin {
 		);
 		add_submenu_page(
 			'mediafromftp',
-			__( 'Import' ),
-			__( 'Import' ),
-			'upload_files',
-			'mediafromftp-import',
-			array( $this, 'medialibrary_import_page' )
-		);
-		add_submenu_page(
-			'mediafromftp',
 			__( 'Add-Ons', 'media-from-ftp' ),
 			__( 'Add-Ons', 'media-from-ftp' ),
 			'upload_files',
 			'mediafromftp-addons',
 			array( $this, 'addons_page' )
 		);
-	}
-
-	/** ==================================================
-	 * Show Screen Option Search & Register
-	 *
-	 * @param string $status  status.
-	 * @param object $args  args.
-	 * @since 9.52
-	 */
-	public function search_register_show_screen_options( $status, $args ) {
-
-		$mediafromftp_settings = get_option( $this->wp_options_name() );
-
-		$return = $status;
-		if ( 'media-from-ftp_page_mediafromftp-search-register' == $args->base ) {
-			$mediafromftp = new MediaFromFtp();
-			$return = wp_nonce_field( 'mff_search', 'media_from_ftp_search' );
-			$return .= '<div style="display: block; padding: 5px 15px">';
-			$return .= $mediafromftp->search_option_html( $mediafromftp_settings );
-			$return .= '<div style="display: block;padding:5px 5px">' . get_submit_button( __( 'Apply' ), 'primary', 'media-from-ftp-screen-options-apply', false ) . '</div>';
-			$return .= '<input type="hidden" name="wp_screen_options[option]" value="media_from_ftp_show_screen" />';
-			$return .= '<input type="hidden" name="wp_screen_options[value]" value="2" />';
-			$return .= '</div>';
-			unset( $mediafromftp );
-		}
-
-		return $return;
-
-	}
-
-	/** ==================================================
-	 * Save Screen Option Search & Register
-	 *
-	 * @param string $status  status.
-	 * @param string $option  option.
-	 * @param int    $value  value.
-	 * @since 9.52
-	 */
-	public function search_register_set_screen_options( $status, $option, $value ) {
-		if ( 'media_from_ftp_show_screen' == $option ) {
-			$this->options_updated( $value );
-			return $value;
-		}
-		return $status;
 	}
 
 	/** ==================================================
@@ -299,18 +243,18 @@ class MediaFromFtpAdmin {
 
 		$current_screen = get_current_screen();
 		$screen_id = $current_screen->id;
-		if ( 'media-from-ftp_page_mediafromftp-search-register' === $screen_id || 'media-from-ftp_page_mediafromftp-settings' === $screen_id || 'media-from-ftp_page_mediafromftp-event' === $screen_id || 'media-from-ftp_page_mediafromftp-log' === $screen_id || 'media-from-ftp_page_mediafromftp-import' === $screen_id || 'media-from-ftp_page_mediafromftp-addons' === $screen_id ) {
+		if ( 'media-from-ftp_page_mediafromftp-search-register' === $screen_id || 'media-from-ftp_page_mediafromftp-settings' === $screen_id || 'media-from-ftp_page_mediafromftp-event' === $screen_id || 'media-from-ftp_page_mediafromftp-log' === $screen_id || 'media-from-ftp_page_mediafromftp-addons' === $screen_id ) {
 
 			$current_screen->add_help_tab( $this->get_help_message( $screen_id ) );
 
 			$sidebar = '<p><strong>' . __( 'For more information:' ) . '</strong></p>';
-			$sidebar .= '<p><a href="' . __( 'https://wordpress.org/plugins/media-from-ftp/faq', 'media-from-ftp' ) . '" target="_blank">' . __( 'FAQ' ) . '</a></p>';
-			$sidebar .= '<p><a href="https://wordpress.org/support/plugin/media-from-ftp" target="_blank">' . __( 'Support Forums' ) . '</a></p>';
-			$sidebar .= '<p><a href="https://wordpress.org/support/view/plugin-reviews/media-from-ftp" target="_blank">' . __( 'Reviews', 'media-from-ftp' ) . '</a></p>';
+			$sidebar .= '<p><a href="' . __( 'https://wordpress.org/plugins/media-from-ftp/faq', 'media-from-ftp' ) . '" target="_blank" rel="noopener noreferrer">' . __( 'FAQ' ) . '</a></p>';
+			$sidebar .= '<p><a href="https://wordpress.org/support/plugin/media-from-ftp" target="_blank" rel="noopener noreferrer">' . __( 'Support Forums' ) . '</a></p>';
+			$sidebar .= '<p><a href="https://wordpress.org/support/view/plugin-reviews/media-from-ftp" target="_blank" rel="noopener noreferrer">' . __( 'Reviews', 'media-from-ftp' ) . '</a></p>';
 			/* translators: Translator */
-			$sidebar .= '<p><a href="https://translate.wordpress.org/projects/wp-plugins/media-from-ftp" target="_blank">' . sprintf( __( 'Translations for %s' ), 'Media from FTP' ) . '</a></p>';
-			$sidebar .= '<p><a style="text-decoration: none;" href="https://www.facebook.com/katsushikawamori/" target="_blank"><span class="dashicons dashicons-facebook"></span></a> <a style="text-decoration: none;" href="https://twitter.com/dodesyo312" target="_blank"><span class="dashicons dashicons-twitter"></span></a> <a style="text-decoration: none;" href="https://www.youtube.com/channel/UC5zTLeyROkvZm86OgNRcb_w" target="_blank"><span class="dashicons dashicons-video-alt3"></span></a></p>';
-			$sidebar .= '<p><a href="' . __( 'https://riverforest-wp.info/donate/', 'media-from-ftp' ) . '" target="_blank">' . __( 'Donate to this plugin &#187;' ) . '</a></p>';
+			$sidebar .= '<p><a href="https://translate.wordpress.org/projects/wp-plugins/media-from-ftp" target="_blank" rel="noopener noreferrer">' . sprintf( __( 'Translations for %s' ), 'Media from FTP' ) . '</a></p>';
+			$sidebar .= '<p><a style="text-decoration: none;" href="https://www.facebook.com/katsushikawamori/" target="_blank" rel="noopener noreferrer"><span class="dashicons dashicons-facebook"></span></a> <a style="text-decoration: none;" href="https://twitter.com/dodesyo312" target="_blank" rel="noopener noreferrer"><span class="dashicons dashicons-twitter"></span></a> <a style="text-decoration: none;" href="https://www.youtube.com/channel/UC5zTLeyROkvZm86OgNRcb_w" target="_blank" rel="noopener noreferrer"><span class="dashicons dashicons-video-alt3"></span></a></p>';
+			$sidebar .= '<p><a href="' . __( 'https://riverforest-wp.info/donate/', 'media-from-ftp' ) . '" target="_blank" rel="noopener noreferrer">' . __( 'Donate to this plugin &#187;' ) . '</a></p>';
 
 			$current_screen->set_help_sidebar( $sidebar );
 
@@ -335,13 +279,13 @@ class MediaFromFtpAdmin {
 				$outline = '<p>' . sprintf( __( 'Search the upload directory(%1$s) and display files that do not exist in the media library.', 'media-from-ftp' ), $upload_dir_html ) . '</p>';
 				/* translators: Update media */
 				$outline .= '<p>' . sprintf( __( 'Please check and press the "%1$s" button.', 'media-from-ftp' ), __( 'Update Media' ) ) . '</p>';
-				/* translators: Screen option */
-				$outline .= '<p>' . sprintf( __( 'Options for searching can be specified with "%1$s".', 'media-from-ftp' ), __( 'Screen Options' ) ) . '</p>';
 				break;
 			case 'media-from-ftp_page_mediafromftp-settings':
 				/* translators: Register */
 				$outline = '<p>' . sprintf( __( '"%1$s" sets options for %2$s registration.', 'media-from-ftp' ), __( 'Register' ), __( 'Media Library' ) ) . '</p>';
-				/* translators: Register option */
+				/* translators: Search option */
+				$outline .= '<p>' . sprintf( __( '"%1$s" sets searching options.', 'media-from-ftp' ), __( 'Search' ) ) . '</p>';
+				/* translators: Other option */
 				$outline .= '<p>' . sprintf( __( '"%1$s" sets other options.', 'media-from-ftp' ), __( 'Other', 'media-from-ftp' ) ) . '</p>';
 				if ( $this->is_add_on_activate['cli'] ) {
 					$mediafromftpcli = new MediaFromFtpCli();
@@ -357,11 +301,6 @@ class MediaFromFtpAdmin {
 			case 'media-from-ftp_page_mediafromftp-log':
 				$outline = '<p>' . __( 'Display history of registration.', 'media-from-ftp' ) . '</p>';
 				$outline .= '<p>' . __( 'You can export to CSV format.', 'media-from-ftp' ) . '</p>';
-				break;
-			case 'media-from-ftp_page_mediafromftp-import':
-				$outline = '<p>' . __( 'To Import the files to Media Library from a WordPress export file.', 'media-from-ftp' ) . '</p>';
-				/* translators: Upload directory */
-				$outline .= '<p>' . sprintf( __( 'In uploads directory(%1$s), that you need to copy the file to the same state as the import source by FTP.', 'media-from-ftp' ), $upload_dir_html ) . '</p>';
 				break;
 			case 'media-from-ftp_page_mediafromftp-addons':
 				$outline = '<p>' . __( 'This page shows paid add-ons and their summaries.', 'media-from-ftp' ) . '</p>';
@@ -386,7 +325,7 @@ class MediaFromFtpAdmin {
 	 */
 	public function load_custom_wp_admin_style() {
 		if ( $this->is_my_plugin_screen() ) {
-			$mediafromftp_settings = get_option( $this->wp_options_name() );
+			$mediafromftp_settings = get_user_option( 'mediafromftp', get_current_user_id() );
 			if ( $mediafromftp_settings['datetimepicker'] ) {
 				wp_enqueue_style( 'jquery-datetimepicker', $this->plugin_base_url . '/css/jquery.datetimepicker.css', array(), '2.3.4' );
 			}
@@ -402,9 +341,7 @@ class MediaFromFtpAdmin {
 
 			$handle = 'mediafromftp-ajax-script';
 			$action1 = 'mediafromftp-update-ajax-action';
-			$action2 = 'mediafromftp-import-ajax-action';
 			$action3 = 'mediafromftp_message';
-			$action4 = 'mediafromftp_medialibraryimport_message';
 			wp_enqueue_script( $handle, $this->plugin_base_url . '/js/jquery.mediafromftp.js', array( 'jquery' ), '1.00', false );
 			wp_localize_script(
 				$handle,
@@ -417,11 +354,10 @@ class MediaFromFtpAdmin {
 			);
 			wp_localize_script(
 				$handle,
-				'MEDIAFROMFTPIMPORT',
+				'MEDIAFROMFTPTEXT',
 				array(
-					'ajax_url' => admin_url( 'admin-ajax.php' ),
-					'action' => $action2,
-					'nonce' => wp_create_nonce( $action2 ),
+					'stop_button' => __( 'Stop', 'media-from-ftp' ),
+					'stop_message' => __( 'Stopping now..', 'media-from-ftp' ),
 				)
 			);
 			wp_localize_script(
@@ -433,55 +369,6 @@ class MediaFromFtpAdmin {
 					'nonce' => wp_create_nonce( $action3 ),
 				)
 			);
-			wp_localize_script(
-				$handle,
-				'MEDIAFROMFTPIMPORTMESSAGE',
-				array(
-					'ajax_url' => admin_url( 'admin-ajax.php' ),
-					'action' => $action4,
-					'nonce' => wp_create_nonce( $action4 ),
-				)
-			);
-		}
-	}
-
-	/** ==================================================
-	 * Add Script on footer
-	 *
-	 * @since 1.0
-	 */
-	public function load_custom_wp_admin_style2() {
-		if ( $this->is_my_plugin_screen2() ) {
-			if ( isset( $_POST['media_from_ftp_select_author'] ) && ! empty( $_POST['media_from_ftp_select_author'] ) ) {
-				if ( check_admin_referer( 'mff_select_author', 'media_from_ftp_select_author' ) ) {
-					if ( ! empty( $_POST['mediafromftp_select_author'] ) && ! empty( $_POST['mediafromftp_xml_file'] ) ) {
-						$filename = sanitize_text_field( wp_unslash( $_POST['mediafromftp_xml_file'] ) );
-						if ( is_file( $filename ) ) {
-							$select_author = array();
-							foreach ( array_keys( $_POST ) as $key ) {
-								if ( 'select_author' === $key || 'mediafromftp_select_author' === $key || 'mediafromftp_xml_file' === $key ) {
-									/* skip */
-									$dummy = 0;
-								} else {
-									if ( isset( $_POST[ $key ] ) && -1 <> $_POST[ $key ] ) {
-										$select_author[ $key ] = intval( $_POST[ $key ] );
-									}
-								}
-							}
-							if ( ! validate_file( $filename ) ) {
-								$filename = sanitize_text_field( wp_unslash( $_POST['mediafromftp_xml_file'] ) );
-								$mediafromftp = new MediaFromFtp();
-								$handle = 'mediafromftp-import-ajax-script';
-								wp_enqueue_script( 'jquery' );
-								wp_enqueue_script( $handle, $this->plugin_base_url . '/js/jquery.mediafromftp.js', array( 'jquery' ), '1.00', false );
-								wp_add_inline_script( $handle, $mediafromftp->make_object( $filename, $select_author ) );
-								unset( $mediafromftp );
-								unlink( $filename );
-							}
-						}
-					}
-				}
-			}
 		}
 	}
 
@@ -502,23 +389,7 @@ class MediaFromFtpAdmin {
 			return true;
 		} else if ( is_object( $screen ) && 'media-from-ftp_page_mediafromftp-log' === $screen->id ) {
 			return true;
-		} else if ( is_object( $screen ) && 'media-from-ftp_page_mediafromftp-import' === $screen->id ) {
-			return true;
 		} else if ( is_object( $screen ) && 'media-from-ftp_page_mediafromftp-addons' === $screen->id ) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	/** ==================================================
-	 * For only admin style
-	 *
-	 * @since 8.82
-	 */
-	private function is_my_plugin_screen2() {
-		$screen = get_current_screen();
-		if ( is_object( $screen ) && 'media-from-ftp_page_mediafromftp-import' === $screen->id ) {
 			return true;
 		} else {
 			return false;
@@ -552,6 +423,8 @@ class MediaFromFtpAdmin {
 			wp_die( esc_html__( 'You do not have sufficient permissions to access this page.' ) );
 		}
 
+		do_action( 'media_from_ftp_notices' );
+
 		?>
 
 		<div class="wrap">
@@ -567,7 +440,6 @@ class MediaFromFtpAdmin {
 			}
 			?>
 			<a href="<?php echo esc_url( admin_url( 'admin.php?page=mediafromftp-log' ) ); ?>" class="page-title-action"><?php esc_html_e( 'Log', 'media-from-ftp' ); ?></a>
-			<a href="<?php echo esc_url( admin_url( 'admin.php?page=mediafromftp-import' ) ); ?>" class="page-title-action"><?php esc_html_e( 'Import' ); ?></a>
 			<a href="<?php echo esc_url( admin_url( 'admin.php?page=mediafromftp-addons' ) ); ?>" class="page-title-action"><?php esc_html_e( 'Add-Ons', 'media-from-ftp' ); ?></a>
 		</h2>
 		<div style="clear: both;"></div>
@@ -575,8 +447,6 @@ class MediaFromFtpAdmin {
 		<h3><?php esc_html_e( 'Register to media library from files that have been uploaded by FTP.', 'media-from-ftp' ); ?></h3>
 
 		<?php $this->credit(); ?>
-		<hr>
-		<?php $this->server_path_status(); ?>
 
 		</div>
 		<?php
@@ -634,15 +504,15 @@ class MediaFromFtpAdmin {
 		<span style="font-weight: bold;">
 		<div>
 		<?php echo esc_html( $plugin_version ); ?> | 
-		<a style="text-decoration: none;" href="<?php echo esc_url( $faq ); ?>" target="_blank"><?php esc_html_e( 'FAQ' ); ?></a> | <a style="text-decoration: none;" href="<?php echo esc_url( $support ); ?>" target="_blank"><?php esc_html_e( 'Support Forums' ); ?></a> | <a style="text-decoration: none;" href="<?php echo esc_url( $review ); ?>" target="_blank"><?php sprintf( esc_html_e( 'Reviews', '%s' ), $slug ); ?></a>
+		<a style="text-decoration: none;" href="<?php echo esc_url( $faq ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'FAQ' ); ?></a> | <a style="text-decoration: none;" href="<?php echo esc_url( $support ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Support Forums' ); ?></a> | <a style="text-decoration: none;" href="<?php echo esc_url( $review ); ?>" target="_blank" rel="noopener noreferrer"><?php sprintf( esc_html_e( 'Reviews', '%s' ), $slug ); ?></a>
 		</div>
 		<div>
-		<a style="text-decoration: none;" href="<?php echo esc_url( $translate ); ?>" target="_blank">
+		<a style="text-decoration: none;" href="<?php echo esc_url( $translate ); ?>" target="_blank" rel="noopener noreferrer">
 		<?php
 		/* translators: Plugin translation link */
 		echo sprintf( esc_html__( 'Translations for %s' ), esc_html( $plugin_name ) );
 		?>
-		</a> | <a style="text-decoration: none;" href="<?php echo esc_url( $facebook ); ?>" target="_blank"><span class="dashicons dashicons-facebook"></span></a> | <a style="text-decoration: none;" href="<?php echo esc_url( $twitter ); ?>" target="_blank"><span class="dashicons dashicons-twitter"></span></a> | <a style="text-decoration: none;" href="<?php echo esc_url( $youtube ); ?>" target="_blank"><span class="dashicons dashicons-video-alt3"></span></a>
+		</a> | <a style="text-decoration: none;" href="<?php echo esc_url( $facebook ); ?>" target="_blank" rel="noopener noreferrer"><span class="dashicons dashicons-facebook"></span></a> | <a style="text-decoration: none;" href="<?php echo esc_url( $twitter ); ?>" target="_blank" rel="noopener noreferrer"><span class="dashicons dashicons-twitter"></span></a> | <a style="text-decoration: none;" href="<?php echo esc_url( $youtube ); ?>" target="_blank" rel="noopener noreferrer"><span class="dashicons dashicons-video-alt3"></span></a>
 		</div>
 		</span>
 
@@ -657,43 +527,6 @@ class MediaFromFtpAdmin {
 	}
 
 	/** ==================================================
-	 * Server Path Status
-	 *
-	 * @since 1.00
-	 */
-	private function server_path_status() {
-
-		?>
-		<h3><?php esc_html_e( 'Server path status', 'media-from-ftp' ); ?></h3>
-		<h4><?php esc_html_e( 'If something goes wrong, please report the following to the support forum. If you do not want to show the Url or Path,  please hide it part.', 'media-from-ftp' ); ?></h4>
-		<?php
-		$wp_uploads = wp_upload_dir();
-		$mediafromftp = new MediaFromFtp();
-		$status = "\n";
-		$status .= 'WordPress' . "\n";
-		$status .= 'home_url: ' . home_url() . "\n";
-		$status .= 'ABSPATH: ' . wp_normalize_path( ABSPATH ) . "\n";
-		$status .= 'wp_upload_dir[basedir]: ' . $wp_uploads['basedir'] . "\n";
-		$status .= 'wp_upload_dir[baseurl]: ' . $wp_uploads['baseurl'] . "\n";
-		$status .= 'upload_path: ' . get_option( 'upload_path' ) . "\n";
-		$status .= 'upload_url_path: ' . get_option( 'upload_url_path' ) . "\n";
-		$status .= 'WPINC: ' . WPINC . "\n";
-		$status .= "\n";
-		$status .= 'Media from FTP' . "\n";
-		$status .= 'Upload Dir: ' . $this->upload_dir . "\n";
-		$status .= 'Upload Url: ' . $this->upload_url . "\n";
-		$status .= 'Upload Path: ' . $this->upload_path . "\n";
-		$status .= 'Plugin Disallow Tmp Dir: ' . $this->plugin_disallow_tmp_dir . "\n";
-		$status .= 'Site Url: ' . $mediafromftp->siteurl() . "\n";
-		?>
-		<textarea readonly rows="16" style="font-size: 12px; width: 100%;">
-		<?php echo esc_textarea( $status ); ?>
-		</textarea>
-		<?php
-
-	}
-
-	/** ==================================================
 	 * Sub Menu
 	 *
 	 * @since 1.00
@@ -703,6 +536,8 @@ class MediaFromFtpAdmin {
 		if ( ! current_user_can( 'upload_files' ) ) {
 			wp_die( esc_html__( 'You do not have sufficient permissions to access this page.' ) );
 		}
+
+		do_action( 'media_from_ftp_notices' );
 
 		$this->options_updated( 1 );
 		$this->options_updated( 2 );
@@ -732,7 +567,7 @@ class MediaFromFtpAdmin {
 			$mediafromftp_addon_exif = true;
 		}
 
-		$mediafromftp_settings = get_option( $this->wp_options_name() );
+		$mediafromftp_settings = get_user_option( 'mediafromftp', get_current_user_id() );
 
 		$def_max_execution_time = ini_get( 'max_execution_time' );
 		$scriptname = admin_url( 'admin.php?page=mediafromftp-settings' );
@@ -749,7 +584,6 @@ class MediaFromFtpAdmin {
 			}
 			?>
 			<a href="<?php echo esc_url( admin_url( 'admin.php?page=mediafromftp-log' ) ); ?>" class="page-title-action"><?php esc_html_e( 'Log', 'media-from-ftp' ); ?></a>
-			<a href="<?php echo esc_url( admin_url( 'admin.php?page=mediafromftp-import' ) ); ?>" class="page-title-action"><?php esc_html_e( 'Import' ); ?></a>
 			<a href="<?php echo esc_url( admin_url( 'admin.php?page=mediafromftp-addons' ) ); ?>" class="page-title-action"><?php esc_html_e( 'Add-Ons', 'media-from-ftp' ); ?></a>
 		</h2>
 		<div style="clear: both;"></div>
@@ -835,7 +669,7 @@ class MediaFromFtpAdmin {
 
 					<div style="display: block; padding:5px 5px">
 					<input type="checkbox" name="mediafromftp_datetimepicker" form="mediafromftp_settings_form" value="1" <?php checked( '1', $mediafromftp_settings['datetimepicker'] ); ?> />
-					<a href="https://xdsoft.net/jqplugins/datetimepicker/" target="_blank" style="text-decoration: none;">Date Time Picker</a>(jQuery <?php esc_html_e( 'Plugin' ); ?>)
+					<a href="https://xdsoft.net/jqplugins/datetimepicker/" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">Date Time Picker</a>(jQuery <?php esc_html_e( 'Plugin' ); ?>)
 					<?php esc_html_e( 'Date and time input assistance', 'media-from-ftp' ); ?>
 					</div>
 
@@ -1055,7 +889,7 @@ class MediaFromFtpAdmin {
 					<p>
 					<?php
 					esc_html_e( 'It may fail to register if you are using a multi-byte name in the file name or folder name. In that case, please change.', 'media-from-ftp' );
-					$characterencodings_none_html = '<a href="' . __( 'https://en.wikipedia.org/wiki/Variable-width_encoding', 'media-from-ftp' ) . '" target="_blank" style="text-decoration: none; word-break: break-all;">' . __( 'variable-width encoding', 'media-from-ftp' ) . '</a>';
+					$characterencodings_none_html = '<a href="' . __( 'https://en.wikipedia.org/wiki/Variable-width_encoding', 'media-from-ftp' ) . '" target="_blank" rel="noopener noreferrer" style="text-decoration: none; word-break: break-all;">' . __( 'variable-width encoding', 'media-from-ftp' ) . '</a>';
 					/* translators: %1$s: URL of Variable-width_encoding */
 					echo wp_kses_post( sprintf( __( 'If you do not use the filename or directory name of %1$s, please choose "%2$s".', 'media-from-ftp' ), $characterencodings_none_html, '<font color="red">none</font>' ) );
 					?>
@@ -1117,7 +951,7 @@ class MediaFromFtpAdmin {
 
 			<?php
 			if ( $this->is_add_on_activate['cli'] ) {
-				$mediafromftpcli->mediafromftp_command_line_html( $this->wp_options_name() );
+				$mediafromftpcli->mediafromftp_command_line_html( get_current_user_id() );
 				unset( $mediafromftpcli );
 			}
 			?>
@@ -1140,9 +974,11 @@ class MediaFromFtpAdmin {
 			wp_die( esc_html__( 'You do not have sufficient permissions to access this page.' ) );
 		}
 
+		do_action( 'media_from_ftp_notices' );
+
 		$this->options_updated( 2 );
 
-		$mediafromftp_settings = get_option( $this->wp_options_name() );
+		$mediafromftp_settings = get_user_option( 'mediafromftp', get_current_user_id() );
 
 		$def_max_execution_time = ini_get( 'max_execution_time' );
 		$max_execution_time = $mediafromftp_settings['max_execution_time'];
@@ -1168,7 +1004,6 @@ class MediaFromFtpAdmin {
 				}
 				?>
 				<a href="<?php echo esc_url( admin_url( 'admin.php?page=mediafromftp-log' ) ); ?>" class="page-title-action"><?php esc_html_e( 'Log', 'media-from-ftp' ); ?></a>
-				<a href="<?php echo esc_url( admin_url( 'admin.php?page=mediafromftp-import' ) ); ?>" class="page-title-action"><?php esc_html_e( 'Import' ); ?></a>
 			<a href="<?php echo esc_url( admin_url( 'admin.php?page=mediafromftp-addons' ) ); ?>" class="page-title-action"><?php esc_html_e( 'Add-Ons', 'media-from-ftp' ); ?></a>
 			</h2>
 			<div style="clear: both;"></div>
@@ -1225,13 +1060,13 @@ class MediaFromFtpAdmin {
 	 * @since 9.63
 	 */
 	public function custom_bulk_admin_footer() {
-		$mediafromftp_settings = get_option( $this->wp_options_name() );
+		$mediafromftp_settings = get_user_option( 'mediafromftp', get_current_user_id() );
 		if ( 'server' === $mediafromftp_settings['dateset'] || 'exif' === $mediafromftp_settings['dateset'] ) {
 			if ( $this->is_my_plugin_screen3() ) {
 				if ( function_exists( 'wp_date' ) ) {
-					$now_date_time = wp_date( 'Y-m-d H:i' );
+					$now_date_time = wp_date( 'Y-m-d H:i:s' );
 				} else {
-					$now_date_time = date_i18n( 'Y-m-d H:i' );
+					$now_date_time = date_i18n( 'Y-m-d H:i:s' );
 				}
 				$html = '<div style="float: right;">' . __( 'Bulk Change', 'media-from-ftp' ) . '<input type="text" id="datetimepicker-mediafromftp0" name="bulk_mediafromftp_datetime" value="' . $now_date_time . '" style="width: 160px; height: 1.7em;" /></div>';
 				$allowed_html = array(
@@ -1277,6 +1112,8 @@ class MediaFromFtpAdmin {
 			wp_die( esc_html__( 'You do not have sufficient permissions to access this page.' ) );
 		}
 
+		do_action( 'media_from_ftp_notices' );
+
 		$this->options_updated( 4 );
 
 		?>
@@ -1286,7 +1123,6 @@ class MediaFromFtpAdmin {
 			<a href="<?php echo esc_url( admin_url( 'admin.php?page=mediafromftp-search-register' ) ); ?>" class="page-title-action"><?php esc_html_e( 'Search & Register', 'media-from-ftp' ); ?></a>
 			<a href="<?php echo esc_url( admin_url( 'admin.php?page=mediafromftp-settings' ) ); ?>" class="page-title-action"><?php esc_html_e( 'Settings' ); ?></a>
 			<a href="<?php echo esc_url( admin_url( 'admin.php?page=mediafromftp-log' ) ); ?>" class="page-title-action"><?php esc_html_e( 'Log', 'media-from-ftp' ); ?></a>
-			<a href="<?php echo esc_url( admin_url( 'admin.php?page=mediafromftp-import' ) ); ?>" class="page-title-action"><?php esc_html_e( 'Import' ); ?></a>
 			<a href="<?php echo esc_url( admin_url( 'admin.php?page=mediafromftp-addons' ) ); ?>" class="page-title-action"><?php esc_html_e( 'Add-Ons', 'media-from-ftp' ); ?></a>
 		</h2>
 		<div style="clear: both;"></div>
@@ -1297,7 +1133,7 @@ class MediaFromFtpAdmin {
 			if ( check_admin_referer( 'mff_event', 'media_from_ftp_event' ) ) {
 				if ( isset( $_POST['event-mediafromftp'] ) && ! empty( $_POST['event-mediafromftp'] ) ) {
 					$events_mediafromftp = array_map( 'sanitize_text_field', wp_unslash( $_POST['event-mediafromftp'] ) );
-					$events = get_option( $this->wp_add_on_wpcron_events_name() );
+					$events = get_user_option( 'mediafromftp_add_on_wpcron_events', get_current_user_id() );
 					$event_names = null;
 					foreach ( $events_mediafromftp as $key => $event_id ) {
 						$option_name = $events[ $event_id ];
@@ -1305,7 +1141,7 @@ class MediaFromFtpAdmin {
 						delete_option( $option_name );
 						$event_names .= ' ' . $event_id . ' ';
 						unset( $events[ $event_id ] );
-						update_option( $this->wp_add_on_wpcron_events_name(), $events );
+						update_user_option( get_current_user_id(), 'mediafromftp_add_on_wpcron_events', $events );
 					}
 					unset( $mediafromftpcron );
 					$allowed_notice_html = array(
@@ -1355,7 +1191,7 @@ class MediaFromFtpAdmin {
 				'form'  => array(),
 			),
 		);
-		echo wp_kses( $mediafromftpaddonwpcron->mediafromftp_event_html( $scriptname, get_option( $this->wp_add_on_wpcron_events_name() ) ), $allowed_event_html );
+		echo wp_kses( $mediafromftpaddonwpcron->mediafromftp_event_html( $scriptname, get_user_option( 'mediafromftp_add_on_wpcron_events', get_current_user_id() ) ), $allowed_event_html );
 		?>
 		</div>
 		<?php
@@ -1373,7 +1209,9 @@ class MediaFromFtpAdmin {
 			wp_die( esc_html__( 'You do not have sufficient permissions to access this page.' ) );
 		}
 
-		$mediafromftp_settings = get_option( $this->wp_options_name() );
+		do_action( 'media_from_ftp_notices' );
+
+		$mediafromftp_settings = get_user_option( 'mediafromftp', get_current_user_id() );
 		if ( ! $mediafromftp_settings['log'] ) {
 			echo '<div class="notice notice-info is-dismissible"><ul><li>' . esc_html__( 'Current, log is not created. If you want to create a log, please put a check in the [Create log] in the settings.', 'media-from-ftp' ) . '</li></ul></div>';
 		}
@@ -1399,7 +1237,6 @@ class MediaFromFtpAdmin {
 				unset( $mediafromftpaddonwpcron );
 			}
 			?>
-			<a href="<?php echo esc_url( admin_url( 'admin.php?page=mediafromftp-import' ) ); ?>" class="page-title-action"><?php esc_html_e( 'Import' ); ?></a>
 			<a href="<?php echo esc_url( admin_url( 'admin.php?page=mediafromftp-addons' ) ); ?>" class="page-title-action"><?php esc_html_e( 'Add-Ons', 'media-from-ftp' ); ?></a>
 		</h2>
 		<div style="clear: both;"></div>
@@ -1448,14 +1285,16 @@ class MediaFromFtpAdmin {
 			$html_thumbnail = null;
 			if ( $record->thumbnail ) {
 				$thumbnails = json_decode( $record->thumbnail, true );
-				if ( $max_thumbnail_count < count( $thumbnails ) ) {
-					$max_thumbnail_count = count( $thumbnails );
-				}
-				$count = 0;
-				foreach ( $thumbnails as $thumbnail ) {
-					++$count;
-					$html_thumbnail .= '<tr><th align="right" style="white-space: nowrap;">' . __( 'Featured Image' ) . $count . ':</th><td>' . $thumbnail . '</td></tr>';
-					$csvs .= ',"' . $thumbnail . '"';
+				if ( ! empty( $thumbnails ) ) {
+					if ( $max_thumbnail_count < count( $thumbnails ) ) {
+						$max_thumbnail_count = count( $thumbnails );
+					}
+					$count = 0;
+					foreach ( $thumbnails as $thumbnail ) {
+						++$count;
+						$html_thumbnail .= '<tr><th align="right" style="white-space: nowrap;">' . __( 'Images' ) . $count . ':</th><td>' . $thumbnail . '</td></tr>';
+						$csvs .= ',"' . $thumbnail . '"';
+					}
 				}
 			}
 			$html_mlccategory = null;
@@ -1533,7 +1372,7 @@ class MediaFromFtpAdmin {
 		$html .= '</table>' . "\n";
 		$csv_head = '"ID","' . __( 'Author' ) . '","' . __( 'Title' ) . ':","' . __( 'Permalink:' ) . '","URL:","' . __( 'File name:' ) . '","' . __( 'Date/Time' ) . ':","' . __( 'File type:' ) . '","' . __( 'File size:' ) . '","' . __( 'Caption' ) . '[Exif]:","' . __( 'Length:' ) . '"';
 		for ( $i = 1; $i <= $max_thumbnail_count; $i++ ) {
-			$csv_head .= ',"' . __( 'Featured Image' ) . $i . '"';
+			$csv_head .= ',"' . __( 'Images' ) . $i . '"';
 		}
 		for ( $i = 1; $i <= $max_mlccategories_count; $i++ ) {
 			$csv_head .= ',"' . __( 'Categories' ) . '[Media Library Categories]' . $i . '"';
@@ -1630,131 +1469,13 @@ class MediaFromFtpAdmin {
 	 *
 	 * @since 1.00
 	 */
-	public function medialibrary_import_page() {
-
-		if ( ! current_user_can( 'upload_files' ) ) {
-			wp_die( esc_html__( 'You do not have sufficient permissions to access this page.' ) );
-		}
-
-		$scriptname = admin_url( 'admin.php?page=mediafromftp-import' );
-
-		?>
-		<div class="wrap">
-		<h2>Media from FTP <a href="<?php echo esc_url( $scriptname ); ?>" style="text-decoration: none;"><?php esc_html_e( 'Import' ); ?></a>
-			<a href="<?php echo esc_url( admin_url( 'admin.php?page=mediafromftp-search-register' ) ); ?>" class="page-title-action"><?php esc_html_e( 'Search & Register', 'media-from-ftp' ); ?></a>
-			<a href="<?php echo esc_url( admin_url( 'admin.php?page=mediafromftp-settings' ) ); ?>" class="page-title-action"><?php esc_html_e( 'Settings' ); ?></a>
-			<?php
-			if ( $this->is_add_on_activate['wpcron'] ) {
-				$mediafromftpaddonwpcron = new MediaFromFtpAddOnWpcron();
-				$mediafromftpaddonwpcron->mediafromftp_event_link_html();
-				unset( $mediafromftpaddonwpcron );
-			}
-			?>
-			<a href="<?php echo esc_url( admin_url( 'admin.php?page=mediafromftp-log' ) ); ?>" class="page-title-action"><?php esc_html_e( 'Log', 'media-from-ftp' ); ?></a>
-			<a href="<?php echo esc_url( admin_url( 'admin.php?page=mediafromftp-addons' ) ); ?>" class="page-title-action"><?php esc_html_e( 'Add-Ons', 'media-from-ftp' ); ?></a>
-		</h2>
-		<div style="clear: both;"></div>
-
-		<div id="mediafromftp-loading"><img src="<?php echo esc_url( $this->plugin_base_url ) . '/css/loading.gif'; ?>"></div>
-		<div id="medialibraryimport-loading-container">
-
-		<?php
-		if ( isset( $_POST['media_from_ftp_file_load'] ) && ! empty( $_POST['media_from_ftp_file_load'] ) ) {
-			if ( check_admin_referer( 'mff_file_load', 'media_from_ftp_file_load' ) ) {
-				if ( isset( $_FILES['filename']['name'] ) && ! empty( $_FILES['filename']['name'] ) ) {
-					if ( isset( $_FILES['filename']['tmp_name'] ) && ! empty( $_FILES['filename']['tmp_name'] ) ) {
-						$filename = sanitize_text_field( wp_unslash( $_FILES['filename']['tmp_name'] ) );
-					}
-					$name = basename( $filename );
-					move_uploaded_file( $filename, $this->plugin_tmp_dir . '/' . $name );
-
-					$mediafromftp = new MediaFromFtp();
-					?>
-					<h4><?php esc_html_e( 'Assign Authors', 'media-from-ftp' ); ?></h4>
-					<?php
-					$allowed_author_select_html = array(
-						'strong'    => array(),
-						'div'    => array(
-							'style'  => array(),
-						),
-						'form'  => array(
-							'method'  => array(),
-							'action'  => array(),
-						),
-						'select'  => array(
-							'name'  => array(),
-						),
-						'option'  => array(
-							'value'  => array(),
-							'select'  => array(),
-						),
-						'input' => array(
-							'name'  => array(),
-							'type'  => array(),
-							'size'  => array(),
-							'id'    => array(),
-							'class' => array(),
-							'value' => array(),
-						),
-					);
-					echo wp_kses( $mediafromftp->author_select( $this->plugin_tmp_dir . '/' . $name ), $allowed_author_select_html );
-				}
-			}
-		} else if ( isset( $_POST['media_from_ftp_select_author'] ) && ! empty( $_POST['media_from_ftp_select_author'] ) ) {
-			if ( check_admin_referer( 'mff_select_author', 'media_from_ftp_select_author' ) ) {
-				if ( ! empty( $_POST['mediafromftp_select_author'] ) && ! empty( $_POST['mediafromftp_xml_file'] ) ) {
-					if ( validate_file( wp_unslash( $_POST['mediafromftp_xml_file'] ) ) ) {
-						echo '<div class="notice notice-error is-dismissible"><ul><li>' . esc_html__( 'No such file exists! Double check the name and try again.' ) . '</li></ul></div>';
-						?>
-						<form method="post" action="<?php echo esc_url( $scriptname ); ?>" enctype="multipart/form-data">
-						<?php wp_nonce_field( 'mff_file_load', 'media_from_ftp_file_load' ); ?>
-						<h4><?php esc_html_e( 'Select File' ); ?>[WordPress eXtended RSS (WXR)(.xml)]</h4>
-						<div><input name="filename" type="file" size="80" /></div>
-						<div>
-						<?php submit_button( __( 'File Load', 'media-from-ftp' ), 'large', '', false ); ?>
-						</div>
-						</form>
-						<?php
-					} else {
-						?>
-						<h4><?php esc_html_e( 'Ready to import. Press the following button to start the import.', 'media-from-ftp' ); ?></h4>
-						<form method="post" id="medialibraryimport_ajax_update">
-							<?php submit_button( __( 'Import' ), 'primary', '', false ); ?>
-						</form>
-						<?php
-					}
-				}
-			}
-		} else {
-			?>
-			<form method="post" action="<?php echo esc_url( $scriptname ); ?>" enctype="multipart/form-data">
-			<?php wp_nonce_field( 'mff_file_load', 'media_from_ftp_file_load' ); ?>
-			<h4><?php esc_html_e( 'Select File' ); ?>[WordPress eXtended RSS (WXR)(.xml)]</h4>
-			<div><input name="filename" type="file" size="80" /></div>
-			<div>
-			<?php submit_button( __( 'File Load', 'media-from-ftp' ), 'large', '', false ); ?>
-			</div>
-			</form>
-			<?php
-		}
-		?>
-
-		</div>
-		</div>
-
-		<?php
-	}
-
-	/** ==================================================
-	 * Sub Menu
-	 *
-	 * @since 1.00
-	 */
 	public function addons_page() {
 
 		if ( ! current_user_can( 'upload_files' ) ) {
 			wp_die( esc_html__( 'You do not have sufficient permissions to access this page.' ) );
 		}
+
+		do_action( 'media_from_ftp_notices' );
 
 		$scriptname = admin_url( 'admin.php?page=mediafromftp-addons' );
 
@@ -1772,7 +1493,6 @@ class MediaFromFtpAdmin {
 			}
 			?>
 			<a href="<?php echo esc_url( admin_url( 'admin.php?page=mediafromftp-log' ) ); ?>" class="page-title-action"><?php esc_html_e( 'Log', 'media-from-ftp' ); ?></a>
-			<a href="<?php echo esc_url( admin_url( 'admin.php?page=mediafromftp-import' ) ); ?>" class="page-title-action"><?php esc_html_e( 'Import' ); ?></a>
 		</h2>
 		<div style="clear: both;"></div>
 
@@ -1803,7 +1523,7 @@ class MediaFromFtpAdmin {
 		} else {
 			?>
 			<div>
-			<a href="<?php echo esc_url( __( 'https://shop.riverforest-wp.info/media-from-ftp-add-on-cli/', 'media-from-ftp' ) ); ?>" target="_blank" class="page-title-action"><?php esc_html_e( 'BUY', 'media-from-ftp' ); ?></a>
+			<a href="<?php echo esc_url( __( 'https://shop.riverforest-wp.info/media-from-ftp-add-on-cli/', 'media-from-ftp' ) ); ?>" target="_blank" rel="noopener noreferrer" class="page-title-action"><?php esc_html_e( 'BUY', 'media-from-ftp' ); ?></a>
 			</div>
 			<?php
 		}
@@ -1838,7 +1558,7 @@ class MediaFromFtpAdmin {
 		} else {
 			?>
 			<div>
-			<a href="<?php echo esc_url( __( 'https://shop.riverforest-wp.info/media-from-ftp-add-on-wpcron/', 'media-from-ftp' ) ); ?>" target="_blank" class="page-title-action"><?php esc_html_e( 'BUY', 'media-from-ftp' ); ?></a>
+			<a href="<?php echo esc_url( __( 'https://shop.riverforest-wp.info/media-from-ftp-add-on-wpcron/', 'media-from-ftp' ) ); ?>" target="_blank" rel="noopener noreferrer" class="page-title-action"><?php esc_html_e( 'BUY', 'media-from-ftp' ); ?></a>
 			</div>
 			<?php
 		}
@@ -1849,7 +1569,7 @@ class MediaFromFtpAdmin {
 		<h4>Media from FTP Add On Category</h4>
 		<div style="margin: 5px; padding: 5px;"><?php esc_html_e( 'This Add-on When registering by "Media from FTP", add Category to Media Library.', 'media-from-ftp' ); ?></div>
 		<div style="margin: 5px; padding: 5px;">
-		<li><?php esc_html_e( 'Works with next plugin.', 'media-from-ftp' ); ?> [<a style="text-decoration: none;" href="https://wordpress.org/plugins/wp-media-library-categories/" target="_blank">Media Library Categories</a>] [<a style="text-decoration: none;" href="https://wordpress.org/plugins/enhanced-media-library/" target="_blank">Enhanced Media Library</a>] [<a style="text-decoration: none;" href="https://wordpress.org/plugins/media-library-assistant/" target="_blank">Media Library Assistant</a>]</li>
+		<li><?php esc_html_e( 'Works with next plugin.', 'media-from-ftp' ); ?> [<a style="text-decoration: none;" href="https://wordpress.org/plugins/wp-media-library-categories/" target="_blank" rel="noopener noreferrer">Media Library Categories</a>] [<a style="text-decoration: none;" href="https://wordpress.org/plugins/enhanced-media-library/" target="_blank" rel="noopener noreferrer">Enhanced Media Library</a>] [<a style="text-decoration: none;" href="https://wordpress.org/plugins/media-library-assistant/" target="_blank" rel="noopener noreferrer">Media Library Assistant</a>]</li>
 		</div>
 		<p>
 		<?php
@@ -1872,7 +1592,7 @@ class MediaFromFtpAdmin {
 		} else {
 			?>
 			<div>
-			<a href="<?php echo esc_url( __( 'https://shop.riverforest-wp.info/media-from-ftp-add-on-category/', 'media-from-ftp' ) ); ?>" target="_blank" class="page-title-action"><?php esc_html_e( 'BUY', 'media-from-ftp' ); ?></a>
+			<a href="<?php echo esc_url( __( 'https://shop.riverforest-wp.info/media-from-ftp-add-on-category/', 'media-from-ftp' ) ); ?>" target="_blank" rel="noopener noreferrer" class="page-title-action"><?php esc_html_e( 'BUY', 'media-from-ftp' ); ?></a>
 			</div>
 			<?php
 		}
@@ -1884,7 +1604,7 @@ class MediaFromFtpAdmin {
 		<div style="margin: 5px; padding: 5px;"><?php esc_html_e( 'This Add-on When registering by "Media from FTP", add Exif to Media Library Caption.', 'media-from-ftp' ); ?></div>
 		<div style="margin: 5px; padding: 5px;">
 		<li><?php esc_html_e( 'Sort each Exif data to an arbitrary position and insert it into the caption as text.', 'media-from-ftp' ); ?></li>
-		<li><a style="text-decoration: none;" href="https://codex.wordpress.org/Function_Reference/wp_read_image_metadata#Return%20Values" target="_blank">Exif</a></li>
+		<li><a style="text-decoration: none;" href="https://codex.wordpress.org/Function_Reference/wp_read_image_metadata#Return%20Values" target="_blank" rel="noopener noreferrer">Exif</a></li>
 		</div>
 
 		<p>
@@ -1908,7 +1628,7 @@ class MediaFromFtpAdmin {
 		} else {
 			?>
 			<div>
-			<a href="<?php echo esc_url( __( 'https://shop.riverforest-wp.info/media-from-ftp-add-on-exif/', 'media-from-ftp' ) ); ?>" target="_blank" class="page-title-action"><?php esc_html_e( 'BUY', 'media-from-ftp' ); ?></a>
+			<a href="<?php echo esc_url( __( 'https://shop.riverforest-wp.info/media-from-ftp-add-on-exif/', 'media-from-ftp' ) ); ?>" target="_blank" rel="noopener noreferrer" class="page-title-action"><?php esc_html_e( 'BUY', 'media-from-ftp' ); ?></a>
 			</div>
 			<?php
 		}
@@ -1928,7 +1648,7 @@ class MediaFromFtpAdmin {
 
 		$mediafromftp = new MediaFromFtp();
 
-		$mediafromftp_settings = get_option( $this->wp_options_name() );
+		$mediafromftp_settings = get_user_option( 'mediafromftp', get_current_user_id() );
 
 		$addonwpcron = false;
 		if ( $this->is_add_on_activate['wpcron'] ) {
@@ -2033,7 +1753,7 @@ class MediaFromFtpAdmin {
 						} else {
 							$mediafromftp_settings['mlat'] = null;
 						}
-						update_option( $this->wp_options_name(), $mediafromftp_settings );
+						update_user_option( get_current_user_id(), 'mediafromftp', $mediafromftp_settings );
 						if ( ! empty( $_POST['move_yearmonth_folders'] ) ) {
 							update_option( 'uploads_use_yearmonth_folders', 1 );
 						} else {
@@ -2091,7 +1811,7 @@ class MediaFromFtpAdmin {
 						if ( isset( $_POST['mediafromftp_thumb_deep_search'] ) ) {
 							$mediafromftp_settings['thumb_deep_search'] = sanitize_text_field( wp_unslash( $_POST['mediafromftp_thumb_deep_search'] ) );
 						}
-						update_option( $this->wp_options_name(), $mediafromftp_settings );
+						update_user_option( get_current_user_id(), 'mediafromftp', $mediafromftp_settings );
 						$screen = get_current_screen();
 						if ( is_object( $screen ) && 'media-from-ftp_page_mediafromftp-settings' === $screen->id ) {
 							echo '<div class="notice notice-success is-dismissible"><ul><li>' . esc_html( __( 'Settings' ) . ' --> ' . __( 'Changes saved.' ) ) . '</li></ul></div>';
@@ -2119,7 +1839,7 @@ class MediaFromFtpAdmin {
 					if ( check_admin_referer( 'mff_run_cron', 'media_from_ftp_run_cron' ) ) {
 						if ( $addonwpcron ) {
 							if ( ! empty( $_POST['mediafromftp_run_cron'] ) ) {
-								$mediafromftp_cron_events = get_option( $this->wp_add_on_wpcron_events_name() );
+								$mediafromftp_cron_events = get_user_option( 'mediafromftp_add_on_wpcron_events', get_current_user_id() );
 								if ( ! empty( $_POST['cron-run'] ) ) {
 									$option_name = sanitize_text_field( wp_unslash( $_POST['cron-run'] ) );
 									echo wp_kses( $mediafromftpaddonwpcron->CronRun( $option_name ), $allowed_notice_html );
@@ -2133,7 +1853,7 @@ class MediaFromFtpAdmin {
 							}
 						} else {
 							$mediafromftp_settings['cron']['apply'] = false;
-							update_option( $this->wp_options_name(), $mediafromftp_settings );
+							update_user_option( get_current_user_id(), 'mediafromftp', $mediafromftp_settings );
 						}
 					}
 				}
@@ -2144,7 +1864,10 @@ class MediaFromFtpAdmin {
 					if ( check_admin_referer( 'mff_add_schedule', 'media_from_ftp_add_schedule' ) ) {
 						if ( ! empty( $_POST['mediafromftp_add_schedule'] ) ) {
 							if ( ! empty( $_POST['mediafromftp_cron_schedule_innername'] ) && ! empty( $_POST['mediafromftp_cron_schedule_secounds'] ) && ! empty( $_POST['mediafromftp_cron_schedule_viewname'] ) ) {
-								$mediafromftp_cron_intervals_tbl = get_option( 'mediafromftp_event_intervals' );
+								$mediafromftp_cron_intervals_tbl = get_user_option( 'mediafromftp_event_intervals', get_current_user_id() );
+								if ( empty( $mediafromftp_cron_intervals_tbl ) ) {
+									$mediafromftp_cron_intervals_tbl = array();
+								}
 								$innername = sanitize_text_field( wp_unslash( $_POST['mediafromftp_cron_schedule_innername'] ) );
 								$secounds = intval( $_POST['mediafromftp_cron_schedule_secounds'] );
 								$viewname = sanitize_text_field( wp_unslash( $_POST['mediafromftp_cron_schedule_viewname'] ) );
@@ -2152,7 +1875,7 @@ class MediaFromFtpAdmin {
 									'interval' => $secounds,
 									'display' => $viewname,
 								);
-								update_option( 'mediafromftp_event_intervals', $mediafromftp_cron_intervals_tbl );
+								update_user_option( get_current_user_id(), 'mediafromftp_event_intervals', $mediafromftp_cron_intervals_tbl );
 								echo wp_kses( $mediafromftpaddonwpcron->mediafromftp_schedule_notice_html( $submenu ), $allowed_notice_html );
 							}
 						}
@@ -2166,11 +1889,11 @@ class MediaFromFtpAdmin {
 						if ( ! empty( $_POST['mediafromftp_add_schedule_delete'] ) ) {
 							if ( ! empty( $_POST['mediafromftp_cron_schedule_delete'] ) ) {
 								$delete_keys = array_map( 'sanitize_text_field', wp_unslash( $_POST['mediafromftp_cron_schedule_delete'] ) );
-								$mediafromftp_cron_intervals_tbl = get_option( 'mediafromftp_event_intervals' );
+								$mediafromftp_cron_intervals_tbl = get_user_option( 'mediafromftp_event_intervals', get_current_user_id() );
 								foreach ( $delete_keys as $key ) {
 									unset( $mediafromftp_cron_intervals_tbl[ $key ] );
 								}
-								update_option( 'mediafromftp_event_intervals', $mediafromftp_cron_intervals_tbl );
+								update_user_option( get_current_user_id(), 'mediafromftp_event_intervals', $mediafromftp_cron_intervals_tbl );
 								echo wp_kses( $mediafromftpaddonwpcron->mediafromftp_schedule_notice_html( $submenu ), $allowed_notice_html );
 							}
 						}
@@ -2188,9 +1911,9 @@ class MediaFromFtpAdmin {
 								$event_id = date_i18n( 'Y-m-d-H-i-s' );
 							}
 							$event_option_name = 'mediafromftp_cronevent-' . $event_id;
-							$mediafromftp_cron_events = get_option( $this->wp_add_on_wpcron_events_name(), array() );
+							$mediafromftp_cron_events = get_user_option( 'mediafromftp_add_on_wpcron_events', get_current_user_id() );
 							$mediafromftp_cron_events[ $event_id ] = $event_option_name;
-							update_option( $this->wp_add_on_wpcron_events_name(), $mediafromftp_cron_events );
+							update_user_option( get_current_user_id(), 'mediafromftp_add_on_wpcron_events', $mediafromftp_cron_events );
 							update_option( $event_option_name, $mediafromftp_settings );
 							echo wp_kses( $mediafromftpaddonwpcron->mediafromftp_cronevent_create_html(), $allowed_notice_html );
 						}
@@ -2237,6 +1960,12 @@ class MediaFromFtpAdmin {
 				/* translators: %1$s: message %2$s: media settings %3$s: settings */
 				echo '<div class="notice notice-warning is-dismissible"><ul><li>' . wp_kses_post( sprintf( __( '"%1$s" is checked. This is the default setting for the WordPress Media Library. In this setting, the file is moved to month- and year-based folders. If you do not want to move, please uncheck.(%2$s,%3$s)', 'media-from-ftp' ), $html1, $link1, $link2 ) ) . '</li></ul></div>';
 			}
+
+			$httpcode = $this->get_status( admin_url( 'admin-ajax.php' ) );
+			if ( 403 == $httpcode ) {
+				/* translators: %1$s: admin-ajax.php */
+				echo '<div class="notice notice-error is-dismissible"><ul><li>' . wp_kses_post( sprintf( __( 'In this condition, cannot update the media. "%1$s" is not available. It is possible that some security measures have restricted "%1$s". Please fix your server settings.', 'media-from-ftp' ), 'admin-ajax.php' ) ) . '</li></ul></div>';
+			}
 		}
 		if ( $this->is_my_plugin_screen() ) {
 			if ( function_exists( 'extend_media_upload_load_textdomain' ) ) {
@@ -2256,29 +1985,32 @@ class MediaFromFtpAdmin {
 	}
 
 	/** ==================================================
-	 * Options name
+	 * Get status
 	 *
-	 * @return string $this->wp_options_name()
-	 * @since 10.09
+	 * @param string $url  url.
+	 * @return string $httpcode  httpcode.
+	 * @since 11.10
 	 */
-	private function wp_options_name() {
-		if ( ! function_exists( 'wp_get_current_user' ) ) {
-			include_once( ABSPATH . 'wp-includes/pluggable.php' );
-		}
-		return 'mediafromftp_settings_' . get_current_user_id();
-	}
+	private function get_status( $url ) {
 
-	/** ==================================================
-	 * Add on
-	 *
-	 * @return string $this->wp_add_on_wpcron_events_name()
-	 * @since 10.09
-	 */
-	private function wp_add_on_wpcron_events_name() {
-		if ( ! function_exists( 'wp_get_current_user' ) ) {
-			include_once( ABSPATH . 'wp-includes/pluggable.php' );
-		}
-		return 'mediafromftp_add_on_wpcron_events_' . get_current_user_id();
+		$option = [
+			CURLOPT_HEADER         => true,
+			CURLOPT_NOBODY         => true,
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_TIMEOUT        => 3,
+			CURLOPT_SSL_VERIFYPEER => false,
+		];
+
+		$ch = curl_init( $url );
+		curl_setopt_array( $ch, $option );
+
+		$output   = curl_exec( $ch );
+		$httpcode = curl_getinfo( $ch, CURLINFO_RESPONSE_CODE );
+
+		curl_close( $ch );
+
+		return $httpcode;
+
 	}
 
 }

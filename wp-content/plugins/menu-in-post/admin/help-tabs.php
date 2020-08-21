@@ -31,6 +31,7 @@ class MENUINPOST_Help_Tabs {
 		$content['shortcode_builder'] .= '<p>' . __('<strong>Menu Class(es):</strong> The class attribute(s) you want assigned to the ul element of the menu list. Separate multiple classes with a space. Classes must begin with a letter A-Z or a-z, and can be followed by letters (A-Za-z), digits (0-9), hyphens (&#34;-&#34;), and underscores (&#34;_&#34;). Not used for dropdown style menus.') . '</p>';
 		$content['shortcode_builder'] .= '<p>' . __('<strong>Depth:</strong> Set the number of menu levels you would like to display. The default is &#34;all,&#34; which will display all top-level menus and submenus.') . '</p>';
 		$content['shortcode_builder'] .= '<p>' . __('<strong>Style:</strong> Choose the type of menu, either an unordered list of links, or a dropdown box.') . '</p>';
+		$content['shortcode_builder'] .= '<p>' . __('<strong>Placeholder Text:</strong> Optional for dropdown. Sets the text used for the first, placeholder option in a dropdown menu. Leave blank for the default, &#39;Select...&#39;.') . '</p>';
 
 		if (!empty($content[$name])) {
 			return $content[$name];

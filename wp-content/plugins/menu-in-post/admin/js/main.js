@@ -27,8 +27,23 @@ jQuery(document).ready(function() {
 			shortcode += ' depth=' + jQuery('#mip_depth').val();
 		}
 		shortcode += ' style="' + jQuery('#mip_style').val() + '"';
+		if (jQuery('#mip_style').val() == 'dropdown' && jQuery('#mip_placeholder_text').val() != '') {
+			shortcode += ' placeholder_text="' + jQuery('#mip_placeholder_text').val() + '"';
+		}
 		shortcode += ']';
 		jQuery('#mip_shortcode_builder_output').val(shortcode);
+	});
+	jQuery('#mip_shortcode_output_copy_button').click(function () {
+		var copyText = jQuery('#mip_shortcode_builder_output')[0];
+		copyText.select();
+		copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+		
+		/* Copy the text inside the text field */
+		document.execCommand("copy");
+		
+		jQuery('#mip_shortcode_copy_success').fadeIn(function () {
+			jQuery(this).fadeOut();
+		});
 	});
 });
 

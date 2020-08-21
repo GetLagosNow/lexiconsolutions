@@ -13,6 +13,11 @@ global $wpdb;
 
 /* For Single site */
 if ( ! is_multisite() ) {
+	delete_option( 'mediafromftp' );
+	$blogusers = get_users( array( 'fields' => array( 'ID' ) ) );
+	foreach ( $blogusers as $user ) {
+		delete_user_option( $user->ID, 'mediafromftp', false );
+	}
 	foreach ( media_from_ftp_uninstall_option_names() as $option_name ) {
 		delete_option( $option_name );
 		/* Delete log database */
@@ -25,6 +30,16 @@ if ( ! is_multisite() ) {
 	$original_blog_id = get_current_blog_id();
 	foreach ( $blog_ids as $blogid ) {
 		switch_to_blog( $blogid );
+		delete_option( 'mediafromftp' );
+		$blogusers = get_users(
+			array(
+				'blog_id' => $blogid,
+				'fields' => array( 'ID' ),
+			)
+		);
+		foreach ( $blogusers as $user ) {
+			delete_user_option( $user->ID, 'mediafromftp', false );
+		}
 		foreach ( media_from_ftp_uninstall_option_names() as $option_name ) {
 			delete_option( $option_name );
 			/* Delete log database */
@@ -65,7 +80,7 @@ foreach ( $del_transients as $del_transient ) {
 		delete_transient( $del_cash_thumb_key );
 	}
 }
-$del_cash_thumb_filename = $tmp_dir . '/*.*';
+$del_cash_thumb_filename = $tmp_dir . '/*';
 foreach ( glob( $del_cash_thumb_filename ) as $val ) {
 	unlink( $val );
 }

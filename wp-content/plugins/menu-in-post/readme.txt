@@ -2,9 +2,9 @@
 Contributors: linux4me
 Tags: display menu, menu, shortcode, menu in post, menu in page
 Requires at least: 4.9
-Tested up to: 5.3.2
+Tested up to: 5.4.1
 Requires PHP: 5.6
-Stable tag: 1.1.2
+Stable tag: 1.1.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0-standalone.html
 
@@ -53,6 +53,14 @@ You will find a 'Menu In Post' menu in your WordPress admin Tools panel after in
 3. A Menu In Post shortcode in a Shortcode Block.
 
 == Changelog ==
+
+= 1.1.4 =
+
+* Added configurable placeholder text attribute to shortcode for dropdown-style menus.
+
+= 1.1.3 =
+
+* Added Copy Shortcode button. Minor admin CSS cleanup.
 
 = 1.1.2 =
 

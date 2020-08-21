@@ -3,13 +3,12 @@
  * Plugin Name: Media from FTP
  * Plugin URI:  https://wordpress.org/plugins/media-from-ftp/
  * Description: Register to media library from files that have been uploaded by FTP.
- * Version:     11.04
+ * Version:     11.14
  * Author:      Katsushi Kawamori
  * Author URI:  https://riverforest-wp.info/
  * License:     GPL2
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: media-from-ftp
- * Domain Path: /languages
  *
  * @package Media from FTP
  */
@@ -49,6 +48,4 @@ if ( ! class_exists( 'MediaFromFtpAdmin' ) ) {
 if ( ! class_exists( 'MediaFromFtpAjax' ) ) {
 	require_once( dirname( __FILE__ ) . '/req/class-mediafromftpajax.php' );
 }
-
-
 

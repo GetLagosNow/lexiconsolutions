@@ -549,9 +549,22 @@ class WP_Job_Manager_Post_Types {
 		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Input used to filter public data in feed.
 		$input_posts_per_page  = isset( $_GET['posts_per_page'] ) ? absint( $_GET['posts_per_page'] ) : 10;
 		$input_search_location = isset( $_GET['search_location'] ) ? sanitize_text_field( wp_unslash( $_GET['search_location'] ) ) : false;
-		$input_job_types       = isset( $_GET['job_types'] ) ? explode( ',', sanitize_text_field( wp_unslash( $_GET['job_types'] ) ) ) : false;
-		$input_job_categories  = isset( $_GET['job_categories'] ) ? explode( ',', sanitize_text_field( wp_unslash( $_GET['job_categories'] ) ) ) : false;
-		$job_manager_keyword   = isset( $_GET['search_keywords'] ) ? sanitize_text_field( wp_unslash( $_GET['search_keywords'] ) ) : '';
+
+		if ( isset( $_GET['job_types'] ) ) {
+			$sanitized_job_types = sanitize_text_field( wp_unslash( $_GET['job_types'] ) );
+			$input_job_types     = empty( $sanitized_job_types ) ? false : explode( ',', $sanitized_job_types );
+		} else {
+			$input_job_types = false;
+		}
+
+		if ( isset( $_GET['job_categories'] ) ) {
+			$sanitized_job_categories = sanitize_text_field( wp_unslash( $_GET['job_categories'] ) );
+			$input_job_categories     = empty( $sanitized_job_categories ) ? false : explode( ',', $sanitized_job_categories );
+		} else {
+			$input_job_categories = false;
+		}
+
+		$job_manager_keyword = isset( $_GET['search_keywords'] ) ? sanitize_text_field( wp_unslash( $_GET['search_keywords'] ) ) : '';
 		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 		$query_args = [
@@ -575,6 +588,14 @@ class WP_Job_Manager_Post_Types {
 				];
 			}
 			$query_args['meta_query'][] = $location_search;
+		}
+
+		// Hide filled positions from the job feed.
+		if ( 1 === absint( get_option( 'job_manager_hide_filled_positions' ) ) ) {
+			$query_args['meta_query'][] = [
+				'key'   => '_filled',
+				'value' => '0',
+			];
 		}
 
 		if ( ! empty( $input_job_types ) ) {
@@ -873,7 +894,7 @@ class WP_Job_Manager_Post_Types {
 	 *
 	 * @since 1.34.1
 	 *
-	 * @param int  $job_id Job ID to check.
+	 * @param int $job_id Job ID to check.
 	 * @return bool
 	 */
 	public static function job_is_editable( $job_id ) {

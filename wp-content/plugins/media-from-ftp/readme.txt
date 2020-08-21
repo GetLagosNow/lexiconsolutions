@@ -4,8 +4,8 @@ Donate link: https://shop.riverforest-wp.info/donate/
 Tags: files, ftp, import, media, sync, uploads
 Requires at least: 3.6.0
 Requires PHP: 5.6
-Tested up to: 5.3
-Stable tag: 11.04
+Tested up to: 5.5
+Stable tag: 11.14
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -19,8 +19,12 @@ Register to media library from files that have been uploaded by FTP.
 * Change the date/time.
 * Work with [DateTimePicker](https://xdsoft.net/jqplugins/datetimepicker/). jQuery plugin select date/time.
 * Export the log to a CSV file.
-* To Import the files to Media Library from a WordPress export file.
 * You can register a large number of files without timeout work with Ajax.
+
+= Sibling plugin =
+* [Bulk Media Register](https://wordpress.org/plugins/bulk-media-register/).
+* [Moving Media Library](https://wordpress.org/plugins/moving-media-library/).
+* [Media from ZIP](https://wordpress.org/plugins/media-from-zip/).
 
 = Tutorial Video =
 [youtube https://www.youtube.com/watch?v=vdxPvOFZaDk]
@@ -35,13 +39,15 @@ Password: live789user
 * In the media uploader, you may not be able to upload by the environment of server. That's when the files are large. You do not mind the size of the file if FTP.
 
 = Special Thanks! Translator =
-* Deutsch [pixelverbieger](https://www.pixelverbieger.de/)
-* Deutsch(Formal) [transl8or](https://profiles.wordpress.org/transl8or/)
-* Español [apasionados](https://apasionados.es/)
-* Français [Li-An](https://www.echodesplugins.li-an.fr/)
+* French (France) [Li-An](https://www.echodesplugins.li-an.fr/)
+* German [pixelverbieger](https://www.pixelverbieger.de/)
+* German (Formal) [transl8or](https://profiles.wordpress.org/transl8or/)
 * Italian [ironicmoka](https://profiles.wordpress.org/photoironic/)
+* Persian [lusha](https://profiles.wordpress.org/lusha/)
 * Russian [khomenkov](https://awesomeprintstudio.com/)
-* Persian[lusha](https://profiles.wordpress.org/lusha/)
+* Spanish (Spain) [Yordan Soares](https://www.yordansoar.es/)
+* Spanish (Venezuela) [Yordan Soares](https://www.yordansoar.es/)
+* Spanish (Mexico) [Yordan Soares](https://www.yordansoar.es/)
 
 == Installation ==
 
@@ -126,10 +132,41 @@ Password: live789user
 5. Registration file selection
 6. File registration result
 7. Log screen
-8. Import File Load
-9. Import result
 
 == Changelog ==
+
+= 11.14 =
+Plugin Switching Announcement.
+
+= 11.13 =
+Fixed help tab.
+
+= 11.12 =
+Fixed a problem of read logs.
+
+= 11.11 =
+Fixed a problem with the output of metadata.
+
+= 11.10 =
+The import feature has been deprecated.
+Added an error handler for the registration screen.
+
+= 11.09 =
+A dedicated notification bar has been added.
+Fixed a problem of target="_blank".
+
+= 11.08 =
+Fixed saving per-user settings.
+
+= 11.07 =
+Fixed an issue with file name sanitization.
+Added the display of original files for large images.
+
+= 11.06 =
+Registration date & time is now possible in seconds unit.
+
+= 11.05 =
+Added error handler for XML import.
 
 = 11.04 =
 Fixed problem of help tab.

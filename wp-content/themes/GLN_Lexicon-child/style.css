@@ -974,9 +974,10 @@ ul.job-listing-meta.meta {
     font-size: 18px;
 }
 
-article.has-post-thumbnail a img {
+/* Why was this written here?? */
+/*article.has-post-thumbnail a img {
     display: none !important;
-}
+}*/
 
 table.job_detail {
     margin: 30px 0;
@@ -1019,9 +1020,17 @@ li.job_listing a {
 /* Woo My Account section */
 
 .woocommerce {
-    width: 50% !important;
+    width: 75% !important;
     margin: 60px auto 100px auto;
     padding: 40px;
+}
+
+.woocommerce form {
+  height: 85%;
+}
+
+.woocommerce form .show-password-input, .woocommerce-page form .show-password-input {
+  top: 0;
 }
 
 .woocommerce a {

@@ -236,7 +236,7 @@ jQuery(
 				jQuery( ".updated" ).remove();
 				jQuery( ".error" ).remove();
 
-				jQuery( "#mediafromftp-loading-container" ).append( "<div id=\"mediafromftp-update-progress\"><progress value=\"0\" max=\"100\"></progress> 0%</div><button type=\"button\" id=\"mediafromftp_ajax_stop\">Stop</button>" );
+				jQuery( "#mediafromftp-loading-container" ).append( "<div id=\"mediafromftp-update-progress\"><progress value=\"0\" max=\"100\"></progress> 0%</div><button type=\"button\" id=\"mediafromftp_ajax_stop\">" + MEDIAFROMFTPTEXT.stop_button + "</button>" );
 				jQuery( "#mediafromftp-loading-container" ).append( "<div id=\"mediafromftp-update-result\"></div>" );
 
 				var update_continue = true;
@@ -244,7 +244,7 @@ jQuery(
 				jQuery( "#mediafromftp_ajax_stop" ).click(
 					function() {
 						update_continue = false;
-						jQuery( "#mediafromftp_ajax_stop" ).text( "Stopping now.." );
+						jQuery( "#mediafromftp_ajax_stop" ).text( MEDIAFROMFTPTEXT.stop_message );
 					}
 				);
 
@@ -309,113 +309,6 @@ jQuery(
 										function( jqXHR, textStatus, errorThrown){
 											error_count += 1;
 											error_update += "<div>" + new_url[j] + ": error -> status " + jqXHR.status + ' ' + textStatus.status + "</div>";
-										}
-									);
-								}
-							}
-						);
-					}
-				);
-				return false;
-			}
-		);
-
-		/* Ajax for import */
-		var medialibraryimport_defer = jQuery.Deferred().resolve();
-		jQuery( '#medialibraryimport_ajax_update' ).submit(
-			function(){
-
-				jQuery( "#medialibraryimport-loading-container" ).empty();
-				jQuery( ".updated" ).remove();
-				jQuery( ".error" ).remove();
-
-				jQuery( "#medialibraryimport-loading-container" ).append( "<div id=\"medialibraryimport-update-progress\"><progress value=\"0\" max=\"100\"></progress> 0%</div><button type=\"button\" id=\"medialibraryimport_ajax_stop\">Stop</button>" );
-				jQuery( "#medialibraryimport-loading-container" ).append( "<div id=\"medialibraryimport-update-result\"></div>" );
-				var update_continue = true;
-				/* Stop button */
-				jQuery( "#medialibraryimport_ajax_stop" ).click(
-					function() {
-						update_continue = false;
-						jQuery( "#medialibraryimport_ajax_stop" ).text( "Stopping now.." );
-					}
-				);
-
-				var count = 0;
-				var success_count = 0;
-				var db_success_count = 0;
-				var error_count = 0;
-				var error_update = "";
-
-				jQuery.each(
-					medialibraryimport_file,
-					function(i){
-						var j = i;
-						medialibraryimport_defer = medialibraryimport_defer.then(
-							function(){
-								if ( update_continue == true ) {
-									return jQuery.ajax(
-										{
-											type: 'POST',
-											cache : false,
-											url: MEDIAFROMFTPIMPORT.ajax_url,
-											data: {
-												'action': MEDIAFROMFTPIMPORT.action,
-												'nonce': MEDIAFROMFTPIMPORT.nonce,
-												'maxcount': medialibraryimport_maxcount,
-												'file': medialibraryimport_file[j],
-												'db_array': medialibraryimport_db_array[j],
-												'db_wp_attachment_metadata': medialibraryimport_db_wp_attachment_metadata[j],
-												'db_thumbnail_id': medialibraryimport_db_thumbnail_id[j],
-												'db_cover_hash': medialibraryimport_db_cover_hash[j],
-												'db_wp_attachment_image_alt': medialibraryimport_db_wp_attachment_image_alt[j]
-											}
-										}
-									).then(
-										function(result){
-											count += 1;
-											var update_view = result.split( "," );
-											if ( update_view[0] == "success" ) {
-												success_count += 1;
-											} else if ( update_view[0] == "success_db" ) {
-												success_count += 1;
-												db_success_count += 1;
-											} else {
-												/* error_count += 1; */
-												/* error_update += update_view[0]; */
-												success_count += 1;
-												db_success_count += 1;
-											}
-											jQuery( "#medialibraryimport-update-progress" ).empty();
-											var progressper = Math.round( (count / medialibraryimport_maxcount) * 100 );
-											jQuery( "#medialibraryimport-update-progress" ).append( "<progress value=\"" + progressper + "\" max=\"100\"></progress> " + progressper + "%" );
-											jQuery( "#medialibraryimport-update-result" ).append( update_view[1] );
-											if ( count == medialibraryimport_maxcount || update_continue == false ) {
-												jQuery.ajax(
-													{
-														type: 'POST',
-														url: MEDIAFROMFTPIMPORTMESSAGE.ajax_url,
-														data: {
-															'action': MEDIAFROMFTPIMPORTMESSAGE.action,
-															'nonce': MEDIAFROMFTPIMPORTMESSAGE.nonce,
-															'error_count': error_count,
-															'error_update': error_update,
-															'success_count': success_count,
-															'db_success_count': db_success_count
-														}
-													}
-												).done(
-													function(result){
-														jQuery( "#medialibraryimport-update-progress" ).empty();
-														jQuery( "#medialibraryimport-update-progress" ).append( result );
-														jQuery( "#medialibraryimport_ajax_stop" ).hide();
-													}
-												);
-											}
-										}
-									).fail(
-										function( jqXHR, textStatus, errorThrown){
-											error_count += 1;
-											error_update += "<div>" + medialibraryimport_file[j] + ": error -> status " + jqXHR.status + ' ' + textStatus.status + "</div>";
 										}
 									);
 								}

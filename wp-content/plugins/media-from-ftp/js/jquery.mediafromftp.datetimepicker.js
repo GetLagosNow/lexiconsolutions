@@ -22,6 +22,6 @@
 jQuery(
 	function(){
 		/* Date Time Picker */
-		jQuery( ':input[id^=datetimepicker-mediafromftp]' ).datetimepicker( {format:'Y-m-d H:i'} );
+		jQuery( ':input[id^=datetimepicker-mediafromftp]' ).datetimepicker( {format:'Y-m-d H:i:s'} );
 	}
 );

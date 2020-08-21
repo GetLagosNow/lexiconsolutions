@@ -41,21 +41,23 @@ class MediaFromFtpRegist {
 	 */
 	public function __construct() {
 
-		$plugin_base_dir = untrailingslashit( plugin_dir_path( __DIR__ ) );
-
 		if ( ! class_exists( 'MediaFromFtp' ) ) {
-			include_once $plugin_base_dir . '/inc/class-mediafromftp.php';
+			include_once plugin_dir_path( __DIR__ ) . 'inc/class-mediafromftp.php';
 		}
 		$mediafromftp = new MediaFromFtp();
-		list($upload_dir, $upload_url, $this->upload_path) = $mediafromftp->upload_dir_url_path();
+		list( $upload_dir, $upload_url, $this->upload_path ) = $mediafromftp->upload_dir_url_path();
 		$plugin_tmp_dir = $upload_dir . '/media-from-ftp-tmp';
 		/* Make tmp dir */
 		if ( ! is_dir( $plugin_tmp_dir ) ) {
 			wp_mkdir_p( $plugin_tmp_dir );
 		}
 
-		register_activation_hook( $plugin_base_dir . '/mediafromftp.php', array( $this, 'log_settings' ) );
+		register_activation_hook( plugin_dir_path( __DIR__ ) . 'mediafromftp.php', array( $this, 'log_settings' ) );
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
+
+		add_action( 'admin_notices', array( $this, 'update_notice' ) );
+		/* original hook */
+		add_action( 'media_from_ftp_notices', array( $this, 'update_notice_option' ) );
 
 	}
 
@@ -190,11 +192,6 @@ class MediaFromFtpRegist {
 	public function register_settings() {
 
 		$user = wp_get_current_user();
-		$cron_mail = $user->user_email;
-		$cron_user = $user->ID;
-
-		$wp_options_name = 'mediafromftp_settings_' . $cron_user;
-		$wp_cron_events_name = 'mediafromftp_add_on_wpcron_events_' . $cron_user;
 
 		$pagemax = 20;
 		$basedir = $this->upload_path;
@@ -234,224 +231,236 @@ class MediaFromFtpRegist {
 		$mlac = null;
 		$mlat = null;
 
-		/* for media-from-ftp-add-on-wpcron */
-		if ( ! get_option( 'mediafromftp_event_intervals' ) ) {
-			update_option( 'mediafromftp_event_intervals', array() );
-		}
-		if ( ! get_option( $wp_cron_events_name ) ) {
-			update_option( $wp_cron_events_name, array() );
-		}
-
-		/* << version 2.35 */
-		if ( get_option( 'mediafromftp_exclude_file' ) ) {
-			$exclude = get_option( 'mediafromftp_exclude_file' );
-			delete_option( 'mediafromftp_exclude_file' );
+		/* Old option 11.07 -> New option for media-from-ftp-add-on-wpcron */
+		if ( get_option( 'mediafromftp_add_on_wpcron_events_' . $user->ID ) ) {
+			update_option( 'mediafromftp_add_on_wpcron_events', get_option( 'mediafromftp_add_on_wpcron_events_' . $user->ID ) );
+			delete_option( 'mediafromftp_add_on_wpcron_events_' . $user->ID );
+			update_user_option( $user->ID, 'mediafromftp_add_on_wpcron_events', get_option( 'mediafromftp_add_on_wpcron_events' ) );
 		}
 
-		if ( ! get_option( $wp_options_name ) ) {
-			if ( get_option( 'mediafromftp_settings' ) ) { /* old settings */
-				$mediafromftp_settings = get_option( 'mediafromftp_settings' );
-				if ( array_key_exists( 'pagemax', $mediafromftp_settings ) ) {
-					$pagemax = $mediafromftp_settings['pagemax'];
-				}
-				if ( array_key_exists( 'basedir', $mediafromftp_settings ) ) {
-					$basedir = $mediafromftp_settings['basedir'];
-				}
-				if ( array_key_exists( 'searchdir', $mediafromftp_settings ) ) {
-					$searchdir = $mediafromftp_settings['searchdir'];
-				}
-				if ( array_key_exists( 'ext2typefilter', $mediafromftp_settings ) ) {
-					$ext2typefilter = $mediafromftp_settings['ext2typefilter'];
-				}
-				if ( array_key_exists( 'extfilter', $mediafromftp_settings ) ) {
-					$extfilter = $mediafromftp_settings['extfilter'];
-				}
-				if ( array_key_exists( 'search_display_metadata', $mediafromftp_settings ) ) {
-					$search_display_metadata = $mediafromftp_settings['search_display_metadata'];
-				}
-				if ( array_key_exists( 'dateset', $mediafromftp_settings ) ) {
-					$dateset = $mediafromftp_settings['dateset'];
-				}
-				if ( array_key_exists( 'datefixed', $mediafromftp_settings ) ) {
-					$datefixed = $mediafromftp_settings['datefixed'];
-				}
-				if ( array_key_exists( 'datetimepicker', $mediafromftp_settings ) ) {
-					$datetimepicker = $mediafromftp_settings['datetimepicker'];
-				}
-				if ( array_key_exists( 'max_execution_time', $mediafromftp_settings ) ) {
-					$max_execution_time = $mediafromftp_settings['max_execution_time'];
-				}
-				if ( array_key_exists( 'character_code', $mediafromftp_settings ) ) {
-					$character_code = $mediafromftp_settings['character_code'];
-				}
-				if ( array_key_exists( 'exclude', $mediafromftp_settings ) ) {
-					$exclude = $mediafromftp_settings['exclude'];
-				}
-				if ( array_key_exists( 'recursive_search', $mediafromftp_settings ) ) {
-					$recursive_search = $mediafromftp_settings['recursive_search'];
-				}
-				if ( array_key_exists( 'thumb_deep_search', $mediafromftp_settings ) ) {
-					$thumb_deep_search = $mediafromftp_settings['thumb_deep_search'];
-				}
-				if ( array_key_exists( 'search_limit_number', $mediafromftp_settings ) ) {
-					$search_limit_number = $mediafromftp_settings['search_limit_number'];
-				}
-				if ( array_key_exists( 'apply', $mediafromftp_settings['cron'] ) ) {
-					$cron_apply = $mediafromftp_settings['cron']['apply'];
-				}
-				if ( array_key_exists( 'schedule', $mediafromftp_settings['cron'] ) ) {
-					$cron_schedule = $mediafromftp_settings['cron']['schedule'];
-				}
-				if ( array_key_exists( 'limit_number', $mediafromftp_settings['cron'] ) ) {
-					$cron_limit_number = $mediafromftp_settings['cron']['limit_number'];
-				}
-				if ( array_key_exists( 'mail_apply', $mediafromftp_settings['cron'] ) ) {
-					$cron_mail_apply = $mediafromftp_settings['cron']['mail_apply'];
-				}
-				if ( array_key_exists( 'apply', $mediafromftp_settings['caption'] ) ) {
-					$caption_apply = $mediafromftp_settings['caption']['apply'];
-				}
-				if ( array_key_exists( 'exif_text', $mediafromftp_settings['caption'] ) ) {
-					$exif_text = $mediafromftp_settings['caption']['exif_text'];
-				}
-				if ( array_key_exists( 'log', $mediafromftp_settings ) ) {
-					$log = $mediafromftp_settings['log'];
-				}
+		if ( ! get_option( 'mediafromftp_add_on_wpcron_events' ) ) {
+			update_option( 'mediafromftp_add_on_wpcron_events', array() );
+		}
+		if ( ! get_user_option( 'mediafromftp_add_on_wpcron_events', $user->ID ) ) {
+			update_user_option( $user->ID, 'mediafromftp_add_on_wpcron_events', array() );
+		}
 
-				/* for media-from-ftp-add-on-category */
-				if ( array_key_exists( 'mlcc', $mediafromftp_settings ) ) {
-					$mlcc = $mediafromftp_settings['mlcc'];
-				}
-				if ( array_key_exists( 'emlc', $mediafromftp_settings ) ) {
-					$emlc = $mediafromftp_settings['emlc'];
-				}
-				if ( array_key_exists( 'mlac', $mediafromftp_settings ) ) {
-					$mlac = $mediafromftp_settings['mlac'];
-				}
-				if ( array_key_exists( 'mlat', $mediafromftp_settings ) ) {
-					$mlat = $mediafromftp_settings['mlat'];
-				}
+		/* Old option 11.07 -> New option */
+		if ( get_option( 'mediafromftp_settings_' . $user->ID ) ) {
+			update_option( 'mediafromftp', get_option( 'mediafromftp_settings_' . $user->ID ) );
+			delete_option( 'mediafromftp_settings_' . $user->ID );
+			update_user_option( $user->ID, 'mediafromftp', get_option( 'mediafromftp' ) );
+		}
 
-				delete_option( 'mediafromftp_settings' );
-			}
-		} else {
-			$mediafromftp_settings = get_option( $wp_options_name );
-			if ( array_key_exists( 'pagemax', $mediafromftp_settings ) ) {
-				$pagemax = $mediafromftp_settings['pagemax'];
-			}
-			if ( array_key_exists( 'basedir', $mediafromftp_settings ) ) {
-				$basedir = $mediafromftp_settings['basedir'];
-			}
-			if ( array_key_exists( 'searchdir', $mediafromftp_settings ) ) {
-				$searchdir = $mediafromftp_settings['searchdir'];
-			}
-			if ( array_key_exists( 'ext2typefilter', $mediafromftp_settings ) ) {
-				$ext2typefilter = $mediafromftp_settings['ext2typefilter'];
-			}
-			if ( array_key_exists( 'extfilter', $mediafromftp_settings ) ) {
-				$extfilter = $mediafromftp_settings['extfilter'];
-			}
-			if ( array_key_exists( 'search_display_metadata', $mediafromftp_settings ) ) {
-				$search_display_metadata = $mediafromftp_settings['search_display_metadata'];
-			}
-			if ( array_key_exists( 'dateset', $mediafromftp_settings ) ) {
-				$dateset = $mediafromftp_settings['dateset'];
-			}
-			if ( array_key_exists( 'datefixed', $mediafromftp_settings ) ) {
-				$datefixed = $mediafromftp_settings['datefixed'];
-			}
-			if ( array_key_exists( 'datetimepicker', $mediafromftp_settings ) ) {
-				$datetimepicker = $mediafromftp_settings['datetimepicker'];
-			}
-			if ( array_key_exists( 'max_execution_time', $mediafromftp_settings ) ) {
-				$max_execution_time = $mediafromftp_settings['max_execution_time'];
-			}
-			if ( array_key_exists( 'character_code', $mediafromftp_settings ) ) {
-				$character_code = $mediafromftp_settings['character_code'];
-			}
-			if ( array_key_exists( 'exclude', $mediafromftp_settings ) ) {
-				$exclude = $mediafromftp_settings['exclude'];
-			}
-			if ( array_key_exists( 'recursive_search', $mediafromftp_settings ) ) {
-				$recursive_search = $mediafromftp_settings['recursive_search'];
-			}
-			if ( array_key_exists( 'thumb_deep_search', $mediafromftp_settings ) ) {
-				$thumb_deep_search = $mediafromftp_settings['thumb_deep_search'];
-			}
-			if ( array_key_exists( 'search_limit_number', $mediafromftp_settings ) ) {
-				$search_limit_number = $mediafromftp_settings['search_limit_number'];
-			}
-			if ( array_key_exists( 'apply', $mediafromftp_settings['cron'] ) ) {
-				$cron_apply = $mediafromftp_settings['cron']['apply'];
-			}
-			if ( array_key_exists( 'schedule', $mediafromftp_settings['cron'] ) ) {
-				$cron_schedule = $mediafromftp_settings['cron']['schedule'];
-			}
-			if ( array_key_exists( 'limit_number', $mediafromftp_settings['cron'] ) ) {
-				$cron_limit_number = $mediafromftp_settings['cron']['limit_number'];
-			}
-			if ( array_key_exists( 'mail_apply', $mediafromftp_settings['cron'] ) ) {
-				$cron_mail_apply = $mediafromftp_settings['cron']['mail_apply'];
-			}
-			if ( array_key_exists( 'apply', $mediafromftp_settings['caption'] ) ) {
-				$caption_apply = $mediafromftp_settings['caption']['apply'];
-			}
-			if ( array_key_exists( 'exif_text', $mediafromftp_settings['caption'] ) ) {
-				$exif_text = $mediafromftp_settings['caption']['exif_text'];
-			}
-			if ( array_key_exists( 'log', $mediafromftp_settings ) ) {
-				$log = $mediafromftp_settings['log'];
-			}
-			/* for media-from-ftp-add-on-category */
-			if ( array_key_exists( 'mlcc', $mediafromftp_settings ) ) {
-				$mlcc = $mediafromftp_settings['mlcc'];
-			}
-			if ( array_key_exists( 'emlc', $mediafromftp_settings ) ) {
-				$emlc = $mediafromftp_settings['emlc'];
-			}
-			if ( array_key_exists( 'mlac', $mediafromftp_settings ) ) {
-				$mlac = $mediafromftp_settings['mlac'];
-			}
-			if ( array_key_exists( 'mlat', $mediafromftp_settings ) ) {
-				$mlat = $mediafromftp_settings['mlat'];
+		if ( ! get_option( 'mediafromftp' ) ) {
+			$mediafromftp_tbl = array(
+				'pagemax' => $pagemax,
+				'basedir' => $basedir,
+				'searchdir' => $searchdir,
+				'ext2typefilter' => $ext2typefilter,
+				'extfilter' => $extfilter,
+				'search_display_metadata' => $search_display_metadata,
+				'dateset' => $dateset,
+				'datefixed' => $datefixed,
+				'datetimepicker' => $datetimepicker,
+				'max_execution_time' => $max_execution_time,
+				'character_code' => $character_code,
+				'exclude' => $exclude,
+				'recursive_search' => $recursive_search,
+				'thumb_deep_search' => $thumb_deep_search,
+				'search_limit_number' => $search_limit_number,
+				'cron' => array(
+					'apply' => $cron_apply,
+					'schedule' => $cron_schedule,
+					'limit_number' => $cron_limit_number,
+					'mail_apply' => $cron_mail_apply,
+					'mail' => $user->user_email,
+					'user' => $user->ID,
+				),
+				'caption' => array(
+					'apply' => $caption_apply,
+					'exif_text' => $exif_text,
+				),
+				'log' => $log,
+				'mlcc' => $mlcc,
+				'emlc' => $emlc,
+				'mlac' => $mlac,
+				'mlat' => $mlat,
+			);
+
+			update_option( 'mediafromftp', $mediafromftp_tbl );
+		}
+		if ( ! get_user_option( 'mediafromftp', $user->ID ) ) {
+			$mediafromftp_set = get_option( 'mediafromftp' );
+			$mediafromftp_set['cron']['mail'] = $user->user_email;
+			$mediafromftp_set['cron']['user'] = $user->ID;
+			update_user_option( $user->ID, 'mediafromftp', $mediafromftp_set );
+		}
+
+		if ( ! get_option( 'mediafromftp_notice' ) ) {
+			update_option( 'mediafromftp_notice', 11.08 );
+		}
+
+	}
+
+	/** ==================================================
+	 * Update notice
+	 *
+	 * @since 11.09
+	 */
+	public function update_notice() {
+
+		if ( isset( $_POST['Notice_Dismiss'] ) && ! empty( $_POST['Notice_Dismiss'] ) ) {
+			if ( check_admin_referer( 'mff_nt', 'mediafromftp_notice' ) ) {
+				if ( isset( $_POST['notice_update_version'] ) && ! empty( $_POST['notice_update_version'] ) ) {
+					return;
+				}
 			}
 		}
 
-		$mediafromftp_tbl = array(
-			'pagemax' => $pagemax,
-			'basedir' => $basedir,
-			'searchdir' => $searchdir,
-			'ext2typefilter' => $ext2typefilter,
-			'extfilter' => $extfilter,
-			'search_display_metadata' => $search_display_metadata,
-			'dateset' => $dateset,
-			'datefixed' => $datefixed,
-			'datetimepicker' => $datetimepicker,
-			'max_execution_time' => $max_execution_time,
-			'character_code' => $character_code,
-			'exclude' => $exclude,
-			'recursive_search' => $recursive_search,
-			'thumb_deep_search' => $thumb_deep_search,
-			'search_limit_number' => $search_limit_number,
-			'cron' => array(
-				'apply' => $cron_apply,
-				'schedule' => $cron_schedule,
-				'limit_number' => $cron_limit_number,
-				'mail_apply' => $cron_mail_apply,
-				'mail' => $cron_mail,
-				'user' => $cron_user,
-			),
-			'caption' => array(
-				'apply' => $caption_apply,
-				'exif_text' => $exif_text,
-			),
-			'log' => $log,
-			'mlcc' => $mlcc,
-			'emlc' => $emlc,
-			'mlac' => $mlac,
-			'mlat' => $mlat,
-		);
-		update_option( $wp_options_name, $mediafromftp_tbl );
+		$screen = get_current_screen();
+		if ( is_object( $screen ) && 'toplevel_page_mediafromftp' === $screen->id ||
+				is_object( $screen ) && 'media-from-ftp_page_mediafromftp-settings' === $screen->id ||
+				is_object( $screen ) && 'media-from-ftp_page_mediafromftp-search-register' === $screen->id ||
+				is_object( $screen ) && 'media-from-ftp_page_mediafromftp-event' === $screen->id ||
+				is_object( $screen ) && 'media-from-ftp_page_mediafromftp-log' === $screen->id ||
+				is_object( $screen ) && 'media-from-ftp_page_mediafromftp-import' === $screen->id ||
+				is_object( $screen ) && 'media-from-ftp_page_mediafromftp-addons' === $screen->id ) {
+			if ( 'toplevel_page_mediafromftp' === $screen->id ) {
+				$scriptname = admin_url( 'admin.php?page=mediafromftp' );
+			} else {
+				$page = str_replace( 'media-from-ftp_page_', '', $screen->id );
+				$scriptname = admin_url( 'admin.php?page=' . $page );
+			}
+			$allowed_button_html = array(
+				'input' => array(
+					'type'  => array(),
+					'id'    => array(),
+					'name'  => array(),
+					'class'  => array(),
+					'value' => array(),
+				),
+			);
+			$dismiss_button = get_submit_button( __( 'Dismiss' ), 'small', 'Notice_Dismiss', true );
+			if ( class_exists( 'MovingMediaLibrary' ) ) {
+				$movingmedialibrary_url = admin_url( 'admin.php?page=movingmedialibrary' );
+			} else {
+				if ( is_multisite() ) {
+					$movingmedialibrary_url = network_admin_url( 'plugin-install.php?tab=plugin-information&plugin=moving-media-library' );
+				} else {
+					$movingmedialibrary_url = admin_url( 'plugin-install.php?tab=plugin-information&plugin=moving-media-library' );
+				}
+			}
+			$movingmedialibrary_link = '<strong><a style="text-decoration: none;" href="' . $movingmedialibrary_url . '">Moving Media Library</a></strong>';
+			if ( class_exists( 'BulkMediaRegister' ) ) {
+				$bulkmediaregister_url = admin_url( 'admin.php?page=bulkmediaregister' );
+			} else {
+				if ( is_multisite() ) {
+					$bulkmediaregister_url = network_admin_url( 'plugin-install.php?tab=plugin-information&plugin=bulk-media-register' );
+				} else {
+					$bulkmediaregister_url = admin_url( 'plugin-install.php?tab=plugin-information&plugin=bulk-media-register' );
+				}
+			}
+			$bulkmediaregister_link = '<strong><a style="text-decoration: none;" href="' . $bulkmediaregister_url . '">Bulk Media Register</a></strong>';
+			if ( 11.08 == get_option( 'mediafromftp_notice' ) || 11.09 == get_option( 'mediafromftp_notice' ) ) {
+				if ( 11.08 == get_option( 'mediafromftp_notice' ) ) {
+					$import_html = '<strong><a style="text-decoration: none;" href="' . admin_url( 'admin.php?page=mediafromftp-import' ) . '">' . __( 'Import' ) . '</a></strong>';
+					?>
+					<div class="notice notice-warning is-dismissible"><ul><li>
+					<form method="post" action="<?php echo esc_url( $scriptname ); ?>">
+					<?php
+					wp_nonce_field( 'mff_nt', 'mediafromftp_notice' );
+					/* translators: %1$s Plugin link %2$s Import link */
+					echo wp_kses_post( sprintf( __( 'Created a plugin %1$s to move your media library. You can do it with your current %2$s, but it is faster and more accurate.', 'media-from-ftp' ), $movingmedialibrary_link, $import_html ) );
+					?>
+					&nbsp
+					<?php echo wp_kses( $dismiss_button, $allowed_button_html ); ?>
+					<input type="hidden" name="notice_update_version" value="11.09">
+					</form>
+					</li></ul></div>
+					<?php
+				}
+				if ( 11.09 == get_option( 'mediafromftp_notice' ) ) {
+					$import_html = '<strong><a style="text-decoration: none;" href="' . admin_url( 'admin.php?page=mediafromftp-import' ) . '">' . __( 'Import' ) . '</a></strong>';
+					?>
+					<div class="notice notice-warning is-dismissible"><ul><li>
+					<form method="post" action="<?php echo esc_url( $scriptname ); ?>">
+					<?php
+					wp_nonce_field( 'mff_nt', 'mediafromftp_notice' );
+					/* translators: %1$s New plugin link */
+					echo wp_kses_post( sprintf( __( 'The import feature has been deprecated. Please use a new plugin %1$s to replace it.', 'media-from-ftp' ), $movingmedialibrary_link ) );
+					?>
+					&nbsp
+					<?php echo wp_kses( $dismiss_button, $allowed_button_html ); ?>
+					<input type="hidden" name="notice_update_version" value="11.10">
+					</form>
+					</li></ul></div>
+					<?php
+				}
+			}
+			if ( 11.10 == get_option( 'mediafromftp_notice' ) ) {
+				$register_html = '<strong><a style="text-decoration: none;" href="' . admin_url( 'admin.php?page=mediafromftp-search-register' ) . '">' . __( 'Search & Register', 'media-from-ftp' ) . '</a></strong>';
+				?>
+				<div class="notice notice-warning is-dismissible"><ul><li>
+				<form method="post" action="<?php echo esc_url( $scriptname ); ?>">
+				<?php
+				wp_nonce_field( 'mff_nt', 'mediafromftp_notice' );
+				/* translators: %1$s Plugin link %2$s Search & Register link */
+				echo wp_kses_post( sprintf( __( 'Created a plugin %1$s to bulk register files on the server. You can do it with your current %2$s, but it is faster and more accurate.', 'media-from-ftp' ), $bulkmediaregister_link, $register_html ) );
+				?>
+				&nbsp
+				<?php echo wp_kses( $dismiss_button, $allowed_button_html ); ?>
+				<input type="hidden" name="notice_update_version" value="11.11">
+				</form>
+				</li></ul></div>
+				<?php
+			}
+			if ( 11.11 == get_option( 'mediafromftp_notice' ) ) {
+				?>
+				<div class="notice notice-warning is-dismissible"><ul><li>
+				<form method="post" action="<?php echo esc_url( $scriptname ); ?>">
+				<?php
+				wp_nonce_field( 'mff_nt', 'mediafromftp_notice' );
+				/* translators: %1$s Plugin link */
+				echo wp_kses_post( sprintf( __( '%1$s is the successor to "Media from FTP". It has the same functions and greatly improved the search speed. Please switch to it.', 'media-from-ftp' ), $bulkmediaregister_link ) );
+				?>
+				&nbsp
+				<?php echo wp_kses( $dismiss_button, $allowed_button_html ); ?>
+				<input type="hidden" name="notice_update_version" value="11.13">
+				</form>
+				</li></ul></div>
+				<?php
+			}
+			$bulk_html = '<div>' . __( 'Bulk register files on the server to the Media Library.', 'media-from-ftp' ) . ' : ' . $bulkmediaregister_link . '</div>';
+			$moving_html = '<div>' . __( 'Supports the transfer of Media Library between servers.', 'media-from-ftp' ) . ' : ' . $movingmedialibrary_link . '</div>';
+			?>
+			<div class="notice notice-warning is-dismissible"><ul><li>
+			<?php
+			esc_html_e( 'This plugin will be closed eventually with no more maintenance. The next plugin is its successor. Please switch.', 'media-from-ftp' );
+			echo wp_kses_post( $bulk_html );
+			echo wp_kses_post( $moving_html );
+			?>
+			</li></ul></div>
+			<?php
+		}
+
+	}
+
+	/** ==================================================
+	 * Update notice option
+	 *
+	 * @since 11.09
+	 */
+	public function update_notice_option() {
+
+		if ( isset( $_POST['Notice_Dismiss'] ) && ! empty( $_POST['Notice_Dismiss'] ) ) {
+			if ( check_admin_referer( 'mff_nt', 'mediafromftp_notice' ) ) {
+				if ( isset( $_POST['notice_update_version'] ) && ! empty( $_POST['notice_update_version'] ) ) {
+					$notice_update_version = sanitize_text_field( wp_unslash( $_POST['notice_update_version'] ) );
+					update_option( 'mediafromftp_notice', $notice_update_version );
+				}
+			}
+		}
 
 	}
 

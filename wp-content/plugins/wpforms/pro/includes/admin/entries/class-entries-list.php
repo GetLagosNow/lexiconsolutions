@@ -8,7 +8,7 @@
 class WPForms_Entries_List {
 
 	/**
-	 * Holds admin alerts.
+	 * Store admin alerts.
 	 *
 	 * @since 1.1.6
 	 *
@@ -83,6 +83,7 @@ class WPForms_Entries_List {
 		// Setup screen options - this needs to run early.
 		add_action( 'load-wpforms_page_wpforms-entries', array( $this, 'screen_options' ) );
 		add_filter( 'set-screen-option', array( $this, 'screen_options_set' ), 10, 3 );
+		add_filter( 'set_screen_option_wpforms_entries_per_page', [ $this, 'screen_options_set' ], 10, 3 );
 
 		// Heartbeat doesn't pass $_GET parameters checked by $this->init() condition.
 		add_filter( 'heartbeat_received', array( $this, 'heartbeat_new_entries_check' ), 10, 3 );
@@ -219,7 +220,7 @@ class WPForms_Entries_List {
 			'wpforms-flatpickr',
 			WPFORMS_PLUGIN_URL . 'assets/js/flatpickr.min.js',
 			array( 'jquery' ),
-			'4.5.5'
+			'4.6.3'
 		);
 
 		// CSS.
@@ -227,7 +228,7 @@ class WPForms_Entries_List {
 			'wpforms-flatpickr',
 			WPFORMS_PLUGIN_URL . 'assets/css/flatpickr.min.css',
 			array(),
-			'4.5.5'
+			'4.6.3'
 		);
 
 		// Hook for addons.
@@ -235,7 +236,7 @@ class WPForms_Entries_List {
 	}
 
 	/**
-	 * Watches for and runs complete form exports.
+	 * Watch for and run complete form exports.
 	 *
 	 * @since 1.1.6
 	 */
@@ -260,7 +261,7 @@ class WPForms_Entries_List {
 	}
 
 	/**
-	 * Watches for and runs complete marking all entries as read.
+	 * Watch for and run complete marking all entries as read.
 	 *
 	 * @since 1.1.6
 	 */
@@ -286,7 +287,7 @@ class WPForms_Entries_List {
 	}
 
 	/**
-	 * Watches for and updates list column settings.
+	 * Watch for and update list column settings.
 	 *
 	 * @since 1.4.0
 	 */
@@ -318,7 +319,7 @@ class WPForms_Entries_List {
 	}
 
 	/**
-	 * Watches for mass entry deletion and triggers if needed.
+	 * Watch for mass entry deletion and trigger if needed.
 	 *
 	 * @since 1.4.0
 	 */
@@ -336,6 +337,10 @@ class WPForms_Entries_List {
 
 		wpforms()->entry->delete_by( 'form_id', absint( $_GET['form_id'] ) );
 		wpforms()->entry_meta->delete_by( 'form_id', absint( $_GET['form_id'] ) );
+		wpforms()->entry_fields->delete_by( 'form_id', absint( $_GET['form_id'] ) );
+
+		WPForms\Pro\Admin\DashboardWidget::clear_widget_cache();
+		WPForms\Pro\Admin\Entries\DefaultScreen::clear_widget_cache();
 
 		$this->alerts[] = array(
 			'type'    => 'success',
@@ -345,7 +350,7 @@ class WPForms_Entries_List {
 	}
 
 	/**
-	 * Watches for filtering requests from a dates range selection.
+	 * Watch for filtering requests from a dates range selection.
 	 *
 	 * @since 1.4.4
 	 */
@@ -392,7 +397,7 @@ class WPForms_Entries_List {
 	}
 
 	/**
-	 * Watches for filtering requests from a search field.
+	 * Watch for filtering requests from a search field.
 	 *
 	 * @since 1.4.4
 	 */
@@ -647,6 +652,7 @@ class WPForms_Entries_List {
 					?>
 				</p>
 				<select name="fields[]" multiple>
+					<option value="" placeholder><?php esc_html_e( 'Select columns&hellip;', 'wpforms' ); ?></option>
 					<?php
 					/*
 					 * Display first those that were already saved.

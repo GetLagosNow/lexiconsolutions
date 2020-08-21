@@ -329,6 +329,22 @@ class WP_Job_Manager_Form_Submit_Job extends WP_Job_Manager_Form {
 	}
 
 	/**
+	 * Checks if application field should use skip email / URL validation.
+	 *
+	 * @return bool
+	 */
+	protected function should_application_field_skip_email_url_validation() {
+		/**
+		 * Force application field to skip email / URL validation.
+		 *
+		 * @since 1.x.x
+		 *
+		 * @param bool  $is_forced Whether the application field is forced to skip email / URL validation.
+		 */
+		return apply_filters( 'job_manager_application_field_skip_email_url_validation', false );
+	}
+
+	/**
 	 * Validates the posted fields.
 	 *
 	 * @param array $values
@@ -363,30 +379,30 @@ class WP_Job_Manager_Form_Submit_Job extends WP_Job_Manager_Form {
 					}
 					if ( ! empty( $check_value ) ) {
 						foreach ( $check_value as $file_url ) {
+							// Check image path.
+							$baseurl = wp_upload_dir()['baseurl'];
+							if ( ! is_numeric( $file_url ) && 0 !== strpos( $file_url, $baseurl ) ) {
+								throw new Exception( __( 'Invalid image path.', 'wp-job-manager' ) );
+							}
+
+							// Check mime types.
+							if ( ! empty( $field['allowed_mime_types'] ) ) {
+								$file_url  = current( explode( '?', $file_url ) );
+								$file_info = wp_check_filetype( $file_url );
+
+								if ( ! is_numeric( $file_url ) && $file_info && ! in_array( $file_info['type'], $field['allowed_mime_types'], true ) ) {
+									// translators: Placeholder %1$s is field label; %2$s is the file mime type; %3$s is the allowed mime-types.
+									throw new Exception( sprintf( __( '"%1$s" (filetype %2$s) needs to be one of the following file types: %3$s', 'wp-job-manager' ), $field['label'], $file_info['ext'], implode( ', ', array_keys( $field['allowed_mime_types'] ) ) ) );
+								}
+							}
+
+							// Check if attachment is valid.
 							if ( is_numeric( $file_url ) ) {
 								continue;
 							}
 							$file_url = esc_url( $file_url, [ 'http', 'https' ] );
 							if ( empty( $file_url ) ) {
 								throw new Exception( __( 'Invalid attachment provided.', 'wp-job-manager' ) );
-							}
-						}
-					}
-				}
-				if ( 'file' === $field['type'] && ! empty( $field['allowed_mime_types'] ) ) {
-					if ( is_array( $values[ $group_key ][ $key ] ) ) {
-						$check_value = array_filter( $values[ $group_key ][ $key ] );
-					} else {
-						$check_value = array_filter( [ $values[ $group_key ][ $key ] ] );
-					}
-					if ( ! empty( $check_value ) ) {
-						foreach ( $check_value as $file_url ) {
-							$file_url  = current( explode( '?', $file_url ) );
-							$file_info = wp_check_filetype( $file_url );
-
-							if ( ! is_numeric( $file_url ) && $file_info && ! in_array( $file_info['type'], $field['allowed_mime_types'], true ) ) {
-								// translators: Placeholder %1$s is field label; %2$s is the file mime type; %3$s is the allowed mime-types.
-								throw new Exception( sprintf( __( '"%1$s" (filetype %2$s) needs to be one of the following file types: %3$s', 'wp-job-manager' ), $field['label'], $file_info['ext'], implode( ', ', array_keys( $field['allowed_mime_types'] ) ) ) );
 							}
 						}
 					}
@@ -415,7 +431,7 @@ class WP_Job_Manager_Form_Submit_Job extends WP_Job_Manager_Form {
 		}
 
 		// Application method.
-		if ( isset( $values['job']['application'] ) && ! empty( $values['job']['application'] ) ) {
+		if ( ! $this->should_application_field_skip_email_url_validation() && isset( $values['job']['application'] ) && ! empty( $values['job']['application'] ) ) {
 			$allowed_application_method   = get_option( 'job_manager_allowed_application_method', '' );
 			$values['job']['application'] = str_replace( ' ', '+', $values['job']['application'] );
 			switch ( $allowed_application_method ) {

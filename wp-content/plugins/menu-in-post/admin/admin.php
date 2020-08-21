@@ -145,12 +145,17 @@ function menu_in_post_tools_page_html() {
 	    				}
 	    			?>
 	    		</select><br>
+	    		<label for="mip_placeholder_text"><?php echo esc_html(__('Placeholder Text', 'menu-in-post')); ?>:</label>
+	    		<input type="text" name="mip_placeholder_text" id="mip_placeholder_text"><br>
 	    		<input type="submit" name="mip_build" value="<?php echo esc_attr(__('Build the Shortcode', 'menu-in-post')); ?>">
 	    	</form>
 	    	<div>
 	    		<label for="mip_shortcode_builder_output"><?php echo esc_html(__('Shortcode', 'menu-in-post')); ?>:</label>
 	    		<div class="mip_shortcode_output_hightlight">
 			    	<input type="text" name="mip_shortcode_builder_output" id="mip_shortcode_builder_output" value="<?php echo $shortcode; ?>" readonly="readonly">
+			  </div>
+			  <div>
+			  	<button type="button" id="mip_shortcode_output_copy_button"><?php echo esc_html(__('Copy Shortcode', 'menu-in-post')); ?></button>&nbsp;<span id="mip_shortcode_copy_success"><?php echo esc_html(__('Copied...', 'menu-in-post')); ?></span>
 			  </div>
 			</div>
 	    </div>

@@ -123,7 +123,7 @@ class TT_MediaFromFtp_List_Table extends WP_List_Table {
 	private function read_data() {
 
 		$mediafromftp = new MediaFromFtp();
-		$mediafromftp_settings = get_option( $this->wp_options_name() );
+		$mediafromftp_settings = get_user_option( 'mediafromftp', get_current_user_id() );
 		$pagemax = $mediafromftp_settings['pagemax'];
 		$searchdir = $mediafromftp_settings['searchdir'];
 		$ext2typefilter = $mediafromftp_settings['ext2typefilter'];
@@ -257,7 +257,7 @@ class TT_MediaFromFtp_List_Table extends WP_List_Table {
 			'emlcategories' => '<div>' . __( 'Categories' ) . '<div></div>Enhanced Media Library</div>',
 			'mlacategories' => '<div>' . __( 'Categories' ) . ' & ' . __( 'Tags' ) . '<div></div>Media Library Assistant</div>',
 		);
-		$mediafromftp_settings = get_option( $this->wp_options_name() );
+		$mediafromftp_settings = get_user_option( 'mediafromftp', get_current_user_id() );
 		if ( 'new' === $mediafromftp_settings['dateset'] || 'fixed' === $mediafromftp_settings['dateset'] ) {
 			unset( $columns['datetime'] );
 		}
@@ -313,7 +313,7 @@ class TT_MediaFromFtp_List_Table extends WP_List_Table {
 		/**
 		 * First, lets decide how many records per page to show
 		 */
-		$mediafromftp_settings = get_option( $this->wp_options_name() );
+		$mediafromftp_settings = get_user_option( 'mediafromftp', get_current_user_id() );
 		$per_page = $mediafromftp_settings['pagemax'];
 
 		/**
@@ -427,19 +427,6 @@ class TT_MediaFromFtp_List_Table extends WP_List_Table {
 				'total_pages' => ceil( $total_items / $per_page ),   /* WE have to calculate the total number of pages */
 			)
 		);
-	}
-
-	/** ==================================================
-	 * Options name
-	 *
-	 * @return string $this->wp_options_name()
-	 * @since 10.09
-	 */
-	private function wp_options_name() {
-		if ( ! function_exists( 'wp_get_current_user' ) ) {
-			include_once( ABSPATH . 'wp-includes/pluggable.php' );
-		}
-		return 'mediafromftp_settings_' . get_current_user_id();
 	}
 
 }

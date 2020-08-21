@@ -33,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <p><?php
 	printf(
-		__( 'This can say whatever we want it to.<br>This is your account dashboard.<br>From your account dashboard you can <a href="%3$s">edit your password and account details</a>.', 'woocommerce' ),
+		__( 'This is your account dashboard.<br>From your account dashboard you can <a href="%3$s">edit your password and account details</a>.', 'woocommerce' ),
 		esc_url( wc_get_endpoint_url( 'orders' ) ),
 		esc_url( wc_get_endpoint_url( 'edit-address' ) ),
 		esc_url( wc_get_endpoint_url( 'edit-account' ) )
